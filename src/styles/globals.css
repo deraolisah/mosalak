@@ -1,0 +1,107 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Tailwind */
+@import "tailwindcss";
+
+/* =========================
+   THEME TOKENS (Design System)
+   ========================= */
+@theme {
+  /* Colors */
+  --color-primary: #0024ff;
+  --color-primary-hover: #001bd1;
+  --color-dark: #1f1216;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-bg: #ffffff;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.06);
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* =========================
+   BASE STYLES
+   ========================= */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    @apply bg-white text-dark antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-semibold tracking-tight;
+  }
+}
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+
+
+
+/* =========================
+   COMPONENTS STYLES
+   ========================= */
+
+@layer components {
+  /* Layout */
+  .container {
+    @apply max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-2;
+  }
+  
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center
+          px-6 py-3 rounded-xl
+          text-sm font-medium
+          transition-all duration-200
+          bg-primary text-white
+          hover:bg-primary-hover
+          focus:outline-none focus:ring-2 focus:ring-primary/40 
+          text-nowrap
+          cursor-pointer;
+  }
+  .btn-outline {
+    @apply border border-primary text-primary bg-transparent
+           hover:bg-primary hover:text-white;
+  }
+  .btn-text {
+    @apply bg-transparent text-dark hover:bg-transparent hover:text-primary;
+  }
+  .btn-secondary{
+    @apply bg-white text-primary hover:bg-white/80;
+  }
+
+  .section-title{
+    @apply text-3xl md:text-4xl mb-4 md:mb-8;
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-lg border border-border bg-white shadow-soft;
+  }
+}
