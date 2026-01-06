@@ -275,6 +275,31 @@ const CategoriesBar = () => {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
+  const resetMobileView = () => {
+    setMobileView("main");
+  };
+  
+
+  const handleMainCategoryClick = (category) => {
+    setSelectedMain(category);
+    setMobileView("sub");
+  };
+
+  const handleSubcategoryClick = (sub) => {
+    setSelectedSub(sub);
+    setMobileView("brands");
+  };
+
+  const handleBrandClick = (brand) => {
+    console.log(`Selected: ${selectedMain} > ${selectedSub} > ${brand}`);
+    if (currentSubData?.featured) {
+      setMobileView("featured");
+    } else {
+      setDropdownOpen(false);
+      resetMobileView();
+    }
+  };
+  
   // Close dropdown when clicking outside
   useEffect(() => {
     const handler = (e) => {
@@ -308,29 +333,7 @@ const CategoriesBar = () => {
   const currentMainData = megaMenuData[selectedMain];
   const currentSubData = currentMainData?.subcategories?.[selectedSub];
 
-  const resetMobileView = () => {
-    setMobileView("main");
-  };
 
-  const handleMainCategoryClick = (category) => {
-    setSelectedMain(category);
-    setMobileView("sub");
-  };
-
-  const handleSubcategoryClick = (sub) => {
-    setSelectedSub(sub);
-    setMobileView("brands");
-  };
-
-  const handleBrandClick = (brand) => {
-    console.log(`Selected: ${selectedMain} > ${selectedSub} > ${brand}`);
-    if (currentSubData?.featured) {
-      setMobileView("featured");
-    } else {
-      setDropdownOpen(false);
-      resetMobileView();
-    }
-  };
 
   const MobileHeader = ({ title, onBack }) => (
     <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-600 text-white z-10">
@@ -355,7 +358,7 @@ const CategoriesBar = () => {
   );
 
   return (
-    <div className="bg-indigo-200 z-60!">
+    <div className="bg-indigo-200 z-40">
       <div className="container flex items-center gap-8 py-4 text-sm overflow-x-auto">
         <button
           ref={buttonRef}
@@ -396,7 +399,7 @@ const CategoriesBar = () => {
         {dropdownOpen && (
           <div
             ref={dropdownRef}
-            className="fixed md:absolute left-1/2 top-16 md:top-full mt-0 md:mt-2 w-full md:w-[95vw] container -translate-x-1/2 bg-white shadow-2xl rounded-b-lg md:rounded-sm! border-t md:border border-gray-200 z-50 overflow-hidden p-0"
+            className="fixed md:absolute left-1/2 top-16 md:top-full mt-0 md:mt-2 w-full md:w-[95vw] container -translate-x-1/2 bg-white shadow-2xl rounded-b-lg md:rounded-sm! border-t md:border border-gray-200 z-40 overflow-hidden p-0"
           >
             {/* DESKTOP VIEW */}
             <div className="hidden md:flex flex-col md:flex-row max-h-[80vh] md:max-h-[70vh] overflow-hidden">

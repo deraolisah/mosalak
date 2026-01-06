@@ -10,10 +10,10 @@ import HireTrusted from '../components/market/HireTrusted';
 const MarketPlace = () => {
   return (
     <section className='bg-[#eaeaea]'>
-      <div className='relative z-40 bg-[#eaeaea]'>
+      <div className='bg-[#eaeaea]'>
         <SearchBar />
       </div>
-      <div className="sticky top-16 md:top-20 z-50">
+      <div className="sticky top-16 md:top-20 z-40">
         <CategoriesBar />
       </div>
       

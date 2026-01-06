@@ -3,7 +3,7 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className="container flex items-center justify-between py-4 z-40">
+    <div className="container flex items-center justify-between py-4">
       {/* Search */}
       <div className="flex w-full max-w-2xl items-center overflow-hidden rounded-lg border border-gray-300">
         <input

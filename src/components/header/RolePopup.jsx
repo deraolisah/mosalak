@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Handbag, Store, ShieldUser } from 'lucide-react';
-// import ShopIcon from "../../assets/shop.svg";
 
 const RolePopup = ({ onContinue, onSignInClick }) => {
   const [selectedRole, setSelectedRole] = useState(null);
