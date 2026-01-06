@@ -1,8 +1,8 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useState, useRef } from "react";
+import { Link, NavLink, useFetcher, useLocation, } from "react-router-dom";
 import Logo from "../../assets/mosalak-logo.png";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useState } from "react";
 import RolePopup from "./RolePopup";
 import SignupPopup from "./SignupPopup";
 import LoginPopup from "./LoginPopup";
@@ -10,14 +10,18 @@ import { ShoppingCart, Heart, ChevronDown } from 'lucide-react';
 import AccountPopup from "./AccountPopup";
 
 const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [accountPopup, setAccountPopup] = useState(false);
+
+  const accountRef = useRef();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
   const [selectedRole, setSelectedRole] = useState(null);
+
   const location = useLocation();
   const isHome = location.pathname === '/';
+
 
   const navlink = ({isActive}) => isActive ? 
     "text-primary font-medium text-sm text-gray-700 hover:text-primary" : 
@@ -41,7 +45,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-60 bg-white/60 backdrop-blur-md shadow h-16 md:h-20">
+      <header className="sticky top-0 z-60 bg-white md:bg-white/60 backdrop-blur-md shadow h-16 md:h-20">
         <div className="container w-full h-full flex items-center justify-between gap-6 relative z-60">
           <Link to="/" className="w-fit ">
             <img src={Logo} alt="Mosalak Hub Logo" className="w-38 md:w-52 h-fit" />
@@ -75,28 +79,25 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex items-center gap-6">
-                <div className="space-x-4 hidden md:flex">
-                  <button className="text-sm text-dark/60 flex items-center gap-2 cursor-pointer"> 
-                    Cart 
+                <div className="space-x-4 flex">
+                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
+                    <span className="hidden md:inline-flex"> Cart </span>
                     <ShoppingCart size={22} strokeWidth={1.5} className="text-primary" />
                   </button>
-                  <button className="text-sm text-dark/60 flex items-center gap-2 cursor-pointer"> 
-                    Wishlist
+                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
+                    <span className="hidden md:inline-flex"> Wishlist </span>
                     <Heart size={22} strokeWidth={1.5} className="text-primary" />
                   </button>
-                  <div className="text-sm text-dark/50 flex items-center gap-0.5 cursor-pointer relative"> 
+                  <div ref={accountRef} className="text-sm text-dark/80 flex items-center gap-0.5 cursor-pointer relative"> 
                     <button onClick={() => { setAccountPopup(!accountPopup)}}>
-                      My Account 
-                    </button>
-                    {/* {isAuthenticated && (
-                      <span className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                      <span className="w-7 h-7 rounded-full bg-gray-300 text-primary md:hidden flex items-center justify-center">
                         A
                       </span>
-                    )} */}
+                      <span className="hidden md:inline-flex"> My Account </span>
+                    </button>
                     <ChevronDown size={16} strokeWidth={1.5} className={`transition-all duration-200 ${accountPopup ? "rotate-180" : ""}`} />
-                    {/* Account Popup */}
                     {accountPopup && (
-                      <AccountPopup />  
+                      <AccountPopup isAuthenticated={isAuthenticated} />  
                     )}
                   </div>
 
@@ -112,29 +113,33 @@ const Header = () => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <>
-            <div className="lg:hidden flex flex-col gap-4 items-start fixed left-1/2 -translate-x-1/2 top-16 md:top-20 w-full bg-white z-60 p-4">
-              <NavLink to="/marketplace" className={navlink}> Market Place </NavLink>
-              <NavLink to="/freelancers" className={navlink}> Freelancers </NavLink>
-              <NavLink to="/community" className={navlink}> Community </NavLink>
-              <NavLink to="/postings" className={navlink}> Postings </NavLink>
-              <NavLink to="/services" className={navlink}> Services </NavLink>
-              
-              {/* Mobile Actions - Always show Login/Signup for simplicity, or conditionally */}
-              <div className="space-x-2.5 flex md:hidden">
-                <button 
-                  className="btn btn-tertiary"
-                  onClick={() => setActivePopup("login")}
-                >
-                  Login
-                </button>
-                <button 
-                  className="btn"
-                  onClick={() => setActivePopup("role")}
-                >
-                  Sign Up
-                </button>
+              <div className="lg:hidden flex fixed left-1/2 -translate-x-1/2 top-16 md:top-20 w-full bg-white z-60 py-6">
+                <div className="container flex flex-col gap-6 items-start ">
+                  <NavLink to="/marketplace" className={navlink}> Market Place </NavLink>
+                  <NavLink to="/freelancers" className={navlink}> Freelancers </NavLink>
+                  <NavLink to="/community" className={navlink}> Community </NavLink>
+                  <NavLink to="/postings" className={navlink}> Postings </NavLink>
+                  <NavLink to="/services" className={navlink}> Services </NavLink>
+                  
+                  {/* Mobile Actions - Always show Login/Signup for simplicity, or conditionally */}
+                  {!isAuthenticated && (
+                    <div className="space-x-2.5 flex md:hidden">
+                      <button 
+                        className="btn btn-tertiary"
+                        onClick={() => setActivePopup("login")}
+                      >
+                        Login
+                      </button>
+                      <button 
+                        className="btn"
+                        onClick={() => setActivePopup("role")}
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
             </>
           )}          
         </div>
