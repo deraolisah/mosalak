@@ -1,18 +1,24 @@
-import React from 'react';
 import TopBanner from '../components/header/TopBanner';
 import Header from '../components/header/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Footer from "../components/Footer";
+import TopNav from '../components/header/TopNav';
 
 const PublicLayout = () => {
+  const location = useLocation();
+
+  // Check if current path is home or any other route you consider "home"
+  const isHome = ['/', '/home', '/index'].includes(location.pathname);
+  
   return (
     <div>
-      <TopBanner />
+      {isHome && <TopBanner />}
+      {!isHome && <TopNav />}
       <Header />
       <Outlet />
       <Footer />
     </div>
-  )
+  );
 }
 
 export default PublicLayout;

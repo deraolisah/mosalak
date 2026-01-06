@@ -5,14 +5,9 @@ import { CheckBadgeIcon, ChevronLeftIcon, ChevronRightIcon, ShieldCheckIcon, Sta
 import { ClockIcon, TruckIcon, TagIcon } from '@heroicons/react/24/outline';
 import Autoplay from 'embla-carousel-autoplay';
 import watch from "../../assets/watch.png";
+import "../home/custom.css";
 
 const FlashSale = () => {
-  // const [timeLeft, setTimeLeft] = useState({
-  //   hours: 23,
-  //   minutes: 59,
-  //   seconds: 59
-  // });
-
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
@@ -80,10 +75,17 @@ const FlashSale = () => {
       discount: "UP to 30% OFF",
       imageColor: "from-green-500 to-emerald-600",
     },
+    {
+      id: 4,
+      title: "Summer Sale Special",
+      subtitle: "Samsung Galaxy Watch 6",
+      discount: "UP to 30% OFF",
+      imageColor: "from-green-500 to-emerald-600",
+    },
   ];
 
   return (
-    <section className="py-12 overflow-x-clip">
+    <section className="py-8 md:py-12 overflow-x-clip">
       <div className="container">
 
         {/* Embla Carousel */}
@@ -93,26 +95,26 @@ const FlashSale = () => {
               {slides.map((slide) => (
                 <div key={slide.id} className="flex-[0_0_100%] min-w-0 gap-4 space-x-4">
                   <div className="bg-primary rounded-3xl overflow-hidden border border-gray-200 space-x-4">
-                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                    <div className="grid grid-cols-2 mb-4">
                       {/* Left side - Product Info */}
-                      <div className="p-8 lg:p-12">
-                        <div className="inline-flex items-center px-4 py-2 bg-[#F59E0B] rounded-sm mb-4">
-                          <span className="text-white uppercase text-sm"> Flash Sale </span>
+                      <div className="p-6 md:p-8 lg:p-12">
+                        <div className="inline-flex items-center px-4 py-2 bg-[#F59E0B] rounded-sm mb-2 md:mb-4">
+                          <span className="text-white uppercase text-[8px] sm:text-sm"> Flash Sale </span>
                         </div>
 
-                        <h4 className="text-xl font-semibold text-white mb-2 leading-tight">
+                        <h4 className="text-xs sm:text-xl text-nowrap font-semibold text-white mb-1 md:mb-2 leading-tight">
                           {slide.title}
                         </h4>
                         
-                        <h4 className="text-3xl text-nowrap lg:text-4xl font-bold text-white mb-3">
+                        <h4 className="text-base sm:text-3xl text-nowrap lg:text-4xl font-bold text-white md:mb-4">
                           {slide.subtitle}
                         </h4>
 
-                        <div className="mb-8">
-                          <span className="text-lg text-white font-medium">{slide.discount}</span>
+                        <div className="mb-2.5 md:mb-4">
+                          <span className="text-sm sm:text-lg text-white font-medium">{slide.discount}</span>
                         </div>
 
-                        <button className="btn btn-secondary">
+                        <button className="btn btn-secondary text-xs md:text-base">
                           View Product
                         </button>
                       </div>
@@ -122,7 +124,7 @@ const FlashSale = () => {
                         <div className="h-full flex items-center justify-center">
                           <div className="text-center text-white">
                             <div className="text-6xl mb-4">
-                              <img src={watch} alt={slide.title} className='min-h-20 lg:min-h-60' />
+                              <img src={watch} alt={slide.title} className='ml-auto h-26 sm:h-44 md:h-60' />
                             </div>
                             {/* <div className="text-2xl font-bold">{slide.subtitle}</div> */}
                           </div>
@@ -135,14 +137,14 @@ const FlashSale = () => {
             </div>
           </div>
 
-          <div className="absolute bottom-2 w-full flex items-center justify-between md:justify-center space-x-2 z-2">
+          <div className="absolute bottom-2 w-full flex items-center justify-between md:justify-center space-x-2 z-2 px-4">
             <div className="flex items-center gap-1.5 px-3 py-2">
               <ShieldCheckIcon className="w-5 h-5 text-white" />
-              <span className="font-medium text-sm text-white"> Escrow Protected </span>
+              <span className="md:font-medium text-xs md:text-sm text-white text-nowrap"> Escrow Protected </span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-2">
               <CheckBadgeIcon className="w-5 h-5 text-white" />
-              <span className="font-medium text-sm text-white"> Verified Seller </span>
+              <span className="md:font-medium text-xs md:text-sm text-white text-nowrap"> Verified Seller </span>
             </div>
           </div>
 
@@ -150,15 +152,15 @@ const FlashSale = () => {
           {/* Navigation Buttons */}
           <button 
             onClick={scrollPrev}
-            className="absolute top-1/2 -left-7 transform -translate-y-1/2 z-10 text-white bg-primary border-5 border-white hover:bg-primary/90 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+            className="absolute top-1/2 -left-5 md:-left-7 transform -translate-y-1/2 z-10 text-white bg-primary border-3 md:border-5 border-white hover:bg-primary/90 w-10 h-10 md:w-14 md:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
           >
-            <ChevronLeftIcon className="w-8 h-8 text-whie" />
+            <ChevronLeftIcon className="w-5 md:w-8 h-5 md:h-8 text-whie" />
           </button>
           <button 
             onClick={scrollNext}
-            className="absolute top-1/2 -right-7 transform -translate-y-1/2 z-10 text-white bg-primary border-5 border-white hover:bg-primary/90 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+            className="absolute top-1/2 -right-5 md:-right-7 transform -translate-y-1/2 z-10 text-white bg-primary border-3 md:border-5 border-white hover:bg-primary/90 w-10 h-10 md:w-14 md:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
           >
-            <ChevronRightIcon className="w-8 h-8 text-white" />
+            <ChevronRightIcon className="w-5 md:w-8 h-5 md:h-8 text-white" />
           </button>
         </div>
 
@@ -171,15 +173,15 @@ const FlashSale = () => {
               key={index}
               type="button"
               onClick={() => scrollTo(index)}
-              className={`relative w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`relative w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                 index === selectedIndex 
-                  ? 'bg-primary scale-125' 
+                  ? 'bg-primary scale-125 w-6 h-2' 
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             >
               {index === selectedIndex && (
-                <span className="absolute -inset-2 animate-ping rounded-full bg-red-400 opacity-30"></span>
+                <span className="absolute -inset-2 animate-ping rounded-full bg-primary/20 opacity-30"></span>
               )}
             </button>
           ))}
@@ -215,32 +217,6 @@ const FlashSale = () => {
               }`}
             />
           ))}
-        </div> */}
-
-        {/* Additional Info Banner */}
-        {/* <div className="mt-12 bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
-          <div className="flex flex-col md:flexRow items-center justify-between">
-            <div className="text-center md:text-left mb-4 md:mb-0">
-              <h3 className="text-2xl font-bold mb-2">Why Shop with Mosalak?</h3>
-              <p className="text-blue-100">Escrow protection ensures your money is safe until you receive your order</p>
-            </div>
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center">
-                <CheckBadgeIcon className="w-8 h-8 text-white mr-3" />
-                <div>
-                  <div className="font-bold">100% Secure</div>
-                  <div className="text-sm text-blue-200">Payment Protection</div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <ShieldCheckIcon className="w-8 h-8 text-white mr-3" />
-                <div>
-                  <div className="font-bold">Verified Sellers</div>
-                  <div className="text-sm text-blue-200">Quality Guaranteed</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div> */}
       </div>
     </section>

@@ -1,9 +1,8 @@
-// src/components/Footer.jsx
-// import { Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+// import logo from "../assets/mosalak-logo.png";
 
 const Footer = () => {
   const footerLinks = {
-    'Mosalak': [
+    'MosalakHub': [
       { label: 'One Hub Ecosystem', url: '#' },
     ],
     'About Mosalak': [
@@ -77,7 +76,7 @@ const Footer = () => {
                   <li key={index}>
                     <a 
                       href={link.url} 
-                      className="hover:text-white transition text-sm"
+                      className="hover:text-primary/80 transition text-sm"
                     >
                       {link.label}
                     </a>
@@ -91,14 +90,8 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="">
-              © 2025 MosalakHub. All rights reserved.
+              ©2025 MosalakHub. All rights reserved.
             </p>
-            {/* <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-linear-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">M</span>
-              </div>
-              <span className="text-xl font-bold">MosalakHub</span>
-            </div> */}
             
             <div className="text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start space-x-4 mt-2">

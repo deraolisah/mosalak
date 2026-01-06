@@ -1,4 +1,7 @@
 import featuresBg from "../../assets/features-bg.png";
+import HowItWorks1 from "../../assets/how-it-works-1.png";
+import HowItWorks2 from "../../assets/how-it-works-2.png";
+import HowItWorks3 from "../../assets/how-it-works-3.png";
 import img01 from "../../assets/01.svg";
 import img02 from "../../assets/02.svg";
 import img03 from "../../assets/03.svg";
@@ -12,22 +15,23 @@ const HowItWorks = () => {
       {
         id: 1,
         title: "Posting jobs is always free",
-        image: "/images/hiring-1.jpg",
-        description: "Post your job and receive proposals from talented freelancers."
+        image: HowItWorks1,
+        description: "Post your job and receive proposals from talented freelancers.",
+        cta: "Create a job"
       },
       {
         id: 2,
         title: "Get proposals and hire",
-        image: "/images/hiring-2.jpg",
-        description: "Compare bids, reviews, and portfolios before hiring."
-        ,
+        image: HowItWorks2,
+        description: "Compare bids, reviews, and portfolios before hiring.",
         cta: "Explore experts"
       },
       {
         id: 3,
         title: "Pay securely when work is done",
-        image: "/images/hiring-3.jpg",
-        description: "Release payments only when you’re satisfied."
+        image: HowItWorks3,
+        description: "Release payments only when you're satisfied.",
+        cta: "View pricing"
       }
     ],
 
@@ -35,19 +39,19 @@ const HowItWorks = () => {
       {
         id: 1,
         title: "Create your profile",
-        image: "/images/work-1.jpg",
+        image: HowItWorks1,
         description: "Showcase your skills and experience."
       },
       {
         id: 2,
         title: "Bid on projects",
-        image: "/images/work-2.jpg",
+        image: HowItWorks1,
         description: "Send proposals to clients that fit your skills."
       },
       {
         id: 3,
         title: "Get paid securely",
-        image: "/images/work-3.jpg",
+        image: HowItWorks1,
         description: "Payments are protected and released on completion."
       }
     ]
@@ -57,17 +61,16 @@ const HowItWorks = () => {
 
   return (
     <>
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-12 bg-white">
         <div className="container">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="section-title mb-0">How it works</h2>
 
-            <div className="flex items-center space-x-2 text-muted">
-              Sort by:
+            <div className="flex items-center space-x-2 text-muted text-sm">
               <select
                 value={mode}
                 onChange={(e) => setMode(e.target.value)}
-                className="font-medium text-dark focus:outline-none bg-transparent"
+                className="font-medium text-dark focus:outline-none bg-transparent border border-dark rounded-full px-2 py-1"
               >
                 <option value="hiring">For hiring</option>
                 <option value="findingWork">For finding work</option>
@@ -75,40 +78,55 @@ const HowItWorks = () => {
             </div>
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {cards.map((item) => (
-              <div
-                key={item.id}
-                className="relative rounded-2xl overflow-hidden group"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-80 object-cover"
-                />
+          {/* Cards Container */}
+          <div className="relative">
+            {/* Horizontal scroll on mobile, grid on md+ */}
+            <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-4 md:pb-0 md:overflow-x-visible">
+              {cards.map((item) => (
+                <div
+                  key={item.id}
+                  className="min-w-[calc(80vw-2rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
+                  // style={{
+                  //   backgroundImage: `url(${HowItWorks1})`,
+                  // }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-80 object-cover"
+                  />
 
-                <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
-                  <h3 className="text-white text-lg font-semibold">
-                    {item.title}
-                  </h3>
+                  <div className="absolute inset-0 bg-linear-to-t from-black to-black/40 flex flex-col justify-end p-6">
+                    <h3 className="text-white text-lg font-semibold">
+                      {item.title}
+                    </h3>
 
-                  <p className="text-white/80 text-sm mt-1">
-                    {item.description}
-                  </p>
+                    <p className="text-white/80 text-sm mt-1">
+                      {item.description}
+                    </p>
 
-                  {item.cta && (
-                    <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg w-fit">
-                      {item.cta}
-                    </button>
-                  )}
+                    {item.cta && (
+                      <button className="mt-4 btn w-full mx-auto transition-all duration-500 absolute translate-y-20 group-hover:relative group-hover:translate-y-0">
+                        {item.cta}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            
+            {/* Scroll indicator for mobile only */}
+            {/* <div className="flex md:hidden justify-center mt-4 space-x-2">
+              {cards.map((item) => (
+                <div 
+                  key={item.id} 
+                  className="w-2 h-2 rounded-full bg-gray-300"
+                ></div>
+              ))}
+            </div> */}
           </div>
         </div>
       </section>
-      
 
       {/* Make it Real */}
       <section className="py-12.5 bg-cover bg-bottom" style={{
@@ -162,7 +180,7 @@ const HowItWorks = () => {
             ))}
           </div>
 
-          <button className="btn flex mt-4 mx-auto"> Join now </button>
+          <button className="btn flex mt-6 mx-auto"> Join now </button>
         </div>
       </section>
     </>
