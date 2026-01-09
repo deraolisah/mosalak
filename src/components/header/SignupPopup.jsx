@@ -38,7 +38,7 @@ const SignupPopup = ({ onSignInClick, selectedRole }) => {
   };
 
   return (
-    <div className="bg-white rounded-md p-8 max-w-md w-full shadow-xl">
+    <div className="bg-white rounded-md p-6 md:p-8 max-w-md w-full shadow-xl">
       {/* <h2 className="text-xl font-semibold text-center mb-0.5">Create Your Account</h2> */}
       
       {/* Show selected role if available */}
@@ -106,7 +106,7 @@ const SignupPopup = ({ onSignInClick, selectedRole }) => {
         
         <button 
           type="submit"
-          className="w-full btn mt-2 rounded-sm"
+          className="w-full btn"
         >
           CREATE ACCOUNT →
         </button>

@@ -38,17 +38,17 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
   };
 
   return (
-    <div className="bg-white rounded-md p-8 max-w-md w-full shadow-xl">
+    <div className="bg-white rounded-md p-6 md:p-8 max-w-md w-full shadow-xl">
       <h2 className="text-xl font-semibold text-center mb-0.5">Create Your Account</h2>
-      <p className="text-gray-600 text-xs text-center mb-6">Choose your role and get started</p>
+      <p className="text-gray-600 text-xs text-center mb-4">Choose your role and get started</p>
       
-      <p className="text-sm mb-3">I want to join as:</p>
+      <p className="text-sm mb-2">I want to join as:</p>
       
-      <div className="space-y-4 mb-6">
+      <div className="space-y-4 mb-4">
         {roles.map((role) => (
           <button
             key={role.id}
-            className={`w-full border-2 rounded-xl p-4 text-center transition-all cursor-pointer ${
+            className={`w-full border-2 rounded-xl p-4 space-y-1 text-center transition-all cursor-pointer ${
               selectedRole === role.id
                 ? "border-primary bg-primary/10"
                 : "border-gray-300 hover:border-primary/60 hover:bg-blue-50"
@@ -64,7 +64,7 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
             }`}>
               {role.title}
             </div>
-            <div className={`text-sm ${
+            <div className={`text-xs ${
               selectedRole === role.id ? "text-primary/80" : "text-gray-600"
             }`}>
               {role.description}
@@ -74,7 +74,7 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
       </div>
       
       <button 
-        className={`w-full font-semibold py-3 rounded-sm ${
+        className={`btn w-full ${
           selectedRole
             ? "bg-primary text-white hover:bg-blue-700"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"

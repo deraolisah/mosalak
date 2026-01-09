@@ -1,11 +1,11 @@
 import React from 'react'
-import SearchBar from '../components/market/SearchBar';
-import CategoriesBar from '../components/market/CategoriesBar'; // Keep it separate
-import FlashSale from "../components/market/FlashSale";
-import Categories from '../components/market/Categories';
-import TodayDeals from '../components/market/TodayDeals';
-import TrendingSales from '../components/market/TrendingSales';
-import HireTrusted from '../components/market/HireTrusted';
+import SearchBar from '../../components/marketplace/SearchBar';
+import CategoriesBar from '../../components/marketplace/CategoriesBar';
+import FlashSale from "../../components/marketplace/FlashSale";
+import Categories from '../../components/marketplace/Categories';
+import TodayDeals from '../../components/marketplace/TodayDeals';
+import TrendingSales from '../../components/marketplace/TrendingSales'; // Updated import
+import HireTrusted from '../../components/marketplace/HireTrusted';
 
 const MarketPlace = () => {
   return (
@@ -24,7 +24,7 @@ const MarketPlace = () => {
         </div>
         <Categories />
         <TodayDeals />
-        <TrendingSales />
+        <TrendingSales /> 
         <HireTrusted />
       </div>
     </section>

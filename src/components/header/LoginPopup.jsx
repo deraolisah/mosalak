@@ -92,7 +92,7 @@ const LoginPopup = ({ onCreateAccountClick }) => {
         </button>
       </form>
       
-      <div className="text-center mt-3 flex flex-col gap-4 relative">
+      <div className="text-center mt-0 flex flex-col gap-4 relative">
         {/* <span className="before:absolute after:left-0 after:top-6.5 after:w-full after:h-px after:bg-dark/40 after:content-['']"></span> */}
         <span className="after:absolute after:left-0 after:top-6.5 after:w-full after:h-px after:bg-dark/40 after:content-['']"></span>
         <span className="text-dark/60 text-sm z-2 w-fit mx-auto px-2.5 bg-white">Don't have account </span>

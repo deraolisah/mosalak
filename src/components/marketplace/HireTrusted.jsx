@@ -1,5 +1,6 @@
 import React from 'react'
 import { Star, ChevronRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const HireTrusted = () => {
   const services = [
@@ -53,10 +54,10 @@ const HireTrusted = () => {
             </h2>
           </div>
 
-          <button className='flex items-center gap-1 text-primary hover:text-primary-dark text-sm font-medium transition-colors'>
+          <Link to="/freelancers" className='btn btn-text px-0 text-primary'>
             View All 
             <ChevronRight size={16} />
-          </button>
+          </Link>
         </div>
 
         {/* Services Grid */}

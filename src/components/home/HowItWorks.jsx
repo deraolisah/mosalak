@@ -81,11 +81,11 @@ const HowItWorks = () => {
           {/* Cards Container */}
           <div className="relative">
             {/* Horizontal scroll on mobile, grid on md+ */}
-            <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-4 md:pb-0 md:overflow-x-visible">
+            <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-6 md:pb-0 md:overflow-x-visible">
               {cards.map((item) => (
                 <div
                   key={item.id}
-                  className="min-w-[calc(80vw-2rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
+                  className="min-w-full sm:min-w-[calc(80vw-2.5rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
                   // style={{
                   //   backgroundImage: `url(${HowItWorks1})`,
                   // }}

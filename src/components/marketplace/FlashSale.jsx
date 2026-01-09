@@ -6,6 +6,8 @@ import { ClockIcon, TruckIcon, TagIcon } from '@heroicons/react/24/outline';
 import Autoplay from 'embla-carousel-autoplay';
 import watch from "../../assets/watch.png";
 import "../home/custom.css";
+// import { Link } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FlashSale = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -94,8 +96,8 @@ const FlashSale = () => {
             <div className="flex">
               {slides.map((slide) => (
                 <div key={slide.id} className="flex-[0_0_100%] min-w-0 gap-4 space-x-4">
-                  <div className="bg-primary rounded-3xl overflow-hidden border border-gray-200 space-x-4">
-                    <div className="grid grid-cols-2 mb-4">
+                  <div className="bg-primary rounded-3xl overflow-hidden border border-gray-200 space-x-4 mx-1 md:mx-1.5">
+                    <div className="grid grid-cols-2 mb-6">
                       {/* Left side - Product Info */}
                       <div className="p-6 md:p-8 lg:p-12">
                         <div className="inline-flex items-center px-4 py-2 bg-[#F59E0B] rounded-sm mb-2 md:mb-4">
@@ -114,9 +116,11 @@ const FlashSale = () => {
                           <span className="text-sm sm:text-lg text-white font-medium">{slide.discount}</span>
                         </div>
 
-                        <button className="btn btn-secondary text-xs md:text-base">
-                          View Product
-                        </button>
+                        <Link to="/shop">
+                          <button className="btn btn-secondary text-xs md:text-base">
+                            View Product
+                          </button>
+                        </Link>
                       </div>
 
                       {/* Right side - Product Image */}

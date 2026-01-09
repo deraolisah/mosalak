@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link, NavLink, useFetcher, useLocation, } from "react-router-dom";
+import { Link, NavLink, useLocation, } from "react-router-dom";
 import Logo from "../../assets/mosalak-logo.png";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -47,8 +47,8 @@ const Header = () => {
     <>
       <header className="sticky top-0 z-60 bg-white md:bg-white/60 backdrop-blur-md shadow h-16 md:h-20">
         <div className="container w-full h-full flex items-center justify-between gap-6 relative z-60">
-          <Link to="/" className="w-fit ">
-            <img src={Logo} alt="Mosalak Hub Logo" className="w-38 md:w-52 h-fit" />
+          <Link to="/" className="w-fit h-fit ">
+            <img src={Logo} alt="Mosalak Hub Logo" className="w-38 md:w-52" />
           </Link>
 
           {/* Navigation */}
@@ -80,22 +80,23 @@ const Header = () => {
             ) : (
               <div className="flex items-center gap-6">
                 <div className="space-x-4 flex">
-                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
+                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer relative"> 
                     <span className="hidden md:inline-flex"> Cart </span>
                     <ShoppingCart size={22} strokeWidth={1.5} className="text-primary" />
+                    <span className="absolute -right-1.5 -top-1 w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#1B6392]/70 text-[9px] text-[#1B6392]/70 font-medium"> 2 </span>
                   </button>
                   <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
                     <span className="hidden md:inline-flex"> Wishlist </span>
-                    <Heart size={22} strokeWidth={1.5} className="text-primary" />
+                    <Heart size={22} strokeWidth={1.5} className="text-primary text-xs" />
                   </button>
-                  <div ref={accountRef} className="text-sm text-dark/80 flex items-center gap-0.5 cursor-pointer relative"> 
-                    <button onClick={() => { setAccountPopup(!accountPopup)}}>
+                  <div ref={accountRef} className="text-sm text-dark/80 cursor-pointer relative"> 
+                    <button onClick={() => { setAccountPopup(!accountPopup)}} className="flex items-center gap-0.5 cursor-pointer">
                       <span className="w-7 h-7 rounded-full bg-gray-300 text-primary md:hidden flex items-center justify-center">
                         A
                       </span>
-                      <span className="hidden md:inline-flex"> My Account </span>
+                      <span className="hidden md:inline-flex"> Account </span>
+                      <ChevronDown size={16} strokeWidth={1.5} className={`transition-all duration-200 ${accountPopup ? "rotate-180" : ""}`} />
                     </button>
-                    <ChevronDown size={16} strokeWidth={1.5} className={`transition-all duration-200 ${accountPopup ? "rotate-180" : ""}`} />
                     {accountPopup && (
                       <AccountPopup isAuthenticated={isAuthenticated} />  
                     )}
@@ -115,11 +116,11 @@ const Header = () => {
             <>
               <div className="lg:hidden flex fixed left-1/2 -translate-x-1/2 top-16 md:top-20 w-full bg-white z-60 py-6">
                 <div className="container flex flex-col gap-6 items-start ">
-                  <NavLink to="/marketplace" className={navlink}> Market Place </NavLink>
-                  <NavLink to="/freelancers" className={navlink}> Freelancers </NavLink>
-                  <NavLink to="/community" className={navlink}> Community </NavLink>
-                  <NavLink to="/postings" className={navlink}> Postings </NavLink>
-                  <NavLink to="/services" className={navlink}> Services </NavLink>
+                  <NavLink to="/marketplace" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Market Place </NavLink>
+                  <NavLink to="/freelancers" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Freelancers </NavLink>
+                  <NavLink to="/community" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Community </NavLink>
+                  <NavLink to="/postings" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Postings </NavLink>
+                  <NavLink to="/services" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Services </NavLink>
                   
                   {/* Mobile Actions - Always show Login/Signup for simplicity, or conditionally */}
                   {!isAuthenticated && (

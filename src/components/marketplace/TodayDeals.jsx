@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 
 const TodayDeals = () => {
   return (
@@ -10,9 +12,10 @@ const TodayDeals = () => {
             <h2 className="section-title mb-0"> Today's Deals </h2>
           </div>
           
-          <button className='btn btn-text text-primary text-sm px-0'>
-            View All
-          </button>
+          <Link to="/marketplace" className='btn btn-text text-primary text-sm px-0'>
+            View All 
+            <ChevronRight size={16} />
+          </Link>
         </div>
       </div>
     </section>

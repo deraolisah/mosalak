@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // import { Search } from "lucide-react";
 
 const SearchBar = () => {
@@ -22,9 +23,9 @@ const SearchBar = () => {
 
       {/* Right links */}
       <div className="ml-6 hidden items-center gap-4.5 text-sm md:flex">
-        <a href="#" className="text-gray-600 hover:text-gray-900 text-nowrap transition">
+        <Link to="/help-center" className="text-gray-600 hover:text-gray-900 text-nowrap transition">
           Help Center
-        </a>
+        </Link>
         <a href="#" className="text-gray-600 hover:text-gray-900 text-nowrap transition">
           Become a seller
         </a>
