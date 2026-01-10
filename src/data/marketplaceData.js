@@ -9,20 +9,184 @@ export const marketplaceData = {
   //   { tag: "agriculture", name: "Agriculture", color: "from-[#ADBF81] to-[#51593C]" },
   // ];
   // Categories with their IDs (these should match backend)
+  // Level 1: Main Categories
+  // categories: [
+  //   {
+  //     id: 'automobiles',
+  //     name: 'Automobiles',
+  //     icon: '🚗',
+  //     color: "from-[#FE7309] to-[#C55500]",
+  //     // Level 2: Subcategories with Level 3: Brands/Models
+  //     subcategories: [
+  //       {
+  //         id: 'cars',
+  //         name: 'Cars',
+  //         // Level 3: Vehicle Types or Brands
+  //         types: [
+  //           {
+  //             id: 'sedans',
+  //             name: 'Sedans',
+  //             // Level 4: Specific Models
+  //             models: ['Toyota Camry', 'Honda Accord', 'Mercedes C-Class']
+  //           },
+  //           {
+  //             id: 'suvs',
+  //             name: 'SUVs',
+  //             models: ['Toyota RAV4', 'Honda CR-V', 'BMW X5']
+  //           },
+  //           {
+  //             id: 'trucks',
+  //             name: 'Trucks',
+  //             models: ['Ford F-150', 'Chevrolet Silverado']
+  //           }
+  //         ],
+  //         // Alternative Level 3: Popular Brands
+  //         brands: ['Toyota', 'Honda', 'Mercedes', 'BMW', 'Ford', 'Chevrolet']
+  //       },
+  //       {
+  //         id: 'motorcycles',
+  //         name: 'Motorcycles',
+  //         types: [
+  //           {
+  //             id: 'sport-bikes',
+  //             name: 'Sport Bikes',
+  //             models: ['Yamaha R6', 'Kawasaki Ninja']
+  //           },
+  //           {
+  //             id: 'cruisers',
+  //             name: 'Cruisers',
+  //             models: ['Harley Davidson', 'Honda Shadow']
+  //           }
+  //         ],
+  //         brands: ['Yamaha', 'Honda', 'Kawasaki', 'Harley Davidson']
+  //       },
+  //       {
+  //         id: 'vehicle-parts',
+  //         name: 'Vehicle Parts',
+  //         types: [
+  //           {
+  //             id: 'engine-parts',
+  //             name: 'Engine Parts',
+  //             models: ['Spark Plugs', 'Air Filters', 'Oil Filters']
+  //           },
+  //           {
+  //             id: 'exterior-parts',
+  //             name: 'Exterior Parts',
+  //             models: ['Bumpers', 'Headlights', 'Mirrors']
+  //           }
+  //         ],
+  //         brands: ['Bosch', 'NGK', 'Denso', 'ACDelco']
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 'electronics',
+  //     name: 'Electronics',
+  //     icon: '📱',
+  //     color: "from-[#004B14] to-[#00B12F]",
+  //     subcategories: [
+  //       {
+  //         id: 'phones-tablets',
+  //         name: 'Phones & Tablets',
+  //         types: [
+  //           {
+  //             id: 'smartphones',
+  //             name: 'Smartphones',
+  //             models: ['iPhone 15', 'Samsung Galaxy S24', 'Google Pixel 8']
+  //           },
+  //           {
+  //             id: 'tablets',
+  //             name: 'Tablets',
+  //             models: ['iPad Pro', 'Samsung Tab S9', 'Microsoft Surface']
+  //           }
+  //         ],
+  //         brands: ['Apple', 'Samsung', 'Google', 'Xiaomi', 'Huawei']
+  //       },
+  //       {
+  //         id: 'laptops',
+  //         name: 'Laptops',
+  //         types: [
+  //           {
+  //             id: 'gaming-laptops',
+  //             name: 'Gaming Laptops',
+  //             models: ['ASUS ROG', 'MSI Stealth', 'Alienware']
+  //           },
+  //           {
+  //             id: 'business-laptops',
+  //             name: 'Business Laptops',
+  //             models: ['Dell XPS', 'Lenovo ThinkPad', 'HP EliteBook']
+  //           }
+  //         ],
+  //         brands: ['Dell', 'HP', 'Lenovo', 'Apple', 'ASUS']
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 'fashion',
+  //     name: 'Fashion',
+  //     icon: '👕',
+  //     color: "from-[#24589B] to-[#0C1E35]",
+  //     subcategories: [
+  //       {
+  //         id: 'clothing',
+  //         name: 'Clothing',
+  //         types: [
+  //           {
+  //             id: 'mens-clothing',
+  //             name: "Men's Clothing",
+  //             models: ['Shirts', 'Pants', 'Jackets', 'Suits']
+  //           },
+  //           {
+  //             id: 'womens-clothing',
+  //             name: "Women's Clothing",
+  //             models: ['Dresses', 'Tops', 'Skirts', 'Jeans']
+  //           }
+  //         ],
+  //         brands: ['Nike', 'Adidas', 'Zara', 'H&M', 'Gucci']
+  //       },
+  //       {
+  //         id: 'accessories',
+  //         name: 'Accessories',
+  //         types: [
+  //           {
+  //             id: 'jewelry',
+  //             name: 'Jewelry',
+  //             models: ['Necklaces', 'Bracelets', 'Earrings', 'Rings']
+  //           },
+  //           {
+  //             id: 'bags',
+  //             name: 'Bags',
+  //             models: ['Handbags', 'Backpacks', 'Wallets', 'Luggage']
+  //           }
+  //         ],
+  //         brands: ['Louis Vuitton', 'Michael Kors', 'Coach', 'Kate Spade']
+  //       }
+  //     ]
+  //   },
+  // ],
+
   categories: [
     {
       id: 'automobiles',
       name: 'Automobiles',
       icon: '🚗',
       color: "from-[#FE7309] to-[#C55500]",
-      subcategories: ['cars', 'buses', 'trucks', 'motorcycles', 'vehicle-parts']
+      subcategories: [
+        { 
+          id: 'cars', name: 'Cars',
+          brands: [ 'Toyota', 'Honda', 'Mercedes-Benz', 'BMW', 'Lexus', 'Nissan', 'Ford', 'Hyundai', 'Kia', 'Volkswagen', 'Audi', 'Peugeot', 'Other']
+        },
+        { id: 'trucks', name: 'Trucks' },
+        { id: 'motorcycles', name: 'Motorcycles' },
+        { id: 'vehicle-parts', name: 'Vehicle Parts' }
+      ]
     },
     {
       id: 'gadgets',
       name: 'Phones & Tablets',
       icon: '🚗',
       color: "from-[#82F69B] to-[#396E45]",
-      subcategories: ['cars', 'buses', 'trucks', 'motorcycles', 'vehicle-parts']
+      subcategories: ['Samsung', 'Iphone', 'Realme', 'Xiaomi', 'Oppo', 'Vivo', 'Huawei', 'Infinix', 'Tecno']
     },
     {
       id: 'fashion',
@@ -168,7 +332,7 @@ export const marketplaceData = {
       year: 2017,
       mileage: 65000,
       seller: {
-        id: 'seller3',
+        id: 'seller4',
         name: 'TechHub NG',
         verified: true,
         rating: 4.6
@@ -197,7 +361,7 @@ export const marketplaceData = {
       year: 2017,
       mileage: 65000,
       seller: {
-        id: 'seller3',
+        id: 'seller5',
         name: 'TechHub NG',
         verified: true,
         rating: 4.6

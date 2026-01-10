@@ -65,7 +65,7 @@ const MarketplacePage = () => {
       </div>
 
       {/* Page Header */}
-      <div className="bg-white border-b">
+      {/* <div className="bg-white border-b">
         <div className="container py-4">
           <h1 className="text-2xl font-bold">
             {currentCategory?.name || 'All Products'}
@@ -79,13 +79,13 @@ const MarketplacePage = () => {
             </p>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
-      <div className="container py-6">
+      <div className="container">
         <div className="flex gap-6">
           {/* Sidebar Filters */}
-          <div className="hidden lg:block w-1/4">
+          <div className="hidden lg:block w-1/5">
             <SidebarFilters 
               filters={filters} 
               onFilterChange={updateFilters}
@@ -105,13 +105,20 @@ const MarketplacePage = () => {
           </div> */}
 
           {/* Main Content */}
-          <div className="flex-1">
+          <div className="flex-1 bg-white p-4 rounded-2xl shadow-md">
             {/* Toolbar */}
-            <div className="bg-white p-4 rounded-lg shadow-sm mb-6 flex justify-between items-center">
+            <div className="mb-6 flex justify-between items-center">
+              <h4 className="text-base font-medium">
+                {currentCategory?.name || 'All Products'}
+                <span className="text-gray-500 font-normal ml-1.5">
+                  ({pagination.total} products found)
+                </span>
+              </h4>
+
               <SortDropdown sortBy={sortBy} onSortChange={setSortBy} />
-              <div className="text-sm text-gray-600">
+              {/* <div className="text-sm text-gray-600">
                 Showing {filteredProducts.length} of {pagination.total} products
-              </div>
+              </div> */}
             </div>
 
             {/* Products */}

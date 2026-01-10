@@ -14,6 +14,12 @@ import Services from '../pages/public/Services';
 import HelpCenter from '../pages/public/HelpCenter';
 
 
+// User Routes
+import UserDashboardLayout from "../layouts/UserDashboardLayout";
+import Cart from '../pages/user/Cart';
+import Wishlist from "../pages/user/Wishlist";
+
+
 
 const AppRoutes = () => {
   return (
@@ -31,6 +37,13 @@ const AppRoutes = () => {
         <Route path="/postings" element={<Postings />} />
         <Route path="/services" element={<Services />} />
         <Route path="/help-center" element={<HelpCenter />} />
+
+        <Route path='cart' element={<Cart />} />
+        <Route path='wishlist' element={<Wishlist />} />
+      </Route>
+
+      <Route path="/account" element={<UserDashboardLayout />}>
+
       </Route>
     </Routes>
   )

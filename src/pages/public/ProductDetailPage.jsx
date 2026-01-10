@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMarketplace } from '../../contexts/MarketplaceContext';
+import car from "../../assets/car.png";
 // import { FaHeart, FaShoppingCart, FaShieldAlt, FaShareAlt, FaStar, FaCheckCircle } from 'react-icons/fa';
 
 const ProductDetailPage = () => {
@@ -88,7 +89,8 @@ const ProductDetailPage = () => {
               {/* Main Image */}
               <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
                 <img 
-                  src={product.images?.[selectedImage] || "https://via.placeholder.com/600x600"} 
+                  // src={product.images?.[selectedImage] || "https://via.placeholder.com/600x600"} 
+                  src={car} 
                   alt={product.title}
                   className="w-full h-full object-cover"
                 />
@@ -119,14 +121,17 @@ const ProductDetailPage = () => {
             {/* Product Info */}
             <div>
               {/* Badge */}
-              {product.badge && (
+              {/* {product.badge && (
                 <div className="inline-block px-3 py-1 bg-linear-to-r from-blue-500 to-indigo-600 text-white text-xs font-bold rounded-full mb-4">
                   {product.badge.toUpperCase()}
                 </div>
-              )}
+              )} */}
 
               {/* Title */}
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">{product.title}</h1>
+              <h1 className="text-2xl font-medium text-gray-900 mb-3">{product.title}</h1>
+
+
+              <p className='text-sm mb-4'> {product?.description || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus tempore porro incidunt, eius similique rerum ducimus eos error veritatis ipsum." } </p>
               
               {/* Condition & Location */}
               <div className="flex items-center gap-4 text-gray-600 mb-4">
@@ -186,7 +191,7 @@ const ProductDetailPage = () => {
               </div>
 
               {/* Quantity */}
-              <div className="mb-6">
+              {/* <div className="mb-6">
                 <label className="block text-gray-700 mb-2 font-medium">Quantity</label>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center border border-gray-300 rounded-lg">
@@ -208,18 +213,28 @@ const ProductDetailPage = () => {
                     Only {Math.floor(Math.random() * 50) + 1} items left in stock!
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              <div className="flex items-center gap-4 mb-6">
+                {/* Buy Now Button */}
+                <button
+                  onClick={() => {
+                    addToCart(product, quantity);
+                    navigate('/checkout');
+                  }}
+                  className="btn"
+                >
+                  {/* <FaShieldAlt /> */}
+                  Buy with Escrow
+                </button>
                 <button
                   onClick={handleAddToCart}
-                  className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 flex items-center justify-center gap-2"
-                >
+                  className="btn btn-tertiary">
                   {/* <FaShoppingCart /> */}
                   Add to Cart
                 </button>
-                <button
+                {/* <button
                   onClick={handleWishlistToggle}
                   className={`border ${
                     isInWishlist 
@@ -227,22 +242,10 @@ const ProductDetailPage = () => {
                       : 'border-gray-300 text-gray-700 hover:border-gray-400'
                   } py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2`}
                 >
-                  {/* <FaHeart className={isInWishlist ? 'fill-red-600' : ''} /> */}
                   {isInWishlist ? 'Saved' : 'Save for Later'}
-                </button>
+                </button> */}
               </div>
 
-              {/* Buy Now Button */}
-              <button
-                onClick={() => {
-                  addToCart(product, quantity);
-                  navigate('/checkout'); // You'll create this later
-                }}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-6 rounded-lg font-medium hover:from-green-600 hover:to-green-700 flex items-center justify-center gap-2 mb-4"
-              >
-                {/* <FaShieldAlt /> */}
-                Buy Now with Escrow Protection
-              </button>
 
               {/* Share Button */}
               <button

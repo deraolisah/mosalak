@@ -5,166 +5,123 @@ import { useMarketplace } from "../../contexts/MarketplaceContext";
 
 const CategoriesBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedMain, setSelectedMain] = useState(null);
-  const [selectedSub, setSelectedSub] = useState(null);
-  const [mobileView, setMobileView] = useState("main");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [mobileView, setMobileView] = useState("categories");
 
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
-
   const navigate = useNavigate();
-  
+
   // Use your marketplace context
-  const { 
-    categories, 
-    products, 
-    updateFilters,
-    getCategoryById
-  } = useMarketplace();
+  const { categories, products, updateFilters } = useMarketplace();
 
-  // Convert your context categories to mega menu format
-  const megaMenuData = React.useMemo(() => {
-    if (!categories || categories.length === 0) return {};
-
-    const menuStructure = {};
-
-    // Group by main categories (using your actual category data)
-    categories.forEach(category => {
-      // Each category in your data is a main category
-      const mainCategory = category.name;
-      
-      if (!menuStructure[mainCategory]) {
-        menuStructure[mainCategory] = {
-          id: category.id,
-          subcategories: {},
-          banner: null,
-          color: category.color,
-          icon: category.icon
-        };
-      }
-
-      // Get products for this category
-      const categoryProducts = products.filter(p => p.category === category.id);
-      
-      // Get unique brands from products in this category
-      const brands = [...new Set(categoryProducts.map(p => p.brand).filter(Boolean))];
-      
-      // Get subcategories for this category
-      const subcategories = [...new Set(categoryProducts.map(p => p.subcategory).filter(Boolean))];
-      
-      // Create subcategory entries
-      if (subcategories.length > 0) {
-        subcategories.forEach(sub => {
-          const subProducts = categoryProducts.filter(p => p.subcategory === sub);
-          const subBrands = [...new Set(subProducts.map(p => p.brand).filter(Boolean))];
-          
-          menuStructure[mainCategory].subcategories[sub] = {
-            tag: `${category.id}/${sub}`,
-            brands: ['All ' + sub, ...subBrands].slice(0, 10),
-            featured: subProducts.slice(0, 4).map(p => ({
-              id: p.id,
-              title: p.title,
-              price: `₦${p.price.toLocaleString()}`,
-              image: p.images?.[0] || "https://via.placeholder.com/300x200",
-              brand: p.brand
-            }))
-          };
-        });
-      } else {
-        // If no subcategories, create a default one
-        menuStructure[mainCategory].subcategories[mainCategory] = {
-          tag: category.id,
-          brands: ['All ' + mainCategory, ...brands].slice(0, 10),
-          featured: categoryProducts.slice(0, 4).map(p => ({
-            id: p.id,
-            title: p.title,
-            price: `₦${p.price.toLocaleString()}`,
-            image: p.images?.[0] || "https://via.placeholder.com/300x200",
-            brand: p.brand
-          }))
-        };
-      }
-    });
-
-    return menuStructure;
-  }, [categories, products]);
-
-  const resetMobileView = () => {
-    setMobileView("main");
-  };
-
-  const handleMainCategoryClick = (category) => {
-    setSelectedMain(category);
-    const subKeys = Object.keys(megaMenuData[category]?.subcategories || {});
-    if (subKeys.length > 0) {
-      setSelectedSub(subKeys[0]);
-    }
-    setMobileView("sub");
-  };
-
-  const handleSubcategoryClick = (sub) => {
-    setSelectedSub(sub);
-    setMobileView("brands");
-  };
-
-  const handleBrandClick = (brand) => {
-    const currentMain = megaMenuData[selectedMain];
-    const currentSubData = currentMain?.subcategories?.[selectedSub];
+  // Get all unique brands for a category/subcategory
+  const getBrandsForCategory = (categoryId, subcategoryId = null) => {
+    const categoryProducts = products.filter(p => p.category === categoryId);
     
-    if (currentSubData) {
-      console.log(`Selected: ${selectedMain} > ${selectedSub} > ${brand}`);
-      
-      // Navigate to marketplace with the category
-      if (currentSubData.tag.includes('/')) {
-        const [categoryId, subcategoryId] = currentSubData.tag.split('/');
-        navigate(`/marketplace/${categoryId}/${subcategoryId}`);
-        updateFilters({ 
-          category: categoryId,
-          subcategory: subcategoryId
-        });
-      } else {
-        navigate(`/marketplace/${currentSubData.tag}`);
-        updateFilters({ 
-          category: currentMain.id,
-          subcategory: null
-        });
-      }
-      
-      // Apply filters based on brand selection
-      if (brand !== `All ${selectedSub}`) {
-        updateFilters({ brand: [brand] });
-      } else {
-        updateFilters({ brand: [] }); // Clear brand filter for "All"
-      }
-      
-      if (currentSubData?.featured && currentSubData.featured.length > 0) {
-        setMobileView("featured");
-      } else {
-        setDropdownOpen(false);
-        resetMobileView();
-      }
+    if (subcategoryId) {
+      const subProducts = categoryProducts.filter(p => p.subcategory === subcategoryId);
+      const brands = [...new Set(subProducts.map(p => p.brand).filter(Boolean))];
+      return ['All ' + subcategoryId, ...brands];
+    }
+    
+    const brands = [...new Set(categoryProducts.map(p => p.brand).filter(Boolean))];
+    return ['All Brands', ...brands];
+  };
+
+  // Get featured products for a category/subcategory
+  const getFeaturedProducts = (categoryId, subcategoryId = null) => {
+    let filteredProducts = products.filter(p => p.category === categoryId);
+    
+    if (subcategoryId) {
+      filteredProducts = filteredProducts.filter(p => p.subcategory === subcategoryId);
+    }
+    
+    return filteredProducts
+      .slice(0, 4) // Limit to 4 featured products
+      .map(product => ({
+        id: product.id,
+        title: product.title,
+        price: `₦${product.price.toLocaleString()}`,
+        image: product.images?.[0] || "https://via.placeholder.com/400x300",
+        brand: product.brand
+      }));
+  };
+
+  // Handle category selection
+  const handleCategorySelect = (categoryId) => {
+    setSelectedCategory(categoryId);
+    const category = categories.find(c => c.id === categoryId);
+    
+    // Select first subcategory if exists
+    if (category?.subcategories && category.subcategories.length > 0) {
+      const firstSub = Array.isArray(category.subcategories) 
+        ? category.subcategories[0].id || category.subcategories[0]
+        : null;
+      setSelectedSubcategory(firstSub);
+    } else {
+      setSelectedSubcategory(null);
+    }
+    
+    if (window.innerWidth < 768) {
+      setMobileView("subcategories");
     }
   };
 
+  // Handle subcategory selection
+  const handleSubcategorySelect = (subcategory) => {
+    setSelectedSubcategory(subcategory);
+    if (window.innerWidth < 768) {
+      setMobileView("brands");
+    }
+  };
+
+  // Handle brand selection
+  const handleBrandSelect = (brand) => {
+    const filters = {
+      category: selectedCategory
+    };
+    
+    if (selectedSubcategory) {
+      filters.subcategory = selectedSubcategory;
+    }
+    
+    if (brand !== 'All Brands' && brand !== `All ${selectedSubcategory}`) {
+      filters.brand = [brand];
+    }
+    
+    updateFilters(filters);
+    navigate('/marketplace');
+    setDropdownOpen(false);
+    resetSelections();
+  };
+
+  // Handle featured product click
   const handleFeaturedProductClick = (productId) => {
     navigate(`/product/${productId}`);
     setDropdownOpen(false);
-    resetMobileView();
+    resetSelections();
   };
 
-  const handleShopFeatured = () => {
-    const currentMain = megaMenuData[selectedMain];
-    const currentSubData = currentMain?.subcategories?.[selectedSub];
-    if (currentSubData) {
-      if (currentSubData.tag.includes('/')) {
-        const [categoryId, subcategoryId] = currentSubData.tag.split('/');
-        navigate(`/marketplace/${categoryId}/${subcategoryId}`);
-      } else {
-        navigate(`/marketplace/${currentSubData.tag}`);
-      }
-      setDropdownOpen(false);
-      resetMobileView();
+  // Handle "Shop All" click
+  const handleShopAll = () => {
+    const filters = { category: selectedCategory };
+    if (selectedSubcategory) {
+      filters.subcategory = selectedSubcategory;
     }
+    
+    updateFilters(filters);
+    navigate('/marketplace');
+    setDropdownOpen(false);
+    resetSelections();
+  };
+
+  // Reset all selections
+  const resetSelections = () => {
+    setSelectedCategory(null);
+    setSelectedSubcategory(null);
+    setMobileView("categories");
   };
 
   // Close dropdown when clicking outside
@@ -178,7 +135,7 @@ const CategoriesBar = () => {
           !buttonRef.current.contains(e.target)
         ) {
           setDropdownOpen(false);
-          resetMobileView();
+          resetSelections();
         }
       }
     };
@@ -187,58 +144,85 @@ const CategoriesBar = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, [dropdownOpen]);
 
-  // Initialize selected categories when mega menu opens
+  // Initialize first category when dropdown opens
   useEffect(() => {
-    if (dropdownOpen && Object.keys(megaMenuData).length > 0) {
-      const mainKeys = Object.keys(megaMenuData);
-      if (!selectedMain || !megaMenuData[selectedMain]) {
-        setSelectedMain(mainKeys[0]);
-        const subKeys = Object.keys(megaMenuData[mainKeys[0]]?.subcategories || {});
-        if (subKeys.length > 0) {
-          setSelectedSub(subKeys[0]);
-        }
-      }
+    if (dropdownOpen && categories.length > 0 && !selectedCategory) {
+      handleCategorySelect(categories[0].id);
     }
-  }, [dropdownOpen, megaMenuData]);
+  }, [dropdownOpen, categories]);
 
-  const currentMainData = megaMenuData[selectedMain];
-  const currentSubData = currentMainData?.subcategories?.[selectedSub];
+  // Get current category data
+  const currentCategory = categories.find(c => c.id === selectedCategory);
+  
+  // Get subcategories for current category
+  const getSubcategories = () => {
+    if (!currentCategory?.subcategories) return [];
+    
+    if (Array.isArray(currentCategory.subcategories)) {
+      // Handle both array of strings and array of objects
+      return currentCategory.subcategories.map(sub => 
+        typeof sub === 'string' ? { id: sub, name: sub } : sub
+      );
+    }
+    return [];
+  };
 
-  const mainCategories = Object.keys(megaMenuData);
+  // Get brands for current selection
+  const brands = getBrandsForCategory(selectedCategory, selectedSubcategory);
+  
+  // Get featured products for current selection
+  const featuredProducts = getFeaturedProducts(selectedCategory, selectedSubcategory);
 
+  // Loading state
+  if (!categories || categories.length === 0) {
+    return (
+      <div className="bg-gray-50 border-b border-gray-200 z-40">
+        <div className="container flex items-center gap-8 py-3 text-sm">
+          <div className="flex items-center gap-1 font-medium text-gray-700">
+            All Categories
+          </div>
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Mobile Header Component
   const MobileHeader = ({ title, onBack }) => (
-    <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-600 text-white z-10">
+    <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 p-1 hover:bg-blue-700 rounded"
+        className="flex items-center gap-2 p-1 hover:bg-gray-100 rounded transition-colors"
       >
         <ChevronLeft size={20} />
-        <span className="text-sm">Back</span>
+        <span className="text-sm text-gray-600">Back</span>
       </button>
-      <h3 className="font-semibold text-center flex-1">{title}</h3>
+      <h3 className="font-semibold text-gray-900 text-center flex-1">{title}</h3>
       <button
         onClick={() => {
           setDropdownOpen(false);
-          resetMobileView();
+          resetSelections();
         }}
-        className="p-1 hover:bg-blue-700 rounded"
+        className="p-1 hover:bg-gray-100 rounded transition-colors"
       >
-        <X size={20} />
+        <X size={20} className="text-gray-600" />
       </button>
     </div>
   );
 
-
   return (
-    <div className="bg-indigo-200 z-40">
+    <div className="bg-indigo-200 shadow-sm">
       <div className="container flex items-center gap-8 py-4 text-sm overflow-x-auto">
+        {/* All Categories Button */}
         <button
           ref={buttonRef}
           onClick={() => {
             setDropdownOpen(!dropdownOpen);
-            if (!dropdownOpen) resetMobileView();
+            if (!dropdownOpen) {
+              resetSelections();
+            }
           }}
-          className="flex items-center gap-1 font-medium whitespace-nowrap text-nowrap"
+          className="flex items-center gap-1 font-medium text-gray-900 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           All Categories
           <ChevronDown
@@ -247,12 +231,13 @@ const CategoriesBar = () => {
           />
         </button>
 
+        {/* Quick Links */}
         <button 
           onClick={() => {
             navigate('/marketplace');
-            updateFilters({}); // Clear filters for featured
+            updateFilters({});
           }}
-          className="whitespace-nowrap cursor-pointer"
+          className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           Featured selections
         </button>
@@ -261,7 +246,7 @@ const CategoriesBar = () => {
             navigate('/marketplace');
             updateFilters({ sort: 'popularity' });
           }}
-          className="whitespace-nowrap cursor-pointer"
+          className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           Best Sellers
         </button>
@@ -270,55 +255,51 @@ const CategoriesBar = () => {
             navigate('/marketplace');
             updateFilters({ sort: 'newest' });
           }}
-          className="whitespace-nowrap cursor-pointer"
+          className="text-gray-700 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           Newest Arrivals
         </button>
 
+        {/* Overlay */}
         {dropdownOpen && (
           <div
-            className="fixed top-0 inset-0 bg-black/60 -z-2"
+            className="fixed inset-0 bg-black/70 -z-1"
             onClick={() => {
               setDropdownOpen(false);
-              resetMobileView();
+              resetSelections();
             }}
           />
         )}
 
-        {/* Mega Menu Dropdown */}
+        {/* Mega Menu Dropdown - Desktop View */}
         {dropdownOpen && (
           <div
             ref={dropdownRef}
-            className="fixed md:absolute left-1/2 top-16 md:top-full mt-0 md:mt-2 w-full md:w-[95vw] container -translate-x-1/2 bg-white shadow-2xl rounded-b-lg md:rounded-sm! border-t md:border border-gray-200 z-40 overflow-hidden p-0"
+            className="fixed md:absolute left-1/2 -translate-x-1/2 top-16 md:top-full md:mt-2 w-full max-h-100 bg-white shadow-xl border-t md:border border-gray-200 z-50 md:rounded-lg overflow-hidden container p-0"
+            // style={{ maxWidth: '1200px' }}
           >
-            {/* DESKTOP VIEW */}
-            <div className="hidden md:flex flex-col md:flex-row max-h-[80vh] md:max-h-[70vh] overflow-hidden">
+            {/* DESKTOP VIEW - 4 Columns Layout */}
+            <div className="hidden md:flex w-full max-h-100">
               {/* COLUMN 1: Main Categories */}
-              <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-200 bg-gray-50 overflow-y-auto">
-                <div className="p-2">
-                  <h4 className="hidden md:block font-semibold text-gray-900 px-3 py-3">
+              <div className="w-64 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+                <div className="p-6">
+                  <h4 className="font-bold text-gray-900 mb-4 text-lg">
                     All Categories
                   </h4>
-                  <ul className="space-y-1">
-                    {mainCategories.map((category) => (
-                      <li key={category}>
+                  <ul className="space-y-2">
+                    {categories.map((category) => (
+                      <li key={category.id}>
                         <button
-                          onClick={() => {
-                            setSelectedMain(category);
-                            const subKeys = Object.keys(megaMenuData[category]?.subcategories || {});
-                            if (subKeys.length > 0) {
-                              setSelectedSub(subKeys[0]);
-                            }
-                          }}
-                          className={`w-full text-left px-3 py-3 rounded-lg flex items-center justify-between transition-all ${
-                            selectedMain === category
-                              ? "bg-white text-blue-600 font-medium shadow-sm border border-blue-100"
+                          onClick={() => handleCategorySelect(category.id)}
+                          className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between transition-all ${
+                            selectedCategory === category.id
+                              ? "bg-white text-blue-600 font-semibold border border-blue-100 shadow-sm"
                               : "hover:bg-white hover:shadow-sm text-gray-700"
                           }`}
                         >
-                          <span className="flex items-center gap-2">
-                            <span>{megaMenuData[category]?.icon}</span>
-                            <span>{category}</span>
+                          <span className="flex items-center gap-3">
+                            <span className="text-xl">{category.icon}</span>
+                            <span>{category.name}</span>
                           </span>
                           <ChevronRight size={16} className="text-gray-400" />
                         </button>
@@ -329,44 +310,64 @@ const CategoriesBar = () => {
               </div>
 
               {/* COLUMN 2: Subcategories */}
-              <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto">
-                <div className="p-4">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    {selectedMain}
+              <div className="w-64 border-r border-gray-200 overflow-y-auto">
+                <div className="p-6">
+                  <h4 className="font-bold text-gray-900 mb-4 text-lg">
+                    {currentCategory?.name || "Select Category"}
                   </h4>
-                  <ul className="space-y-1">
-                    {currentMainData?.subcategories &&
-                      Object.keys(currentMainData.subcategories).map((sub) => (
-                        <li key={sub}>
-                          <button
-                            onClick={() => setSelectedSub(sub)}
-                            className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-all ${
-                              selectedSub === sub
-                                ? "bg-blue-50 text-blue-600 font-medium"
-                                : "hover:bg-gray-50 text-gray-700"
-                            }`}
-                          >
-                            <span>{sub}</span>
-                            <ChevronRight size={16} className="text-gray-400" />
-                          </button>
-                        </li>
-                      ))}
-                  </ul>
+                  {getSubcategories().length > 0 ? (
+                    <>
+                      <ul className="space-y-2 mb-6">
+                        {getSubcategories().map((sub) => (
+                          <li key={sub.id}>
+                            <button
+                              onClick={() => handleSubcategorySelect(sub.id)}
+                              className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between transition-all capitalize ${
+                                selectedSubcategory === sub.id
+                                  ? "bg-blue-50 text-blue-600 font-medium border border-blue-100"
+                                  : "hover:bg-gray-50 text-gray-700"
+                              }`}
+                            >
+                              <span>{sub.name || sub.id}</span>
+                              <ChevronRight size={16} className="text-gray-400" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                      <button
+                        onClick={handleShopAll}
+                        className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                      >
+                        Shop All 
+                        {/* {currentCategory?.name} */}
+                      </button>
+                    </>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500 mb-4">No subcategories</p>
+                      <button
+                        onClick={handleShopAll}
+                        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                      >
+                        Browse {currentCategory?.name}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* COLUMN 3: Brands */}
-              <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto">
-                <div className="p-4">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    {selectedSub}
+              <div className="w-64 border-r border-gray-200 overflow-y-auto">
+                <div className="p-6">
+                  <h4 className="font-bold text-gray-900 mb-4 text-lg capitalize">
+                    {selectedSubcategory || currentCategory?.name || "Brands"}
                   </h4>
-                  <ul className="space-y-1">
-                    {currentSubData?.brands?.map((brand) => (
+                  <ul className="space-y-2">
+                    {brands.map((brand) => (
                       <li key={brand}>
                         <button
-                          onClick={() => handleBrandClick(brand)}
-                          className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+                          onClick={() => handleBrandSelect(brand)}
+                          className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors text-sm"
                         >
                           {brand}
                         </button>
@@ -378,30 +379,39 @@ const CategoriesBar = () => {
 
               {/* COLUMN 4: Featured Products */}
               <div className="flex-1 min-w-0 overflow-y-auto">
-                <div className="p-4 h-full">
-                  <h4 className="font-semibold text-gray-900 mb-4">
-                    FEATURED {selectedSub?.toUpperCase()}
-                  </h4>
-                  {currentSubData?.featured && currentSubData.featured.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {currentSubData.featured.map((item) => (
-                        <div key={item.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
-                          <div className="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h4 className="font-bold text-gray-900 text-lg">
+                      FEATURED {selectedSubcategory?.toUpperCase() || currentCategory?.name?.toUpperCase() || "PRODUCTS"}
+                    </h4>
+                    <button
+                      onClick={handleShopAll}
+                      className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                    >
+                      View All →
+                    </button>
+                  </div>
+                  
+                  {featuredProducts.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-4">
+                      {featuredProducts.map((product) => (
+                        <div key={product.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow bg-white">
+                          <div className="aspect-square bg-gray-100 rounded mb-3 overflow-hidden">
                             <img
-                              src={item.image}
-                              alt={item.title}
+                              src={product.image}
+                              alt={product.title}
                               className="w-full h-full object-cover"
                               onError={(e) => {
-                                e.target.src = "https://via.placeholder.com/300x200";
+                                e.target.src = "https://via.placeholder.com/400x400";
                               }}
                             />
                           </div>
-                          <h5 className="text-sm font-medium text-gray-900 line-clamp-2">
-                            {item.title}
+                          <h5 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2 min-h-10">
+                            {product.title}
                           </h5>
-                          <p className="text-blue-600 font-bold mt-2">{item.price}</p>
+                          <p className="text-blue-600 font-bold text-lg">{product.price}</p>
                           <button 
-                            onClick={() => handleFeaturedProductClick(item.id)}
+                            onClick={() => handleFeaturedProductClick(product.id)}
                             className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm transition-colors"
                           >
                             SHOP NOW →
@@ -413,10 +423,10 @@ const CategoriesBar = () => {
                     <div className="h-full flex flex-col items-center justify-center text-gray-400 p-8">
                       <p className="text-center mb-4">No featured products available</p>
                       <button
-                        onClick={handleShopFeatured}
+                        onClick={handleShopAll}
                         className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded text-sm transition-colors"
                       >
-                        Browse {selectedSub}
+                        Browse {selectedSubcategory || currentCategory?.name}
                       </button>
                     </div>
                   )}
@@ -425,30 +435,30 @@ const CategoriesBar = () => {
             </div>
 
             {/* MOBILE VIEW */}
-            <div className="md:hidden h-[70vh] overflow-hidden flex flex-col">
-              {/* Main Categories View */}
-              {mobileView === "main" && (
+            <div className="md:hidden h-[70vh] overflow-hidden flex flex-col bg-white">
+              {/* Categories View */}
+              {mobileView === "categories" && (
                 <>
                   <MobileHeader
                     title="All Categories"
                     onBack={() => {
                       setDropdownOpen(false);
-                      resetMobileView();
+                      resetSelections();
                     }}
                   />
                   <div className="flex-1 overflow-y-auto p-4">
                     <ul className="space-y-2">
-                      {mainCategories.map((category) => (
-                        <li key={category}>
+                      {categories.map((category) => (
+                        <li key={category.id}>
                           <button
-                            onClick={() => handleMainCategoryClick(category)}
+                            onClick={() => handleCategorySelect(category.id)}
                             className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
                           >
-                            <span className="font-medium flex items-center gap-2">
-                              <span>{megaMenuData[category]?.icon}</span>
-                              <span>{category}</span>
+                            <span className="font-medium flex items-center gap-3">
+                              <span className="text-xl">{category.icon}</span>
+                              <span>{category.name}</span>
                             </span>
-                            <ChevronRight size={18} className="text-gray-400" />
+                            <ChevronRight size={20} className="text-gray-400" />
                           </button>
                         </li>
                       ))}
@@ -458,27 +468,46 @@ const CategoriesBar = () => {
               )}
 
               {/* Subcategories View */}
-              {mobileView === "sub" && (
+              {mobileView === "subcategories" && (
                 <>
                   <MobileHeader
-                    title={selectedMain}
-                    onBack={() => setMobileView("main")}
+                    title={currentCategory?.name || "Back"}
+                    onBack={() => setMobileView("categories")}
                   />
                   <div className="flex-1 overflow-y-auto p-4">
-                    <ul className="space-y-2">
-                      {currentMainData?.subcategories &&
-                        Object.keys(currentMainData.subcategories).map((sub) => (
-                          <li key={sub}>
-                            <button
-                              onClick={() => handleSubcategoryClick(sub)}
-                              className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
-                            >
-                              <span className="font-medium">{sub}</span>
-                              <ChevronRight size={18} className="text-gray-400" />
-                            </button>
-                          </li>
-                        ))}
-                    </ul>
+                    {getSubcategories().length > 0 ? (
+                      <>
+                        <ul className="space-y-2">
+                          {getSubcategories().map((sub) => (
+                            <li key={sub.id}>
+                              <button
+                                onClick={() => handleSubcategorySelect(sub.id)}
+                                className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
+                              >
+                                <span className="font-medium">{sub.name || sub.id}</span>
+                                <ChevronRight size={20} className="text-gray-400" />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                        <button
+                          onClick={handleShopAll}
+                          className="w-full mt-6 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                        >
+                          Shop All {currentCategory?.name}
+                        </button>
+                      </>
+                    ) : (
+                      <div className="text-center py-12">
+                        <p className="text-gray-500 mb-4">No subcategories available</p>
+                        <button
+                          onClick={handleShopAll}
+                          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                        >
+                          Browse {currentCategory?.name}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
@@ -487,61 +516,23 @@ const CategoriesBar = () => {
               {mobileView === "brands" && (
                 <>
                   <MobileHeader
-                    title={selectedSub}
-                    onBack={() => setMobileView("sub")}
+                    title={selectedSubcategory || currentCategory?.name || "Brands"}
+                    onBack={() => setMobileView("subcategories")}
                   />
                   <div className="flex-1 overflow-y-auto p-4">
                     <ul className="space-y-2">
-                      {currentSubData?.brands?.map((brand) => (
+                      {brands.map((brand) => (
                         <li key={brand}>
                           <button
-                            onClick={() => handleBrandClick(brand)}
+                            onClick={() => handleBrandSelect(brand)}
                             className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
                           >
                             <span className="font-medium">{brand}</span>
-                            <ChevronRight size={18} className="text-gray-400" />
+                            <ChevronRight size={20} className="text-gray-400" />
                           </button>
                         </li>
                       ))}
                     </ul>
-                  </div>
-                </>
-              )}
-
-              {/* Featured Products View */}
-              {mobileView === "featured" && (
-                <>
-                  <MobileHeader
-                    title={`Featured ${selectedSub}`}
-                    onBack={() => setMobileView("brands")}
-                  />
-                  <div className="flex-1 overflow-y-auto p-4">
-                    <div className="space-y-4">
-                      {currentSubData?.featured?.map((item) => (
-                        <div key={item.id} className="border border-gray-200 rounded-lg p-4">
-                          <div className="aspect-video bg-gray-100 rounded mb-3 overflow-hidden">
-                            <img
-                              src={item.image}
-                              alt={item.title}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.target.src = "https://via.placeholder.com/300x200";
-                              }}
-                            />
-                          </div>
-                          <h5 className="text-sm font-medium text-gray-900 mb-2">
-                            {item.title}
-                          </h5>
-                          <p className="text-blue-600 font-bold mb-3">{item.price}</p>
-                          <button 
-                            onClick={() => handleFeaturedProductClick(item.id)}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded text-sm transition-colors"
-                          >
-                            SHOP NOW →
-                          </button>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </>
               )}

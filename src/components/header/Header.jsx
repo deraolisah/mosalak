@@ -80,15 +80,15 @@ const Header = () => {
             ) : (
               <div className="flex items-center gap-6">
                 <div className="space-x-4 flex">
-                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer relative"> 
+                  <Link to="/cart" className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer relative"> 
                     <span className="hidden md:inline-flex"> Cart </span>
                     <ShoppingCart size={22} strokeWidth={1.5} className="text-primary" />
                     <span className="absolute -right-1.5 -top-1 w-4 h-4 flex items-center justify-center rounded-full bg-white border border-[#1B6392]/70 text-[9px] text-[#1B6392]/70 font-medium"> 2 </span>
-                  </button>
-                  <button className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
+                  </Link>
+                  <Link to="/wishlist" className="text-sm text-dark/80 flex items-center gap-2 cursor-pointer"> 
                     <span className="hidden md:inline-flex"> Wishlist </span>
                     <Heart size={22} strokeWidth={1.5} className="text-primary text-xs" />
-                  </button>
+                  </Link>
                   <div ref={accountRef} className="text-sm text-dark/80 cursor-pointer relative"> 
                     <button onClick={() => { setAccountPopup(!accountPopup)}} className="flex items-center gap-0.5 cursor-pointer">
                       <span className="w-7 h-7 rounded-full bg-gray-300 text-primary md:hidden flex items-center justify-center">

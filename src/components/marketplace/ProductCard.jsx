@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { FaHeart, FaShoppingCart } from 'react-icons/fa';
+import car from "../../assets/car.png";
+import avatarImg from "../../assets/avatar.png";
+
 
 const ProductCard = ({ product, showBadge = true }) => {
   const navigate = useNavigate();
@@ -27,8 +29,10 @@ const ProductCard = ({ product, showBadge = true }) => {
       <div className="relative overflow-hidden bg-gray-100" onClick={handleProductClick}>
         <div className="aspect-square w-full">
           <img 
-            src={product.images?.[0] || "https://via.placeholder.com/400x400"} 
+            // src={product.images?.[0] || car} 
+            src={car} 
             alt={product.title}
+            loading='lazy'
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -45,55 +49,53 @@ const ProductCard = ({ product, showBadge = true }) => {
           {/* <FaHeart className="text-gray-600 hover:text-red-500" /> */}
         </button>
 
-        {/* Condition Tag */}
+
         <div className="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded text-xs">
           {product.condition}
         </div>
       </div>
 
-      {/* Product Info */}
+
       <div className="p-4">
         <h3 
           onClick={handleProductClick}
-          className="font-bold text-gray-900 text-lg line-clamp-2 mb-2 hover:text-blue-600 cursor-pointer"
+          className="text-sm line-clamp-1 mb-2 hover:text-blue-600 cursor-pointer"
         >
           {product.title}
-        </h3>
-        
-        <p className="text-gray-600 text-sm line-clamp-2 mb-3">
-          {product.description}
-        </p>
+        </h3>        
 
-        {/* Price */}
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-lg font-bold text-gray-900">
+        <div className="flex items-center gap-1.5 mb-3">
+          <span className="text-base font-bold text-primary">
             ₦{product.price.toLocaleString()}
           </span>
           {product.originalPrice && (
-            <span className="text-gray-500 line-through text-sm">
+            <span className="text-gray-500 line-through text-xs mt-1">
               ₦{product.originalPrice.toLocaleString()}
             </span>
           )}
         </div>
 
-        {/* Location */}
-        <div className="flex items-center text-gray-600 text-sm mb-4">
-          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {product.location}
+        <p className="text-gray-600 text-sm line-clamp-1 mb-3">
+          {product.description}
+        </p>
+
+        <div className="flex items-center justify-between text-sm mb-4">
+          <div className='flex items-center'>
+            <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span className='text-primary'>
+              {product.location}
+            </span>
+          </div>
+
+          <img src={avatarImg} alt='' className='w-6.5' />
         </div>
 
-        {/* Actions */}
-        <div className="flex gap-2">
-          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2">
-            Buy with Escrow
-          </button>
-          {/* <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-            <FaShoppingCart className="text-gray-600" />
-          </button> */}
-        </div>
+        <button className="w-full btn rounded-sm">
+          Buy with Escrow
+        </button>
       </div>
     </div>
   );
