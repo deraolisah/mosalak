@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import car from "../../assets/car.png";
 import avatarImg from "../../assets/avatar.png";
 
+// import diamondImg from "../../assets/badges/diamond.png";
+import platinumImg from "../../assets/badges/platinum.png";
+import goldImg from "../../assets/badges/gold.png";
+import silverImg from "../../assets/badges/silver.png";
+import bronzeImg from "../../assets/badges/bronze.png";
+// import basicImg from "../../assets/badges/basic.png";
+
 
 const ProductCard = ({ product, showBadge = true }) => {
   const navigate = useNavigate();
@@ -17,6 +24,18 @@ const ProductCard = ({ product, showBadge = true }) => {
       basic: 'from-green-400 to-green-600'
     };
     return colors[badge.toLowerCase()] || 'from-gray-400 to-gray-600';
+  };
+
+  const getBadgeImage = (badge) => {
+    const images = {
+      // diamond: diamondImg,
+      platinum: platinumImg,
+      gold: goldImg,
+      silver: silverImg,
+      bronze: bronzeImg,
+      // basic: basicImg,
+    };
+    return images[badge.toLowerCase()] || null; 
   };
 
   const handleProductClick = () => {
@@ -38,14 +57,29 @@ const ProductCard = ({ product, showBadge = true }) => {
         </div>
         
         {/* Badge */}
-        {showBadge && product.badge && (
-          <div className={`absolute top-3 left-3 bg-linear-to-r ${getBadgeColor(product.badge)} text-white px-3 py-1 rounded-full text-xs font-bold uppercase`}>
+        {/* {showBadge && product.badge && (
+          <div
+            className={`absolute top-3 left-3 bg-linear-to-r ${getBadgeColor(
+              product.badge
+            )} text-white px-3 py-1 rounded-full text-xs font-bold uppercase`}
+          >
             {product.badge}
+          </div>
+        )} */}
+
+        {/* Badge Image */}
+        {showBadge && product.badge && (
+          <div className="absolute top-0 right-0">
+            <img
+              src={getBadgeImage(product.badge)}
+              alt={`${product.badge} badge`}
+              className="w-fit h-10 md:h-8 shadow"
+            />
           </div>
         )}
 
         {/* Wishlist Button */}
-        <button className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition">
+        <button className="absolute top-3 left-3 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition" onClick={""}>
           {/* <FaHeart className="text-gray-600 hover:text-red-500" /> */}
         </button>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMarketplace } from '../../contexts/MarketplaceContext';
 
-const SidebarFilters = ({ filters, onFilterChange }) => {
+const SidebarFilters = ({ filters, onFilterChange, onClearAllFilters }) => {
   const { categories, filterOptions } = useMarketplace();
 
   const handleCheckboxChange = (type, value) => {
@@ -20,27 +20,11 @@ const SidebarFilters = ({ filters, onFilterChange }) => {
     onFilterChange({ priceRange: [min, max] });
   };
 
-  const resetFilters = () => {
-    onFilterChange({
-      category: null,
-      subcategory: null,
-      brand: [],
-      condition: [],
-      badges: [],
-      priceRange: [0, 100000000],
-      locations: [],
-      years: [],
-      verifiedSellersOnly: false,
-      searchQuery: ''
-    });
-  };
-
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm">
       <div className="mb-6">
-        {/* <h3 className="font-bold text-lg mb-4">Filters</h3> */}
         <button
-          onClick={resetFilters}
+          onClick={onClearAllFilters}
           className="btn btn-text text-primary p-0 hover:text-primary/80 cursor-pointer"
         >
           Clear all filters
@@ -51,16 +35,31 @@ const SidebarFilters = ({ filters, onFilterChange }) => {
       <div className="mb-6">
         <h4 className="font-semibold mb-3">Category</h4>
         <ul className='flex flex-col gap-2'>
-          {categories.map((category, index) => {
-            return (
-              <label key={index} className='flex space-x-2'>
-                <input type='checkbox' />
-                <span> {category.name} </span>
-              </label>            
-            )
-          })}
+          {/* "All Categories" option */}
+          <label className='flex space-x-2 cursor-pointer items-center'>
+            <input 
+              type='radio'
+              name="category"
+              className="cursor-pointer"
+              checked={!filters.category}
+              onChange={() => handleRadioChange('category', null)}
+            />
+            <span className="select-none">All Categories</span>
+          </label>
+          
+          {categories.map((category) => (
+            <label key={category.id} className='flex space-x-2 cursor-pointer items-center'>
+              <input 
+                type='radio'
+                name="category"
+                className="cursor-pointer"
+                checked={filters.category === category.id}
+                onChange={() => handleRadioChange('category', category.id)}
+              />
+              <span className="select-none">{category.name}</span>
+            </label>            
+          ))}
         </ul>
-        {/* Category selection will be handled by navigation */}
       </div>
 
       {/* Condition */}

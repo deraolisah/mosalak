@@ -1,56 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useMarketplace } from '../../contexts/MarketplaceContext';
 import SidebarFilters from '../../components/marketplace/SidebarFilters';
 import ProductGrid from '../../components/marketplace/ProductGrid';
 import SortDropdown from '../../components/marketplace/SortDropdown';
-
 import Breadcrumbs from "../../components/marketplace/Breadcrumbs";
 import SearchBar from '../../components/marketplace/SearchBar';
 import CategoriesBar from '../../components/marketplace/CategoriesBar';
 
 const MarketplacePage = () => {
-  const { category } = useParams();
+  const { category: categoryParam } = useParams();
+  const navigate = useNavigate();
   const { 
     filteredProducts, 
     filters, 
     sortBy, 
     pagination,
+    categories,
     updateFilters, 
     setSortBy, 
     changePage,
     getCategoryById,
     getFeaturedProducts,
-    getBestSellingProducts 
+    getBestSellingProducts,
+    resetFilters
   } = useMarketplace();
   
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const currentCategory = getCategoryById(category);
+  
+  // Get current category based on filters, not URL
+  const currentCategory = filters.category ? getCategoryById(filters.category) : null;
 
-  // Update category when URL changes
+  // Sync URL params with filters when page loads
   useEffect(() => {
-    if (category) {
-      updateFilters({ category });
+    if (categoryParam && categoryParam !== filters.category) {
+      // URL has category - update filters to match
+      updateFilters({ category: categoryParam });
     }
-  }, [category, updateFilters]);
+  }, [categoryParam]); // Only run when URL param changes
 
-  // Reset category when component unmounts (optional)
-  useEffect(() => {
-    return () => {
-      // Don't reset here - keep filters when navigating
-    };
-  }, []);
+  // Handle filter change from sidebar
+  const handleFilterChange = (newFilters) => {
+    // If category is being changed
+    if (newFilters.category !== undefined) {
+      if (newFilters.category === null) {
+        // "All Categories" selected - update filters without changing URL
+        updateFilters({ category: null });
+      } else {
+        // Specific category selected - update URL to match
+        navigate(`/marketplace/${newFilters.category}`);
+        updateFilters({ category: newFilters.category });
+      }
+    } else {
+      // Other filter changes
+      updateFilters(newFilters);
+    }
+  };
+
+  // Handle search
+  const handleSearch = (query) => {
+    updateFilters({ searchQuery: query });
+  };
+
+  // Handle clear all filters
+  const handleClearAllFilters = () => {
+    // Only reset filters, don't navigate
+    resetFilters();
+  };
 
   return (
     <section className="min-h-screen bg-gray-50">
       <div className='bg-[#eaeaea]'>
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
       </div>
       <div className="sticky top-16 md:top-20 z-40">
         <CategoriesBar />
       </div>
 
-      <Breadcrumbs category={category} />
+      {/* Pass currentCategory based on filters to Breadcrumbs */}
+      <Breadcrumbs 
+        category={currentCategory} 
+      />
 
       {/* Mobile Filter Toggle Button */}
       <div className="lg:hidden fixed bottom-6 right-6 z-40">
@@ -64,23 +94,6 @@ const MarketplacePage = () => {
         </button>
       </div>
 
-      {/* Page Header */}
-      {/* <div className="bg-white border-b">
-        <div className="container py-4">
-          <h1 className="text-2xl font-bold">
-            {currentCategory?.name || 'All Products'}
-            <span className="text-gray-500 font-normal text-lg ml-2">
-              ({pagination.total} products found)
-            </span>
-          </h1>
-          {currentCategory && (
-            <p className="text-gray-600 mt-1">
-              Browse our selection of {currentCategory.name.toLowerCase()}
-            </p>
-          )}
-        </div>
-      </div> */}
-
       {/* Main Content */}
       <div className="container">
         <div className="flex gap-6">
@@ -88,40 +101,38 @@ const MarketplacePage = () => {
           <div className="hidden lg:block w-1/5">
             <SidebarFilters 
               filters={filters} 
-              onFilterChange={updateFilters}
+              onFilterChange={handleFilterChange}
+              onClearAllFilters={handleClearAllFilters}
             />
           </div>
 
-                    
-
-          {/* Mobile Filter Button */}
-          {/* <div className="lg:hidden fixed bottom-6 right-6 z-40">
-            <button
-              onClick={() => setShowMobileFilters(true)}
-              className="bg-blue-600 text-white p-3 rounded-full shadow-lg"
-            >
-              Filters
-            </button>
-          </div> */}
-
-          {/* Main Content */}
+          {/* Products Content */}
           <div className="flex-1 bg-white p-4 rounded-2xl shadow-md">
             {/* Toolbar */}
             <div className="mb-6 flex justify-between items-center">
-              <h4 className="text-base font-medium">
-                {currentCategory?.name || 'All Products'}
-                <span className="text-gray-500 font-normal ml-1.5">
-                  ({pagination.total} products found)
-                </span>
-              </h4>
+              <div>
+                <h4 className="text-base font-medium">
+                  {/* Show "All Products" when no category filter is active */}
+                  {currentCategory ? currentCategory.name : 'All Products'}
+                  <span className="text-gray-500 font-normal ml-1.5">
+                    ({pagination.total} products found)
+                  </span>
+                </h4>
+                {/* {currentCategory ? (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Browse our selection of {currentCategory.name.toLowerCase()}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Browse products from all categories
+                  </p>
+                )} */}
+              </div>
 
               <SortDropdown sortBy={sortBy} onSortChange={setSortBy} />
-              {/* <div className="text-sm text-gray-600">
-                Showing {filteredProducts.length} of {pagination.total} products
-              </div> */}
             </div>
 
-            {/* Products */}
+            {/* Products Grid */}
             <ProductGrid products={filteredProducts} />
 
             {/* Pagination */}
@@ -145,8 +156,8 @@ const MarketplacePage = () => {
               </div>
             )}
 
-            {/* Featured Sections */}
-            {!category && (
+            {/* Featured Sections - Only show when viewing "All Products" */}
+            {!filters.category && pagination.total > 0 && (
               <>
                 <div className="mt-12">
                   <h2 className="text-2xl font-bold mb-6">Best Selling</h2>
@@ -185,40 +196,13 @@ const MarketplacePage = () => {
               </div>
               <SidebarFilters 
                 filters={filters} 
-                onFilterChange={updateFilters}
-                currentCategory={currentCategory}
+                onFilterChange={handleFilterChange}
+                onClearAllFilters={handleClearAllFilters}
               />
             </div>
           </div>
         </div>
       )}
-
-      {/* Mobile Filters Modal */}
-      {/* {showMobileFilters && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div 
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setShowMobileFilters(false)}
-          />
-          <div className="absolute inset-y-0 right-0 w-4/5 bg-white overflow-y-auto">
-            <div className="p-4">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Filters</h2>
-                <button 
-                  onClick={() => setShowMobileFilters(false)}
-                  className="text-gray-500"
-                >
-                  ✕
-                </button>
-              </div>
-              <SidebarFilters 
-                filters={filters} 
-                onFilterChange={updateFilters}
-              />
-            </div>
-          </div>
-        </div>
-      )} */}
     </section>
   );
 };

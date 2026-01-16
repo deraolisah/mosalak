@@ -48,7 +48,7 @@ export const MarketplaceProvider = ({ children }) => {
     if (filters.category) {
       filtered = filtered.filter(p => p.category === filters.category);
     }
-    
+
     // Subcategory filter
     if (filters.subcategory) {
       filtered = filtered.filter(p => p.subcategory === filters.subcategory);

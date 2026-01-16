@@ -251,7 +251,7 @@ export const marketplaceData = {
         rating: 4.8
       },
       images: ['https://via.placeholder.com/400x300'],
-      features: ['Panoramic Sunroof', 'Premium Audio', 'Backup Camera'],
+      features: ['Premium build quality with attention to detail', 'Latest technology and innovative features', 'Comprehensive warranty coverage', 'Fast and secure delivery', 'Panoramic Sunroof', 'Premium Audio', 'Backup Camera'],
       createdAt: '2024-01-15',
       views: 1250,
       favorites: 89

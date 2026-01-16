@@ -6,10 +6,10 @@ const SortDropdown = ({ sortBy, onSortChange }) => {
 
   const sortOptions = [
     { value: 'popularity', label: 'Popularity' },
-    { value: 'newest', label: 'Newest' },
+    { value: 'rating', label: 'Rating' },
     { value: 'price-low', label: 'Price: Low to High' },
     { value: 'price-high', label: 'Price: High to Low' },
-    { value: 'rating', label: 'Customer Rating' }
+    { value: 'newest', label: 'Newest Products' }
   ];
 
   const currentOption = sortOptions.find(opt => opt.value === sortBy) || sortOptions[0];

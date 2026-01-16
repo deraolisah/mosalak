@@ -15,7 +15,7 @@ const Home = () => {
       <Categories />
       <HowItWorks />
       <Why />
-      <JoinCommunity />../
+      <JoinCommunity />
       {/* <FlashSale /> */}
       {/* <TrendingSales/> */}
       {/* <Ready /> */}

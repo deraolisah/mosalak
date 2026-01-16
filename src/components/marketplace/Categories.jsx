@@ -1,37 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMarketplace } from '../../contexts/MarketplaceContext';
-
-// const categories = [
-//   { tag: "gadgets", name: "Phones & Tablets", color: "from-[#82F69B] to-[#396E45]" },
-//   { tag: "fashion", name: "Fashion", color: "from-[#24589B] to-[#0C1E35]" },
-//   { tag: "homes&living", name: "Homes & Living", color: "from-[#CC8CA6] to-[#6F4556]" },
-//   { tag: "electronics", name: "Electronics", color: "from-[#004B14] to-[#00B12F]" },
-//   { tag: "cars", name: "Services", color: "from-[#FE7309] to-[#C55500]" },
-//   { tag: "agriculture", name: "Agriculture", color: "from-[#ADBF81] to-[#51593C]" },
-// ];
 
 const Categories = () => {
   const navigate = useNavigate();
-  const { categories, updateFilters } = useMarketplace();
+  const { categories } = useMarketplace();
 
   const handleCategoryClick = (categoryId) => {
-    // Navigate to marketplace with category
+    // Navigate to the category URL
     navigate(`/marketplace/${categoryId}`);
-    window.scrollTo(0,0);
-    // Update filters to show only this category
-    updateFilters({ 
-      category: categoryId,
-      subcategory: null,
-      brand: [],
-      condition: [],
-      badges: [],
-      priceRange: [0, 100000000],
-      locations: [],
-      years: []
-    });
+    window.scrollTo(0, 0);
   };
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -104,8 +84,8 @@ const Categories = () => {
                 key={category.id}
                 onClick={() => handleCategoryClick(category.id)}
                 className="shrink-0 basis-1/2 md:basis-1/3 lg:basis-1/6 last-of-type:mr-3 md:last-of-type:mr-4" 
-                >
-                <div className=" bg-white border border-muted/20 rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-all duration-300 pt-3 transform hover:scale-105 shadow-sm">
+              >
+                <div className="bg-white border border-muted/20 rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-all duration-300 pt-3 transform hover:scale-105 shadow-sm">
                   <div className="w-full flex flex-col gap-3">
                     <span className="text-base font-semibold">
                       {category.name}
@@ -118,7 +98,7 @@ const Categories = () => {
           </div>
         </div>
 
-         {/* Dots */}
+        {/* Dots */}
         <div className="embla__dots">
           {categories.map((_, i) => (
             <button

@@ -107,7 +107,9 @@ const TrendingSales = () => {
                   basis-full 
                   sm:basis-1/2 
                   md:basis-1/3 
-                  lg:basis-1/4"
+                  lg:basis-1/4
+                  last-of-type:mr-3 md:last-of-type:mr-4
+                  "
               >
                 <div className="h-full">
                   <ProductCard 

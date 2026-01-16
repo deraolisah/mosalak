@@ -15,7 +15,7 @@
   }
 
   .btn{
-    @apply py-3 px-6 rounded-xl bg-primary text-white text-sm font-medium tracking-tight;
+    @apply py-3 px-6 rounded-xl bg-primary text-white text-sm font-medium tracking-tight flex items-center gap-2;
   }
   .btn-text{
     @apply bg-transparent text-dark;

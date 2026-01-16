@@ -30,16 +30,16 @@ const Footer = () => {
       { label: 'Seller Success Stories', url: '#' },
     ],
     'Support': [
-      { label: 'Help Center', url: '#' },
-      { label: 'Contact Us', url: '#' },
+      { label: 'Help Center', url: '/help-center' },
+      { label: 'Contact Us', url: '/contact' },
       { label: 'Dispute Resolution', url: '#' },
       { label: 'Returns & Refunds', url: '#' },
-      { label: 'Report a Problem', url: '#' },
-      { label: 'FAQs', url: '#' },
+      { label: 'Report a Problem', url: '/report' },
+      { label: 'FAQs', url: '/faqs' },
     ],
     'Connect': [
       
-      { label: 'Join our Community', url: '#' },
+      { label: 'Join our Community', url: '/community' },
       { label: 'Newsletter', url: '#' },
       { label: 'Facebook', url: '#' },
       { label: 'Twitter', url: '#' },
@@ -87,7 +87,7 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="border-t border-gray-800 pt-10">
+        <div className="border-t border-dark/20 pt-10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="">
               ©2025 MosalakHub. All rights reserved.
