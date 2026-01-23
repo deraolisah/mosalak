@@ -4,12 +4,13 @@ import CategoriesBar from '../../components/marketplace/CategoriesBar';
 import FlashSale from "../../components/marketplace/FlashSale";
 import Categories from '../../components/marketplace/Categories';
 import TodayDeals from '../../components/marketplace/TodayDeals';
-import TrendingSales from '../../components/marketplace/TrendingSales'; // Updated import
+import TrendingSales from '../../components/marketplace/TrendingSales';
 import HireTrusted from '../../components/marketplace/HireTrusted';
+import JoinCommunity from '../../components/home/JoinCommunity';
 
 const MarketPlace = () => {
   return (
-    <section className='bg-[#eaeaea]'>
+    <section className=''>
       <div className='bg-[#eaeaea]'>
         <SearchBar />
       </div>
@@ -27,6 +28,7 @@ const MarketPlace = () => {
         <TrendingSales /> 
         <HireTrusted />
       </div>
+        <JoinCommunity />
     </section>
   )
 }

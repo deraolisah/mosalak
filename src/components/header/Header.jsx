@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { Link, NavLink, useLocation, } from "react-router-dom";
 import Logo from "../../assets/mosalak-logo.png";
-import { RiCloseLargeLine } from "react-icons/ri";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { X, Menu } from 'lucide-react';
+// import { RxHamburgerMenu } from "react-icons/rx";
 import RolePopup from "./RolePopup";
 import SignupPopup from "./SignupPopup";
 import LoginPopup from "./LoginPopup";
@@ -107,7 +107,7 @@ const Header = () => {
             )}
             
             <button className="lg:hidden text-2xl cursor-pointer" onClick={() => setIsMenuOpen(prev => !prev)}>
-              {isMenuOpen ? <RiCloseLargeLine /> : <RxHamburgerMenu />}
+              {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
 

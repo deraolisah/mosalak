@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+// import { FiChevronDown } from 'react-icons/fi';
+import { ChevronDown } from 'lucide-react';
 
 const SortDropdown = ({ sortBy, onSortChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const SortDropdown = ({ sortBy, onSortChange }) => {
         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition"
       >
         <span className="text-gray-700">Sort by: <span className="font-medium">{currentOption.label}</span></span>
-        <FiChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (

@@ -275,13 +275,13 @@ const CategoriesBar = () => {
         {dropdownOpen && (
           <div
             ref={dropdownRef}
-            className="fixed md:absolute left-1/2 -translate-x-1/2 top-16 md:top-full md:mt-2 w-full max-h-100 bg-white shadow-xl border-t md:border border-gray-200 z-50 md:rounded-lg overflow-hidden container p-0"
+            className="fixed md:absolute left-1/2 -translate-x-1/2 top-16 md:top-full md:mt-2 w-full max-h-100 bg-transparent shadow-xl z-50 md:rounded-lg overflow-hidden px-0 md:px-10"
             // style={{ maxWidth: '1200px' }}
           >
             {/* DESKTOP VIEW - 4 Columns Layout */}
-            <div className="hidden md:flex w-full max-h-100">
+            <div className="container p-0! md:rounded-lg bg-white hidden md:flex w-full max-h-100 overflow-hidden">
               {/* COLUMN 1: Main Categories */}
-              <div className="w-64 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+              <div className="w-58 border-r border-gray-200 bg-gray-50 overflow-y-auto">
                 <div className="p-6">
                   <h4 className="font-bold text-gray-900 mb-4 text-lg">
                     All Categories
@@ -310,7 +310,7 @@ const CategoriesBar = () => {
               </div>
 
               {/* COLUMN 2: Subcategories */}
-              <div className="w-64 border-r border-gray-200 overflow-y-auto">
+              <div className="w-58 border-r border-gray-200 overflow-y-auto">
                 <div className="p-6">
                   <h4 className="font-bold text-gray-900 mb-4 text-lg">
                     {currentCategory?.name || "Select Category"}
@@ -357,7 +357,7 @@ const CategoriesBar = () => {
               </div>
 
               {/* COLUMN 3: Brands */}
-              <div className="w-64 border-r border-gray-200 overflow-y-auto">
+              <div className="w-52 border-r border-gray-200 overflow-y-auto">
                 <div className="p-6">
                   <h4 className="font-bold text-gray-900 mb-4 text-lg capitalize">
                     {selectedSubcategory || currentCategory?.name || "Brands"}
@@ -378,44 +378,46 @@ const CategoriesBar = () => {
               </div>
 
               {/* COLUMN 4: Featured Products */}
-              <div className="flex-1 min-w-0 overflow-y-auto">
+              <div className="w-80 min-w-0 overflow-y-auto">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
                     <h4 className="font-bold text-gray-900 text-lg">
                       FEATURED {selectedSubcategory?.toUpperCase() || currentCategory?.name?.toUpperCase() || "PRODUCTS"}
                     </h4>
-                    <button
+                    {/* <button
                       onClick={handleShopAll}
                       className="text-blue-600 hover:text-blue-800 font-medium text-sm"
                     >
                       View All →
-                    </button>
+                    </button> */}
                   </div>
                   
                   {featuredProducts.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-3">
                       {featuredProducts.map((product) => (
-                        <div key={product.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow bg-white">
-                          <div className="aspect-square bg-gray-100 rounded mb-3 overflow-hidden">
+                        <div key={product.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow bg-white flex items-start gap-1">
+                          <div className="w-20 h-20 aspect-square bg-gray-100 rounded overflow-hidden">
                             <img
                               src={product.image}
                               alt={product.title}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full aspect-square object-cover"
                               onError={(e) => {
                                 e.target.src = "https://via.placeholder.com/400x400";
                               }}
                             />
                           </div>
-                          <h5 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2 min-h-10">
-                            {product.title}
-                          </h5>
-                          <p className="text-blue-600 font-bold text-lg">{product.price}</p>
-                          <button 
-                            onClick={() => handleFeaturedProductClick(product.id)}
-                            className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm transition-colors"
-                          >
-                            SHOP NOW →
-                          </button>
+                          <div className="flex flex-col gap-1">
+                            <h5 className="text-sm font-medium text-gray-900 line-clamp-2">
+                              {product.title}
+                            </h5>
+                            <p className="text-blue-600 font-bold text-xs">{product.price}</p>
+                            {/* <button 
+                              onClick={() => handleFeaturedProductClick(product.id)}
+                              className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm transition-colors"
+                            >
+                              SHOP NOW →
+                            </button> */}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -432,6 +434,17 @@ const CategoriesBar = () => {
                   )}
                 </div>
               </div>
+
+
+
+              {/* Column 5 - Promoted */}
+              <div className="flex-1 bg-primary/60 flex flex-col p-6 justify-center">
+                  21% Discount
+Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.
+Starting price:
+N99 NGN
+
+              </div>
             </div>
 
             {/* MOBILE VIEW */}
@@ -446,7 +459,7 @@ const CategoriesBar = () => {
                       resetSelections();
                     }}
                   />
-                  <div className="flex-1 overflow-y-auto p-4">
+                  <div className="flex-1 overflow-y-auto p-4 pb-8">
                     <ul className="space-y-2">
                       {categories.map((category) => (
                         <li key={category.id}>

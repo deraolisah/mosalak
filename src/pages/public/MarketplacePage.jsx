@@ -155,23 +155,23 @@ const MarketplacePage = () => {
                 </div>
               </div>
             )}
-
-            {/* Featured Sections - Only show when viewing "All Products" */}
-            {!filters.category && pagination.total > 0 && (
-              <>
-                <div className="mt-12">
-                  <h2 className="text-2xl font-bold mb-6">Best Selling</h2>
-                  <ProductGrid products={getBestSellingProducts(4)} />
-                </div>
-                
-                <div className="mt-12">
-                  <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
-                  <ProductGrid products={getFeaturedProducts(4)} />
-                </div>
-              </>
-            )}
           </div>
         </div>
+
+        {/* Featured Sections - Only show when viewing "All Products" */}
+        {!filters.category && pagination.total > 0 && (
+          <>
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6">Best Selling</h2>
+              <ProductGrid products={getBestSellingProducts(4)} />
+            </div>
+            
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
+              <ProductGrid products={getFeaturedProducts(4)} />
+            </div>
+          </>
+        )}
       </div>
 
       {/* Mobile Filters Overlay */}

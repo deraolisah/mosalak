@@ -1,8 +1,9 @@
 // src/components/FlashSaleBannerEmbla.jsx - Using Embla Carousel
 import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { CheckBadgeIcon, ChevronLeftIcon, ChevronRightIcon, ShieldCheckIcon, StarIcon, FireIcon } from '@heroicons/react/24/solid';
-import { ClockIcon, TruckIcon, TagIcon } from '@heroicons/react/24/outline';
+// import { CheckBadgeIcon, ChevronLeftIcon, ChevronRightIcon, ShieldCheckIcon, StarIcon, FireIcon } from '@heroicons/react/24/solid';
+// import { ClockIcon, TruckIcon, TagIcon } from '@heroicons/react/24/outline';
+import { BadgeCheck, ChevronLeftIcon, ChevronRightIcon, ShieldCheck } from 'lucide-react';
 import Autoplay from 'embla-carousel-autoplay';
 import watch from "../../assets/watch.png";
 import "../home/custom.css";
@@ -143,11 +144,11 @@ const FlashSale = () => {
 
           <div className="absolute bottom-2 w-full flex items-center justify-between md:justify-center space-x-2 z-2 px-4">
             <div className="flex items-center gap-1.5 px-3 py-2">
-              <ShieldCheckIcon className="w-5 h-5 text-white" />
+              <ShieldCheck className="w-5 h-5 text-white" />
               <span className="md:font-medium text-xs md:text-sm text-white text-nowrap"> Escrow Protected </span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-2">
-              <CheckBadgeIcon className="w-5 h-5 text-white" />
+              <BadgeCheck className="w-5 h-5 text-white" />
               <span className="md:font-medium text-xs md:text-sm text-white text-nowrap"> Verified Seller </span>
             </div>
           </div>

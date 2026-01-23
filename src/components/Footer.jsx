@@ -1,10 +1,10 @@
-// import logo from "../assets/mosalak-logo.png";
+import logo from "../assets/mosalak-logo.png";
 
 const Footer = () => {
   const footerLinks = {
-    'MosalakHub': [
-      { label: 'One Hub Ecosystem', url: '#' },
-    ],
+    // 'MosalakHub': [
+    //   { label: 'One Hub Ecosystem', url: '#' },
+    // ],
     'About Mosalak': [
       { label: 'About Us', url: '#' },
       { label: 'How it Works', url: '#' },
@@ -68,6 +68,12 @@ const Footer = () => {
     <footer className="py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+          <div>
+            <img src={logo} alt="MosalakHub Logo" className="w-32 mb-6" />
+            <p className="text-sm">
+              One Hub Ecosystem
+            </p>
+          </div>
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="text-lg font-bold mb-4 ">{category}</h4>

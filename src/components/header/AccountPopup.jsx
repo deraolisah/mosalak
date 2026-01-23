@@ -1,5 +1,6 @@
 import React from 'react';
 import { Handbag, Store, ShieldUser } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AccountPopup = ({ isAuthenticated }) => {
   return (
@@ -20,7 +21,7 @@ const AccountPopup = ({ isAuthenticated }) => {
           </span>
 
           <hr className='border-px border-dark/40'/>
-          <span className='flex'> Account Setting </span>
+          <Link to="/account" className='flex'> Account Setting </Link>
           <span className='flex text-red-500'> Logout </span>  
         </div>    
       ) : (

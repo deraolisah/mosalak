@@ -18,9 +18,16 @@ import Contact from '../pages/public/Contact.jsx';
 
 // User Routes
 import UserDashboardLayout from "../layouts/UserDashboardLayout";
+import DashboardPage from '../pages/user/DashboardPage.jsx';
 import Cart from '../pages/user/Cart';
 import Wishlist from "../pages/user/Wishlist";
 import Checkout from '../pages/user/Checkout.jsx';
+import Orders from '../pages/user/Orders';
+import Messages from '../pages/user/Messages.jsx';
+import Wallet from '../pages/user/Wallet.jsx';
+import Disputes from '../pages/user/Disputes.jsx';
+import Notifications from '../pages/user/Notifications.jsx';
+import Profile from '../pages/user/Profile.jsx';
 
 
 import NotFound from '../pages/NotFound.jsx';
@@ -28,7 +35,7 @@ import NotFound from '../pages/NotFound.jsx';
 
 const AppRoutes = () => {
   return (
-    <Routes>
+    <Routes className="font-body">
       <Route path='/' element={<PublicLayout />}>
         <Route index element={<Home />} />
         <Route path="/marketplace" element={<MarketPlace />} />
@@ -53,8 +60,16 @@ const AppRoutes = () => {
         <Route path='*' element={<NotFound />} />
       </Route>
 
+      {/* Dashboard Routes */}
       <Route path="/account" element={<UserDashboardLayout />}>
-
+        <Route index element={<DashboardPage />} />
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="wallet" element={<Wallet />} />
+        <Route path="disputes" element={<Disputes />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
 
 

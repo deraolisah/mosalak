@@ -4,8 +4,8 @@ import joinBg from "../../assets/join-bg.png";
 
 const JoinCommunity = () => {
   return (
-    <section className='py-8 md:py-12 px-4'>
-      <div className='relative! overflow-hidden container flex flex-col md:flex-row gap-4 text-start items-center justify-betweeen text-white  rounded-3xl pt-8 p-4 md:p-12'>
+    <section className='py-8 md:py-12 px-4 md:px-10'>
+      <div className='relative! overflow-hidden container flex flex-col md:flex-row gap-4 text-start items-center justify-betweeen text-white rounded-xl  md:rounded-3xl pt-8 p-4 md:p-12'>
         <div className='absolute z-0 inset-0 bg-cover bg-center opacity-10'
           style={{
             background: `url(${joinBg})`,

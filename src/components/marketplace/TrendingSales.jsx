@@ -68,7 +68,7 @@ const TrendingSales = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <span className="w-1 h-8 bg-primary rounded-full"></span>
-            <h2 className="section-title mb-0">Trending Sales</h2>
+            <h2 className="section-title mb-0"> Trending Near You </h2>
           </div>
 
           <div className="flex items-center gap-2">

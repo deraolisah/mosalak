@@ -97,23 +97,14 @@ const ProductDetailPage = () => {
           <span className="text-gray-900">{product.title.substring(0, 30)}...</span>
         </div>
 
-        <div className="shadow-lg overflow-hidden">
+        <div className="overflow-hidden">
           <div className="flex items-start flex-wrap lg:flex-nowrap gap-8 p-0">
             {/* Product Images */}
-            <div>
-              <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4 cursor-pointer"
-                onClick={() => setIsLightboxOpen(true)}
-              >
-                <img
-                  src={car || product.images?.[selectedImage] || "https://via.placeholder.com/600x600"}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className='w-full h-94 flex justify-start gap-2'>
 
               {/* Thumbnails */}
               {product.images?.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-2">
+                <div className="w-26 flex flex-col gap-2 overflow-x-auto">
                   {product.images.map((img, index) => (
                     <button
                       key={index}
@@ -132,19 +123,27 @@ const ProductDetailPage = () => {
                 </div>
               )}
 
+              {/* Main Image */}
+              <div className="flex flex-col items-center justify-start w-full h-full bg-gray-200 rounded-lg overflow-hidden cursor-pointer"
+                onClick={() => setIsLightboxOpen(true)}
+              >
+                <img
+                  src={product.images?.[selectedImage] || "https://via.placeholder.com/600x600" || car}
+                  alt={product.title}
+                  className="w-full h-fit object-cover object-center text-xs"
+                />
+              </div>
+
               {/* Lightbox Modal */}
               {isLightboxOpen && (
-                <div
-                  className="fixed inset-0 bg-black/80 backdrop-blur-xs bg-opacity-80 flex items-center justify-center z-100 p-2"
-                  onClick={() => setIsLightboxOpen(false)}
-                >
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs bg-opacity-80 flex items-center justify-center z-100 p-6 md:p-10">
                   <img
-                    src={car || product.images?.[selectedImage]}
+                    src={product.images?.[selectedImage] || car}
                     alt={product.title}
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full h-full max-h-100 object-contain rounded-2xl"
                   />
                   <button
-                    className="absolute top-4 right-4 text-white text-2xl cursor-pointer"
+                    className="absolute top-4 right-4 text-dark text-xl font-bold cursor-pointer bg-white rounded-full w-10 h-10 flex items-center justify-center"
                     onClick={() => { setIsLightboxOpen(false); scrollTo(0,0); }}
                   >
                     ✕
@@ -154,7 +153,7 @@ const ProductDetailPage = () => {
             </div>
 
             {/* Product Info */}
-            <div>
+            <div className='w-full'>
               <h1 className="text-2xl font-medium text-gray-900 mb-3">{product.title}</h1>
               <p className='text-sm mb-4'> {product?.description || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus tempore porro incidunt, eius similique rerum ducimus eos error veritatis ipsum." } </p>
               
@@ -188,14 +187,14 @@ const ProductDetailPage = () => {
 
               {/* Action Buttons */}
               <div className="flex items-center justify-between gap-4 mb-6">
-                <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-2'>
                   {/* Buy with Escrow Button */}
                   <button
                     onClick={handleEscrowPurchase}
                     className="btn"
                   >
                     <Shield size={18} />
-                    Buy with Escrow
+                    Buy
                   </button>
                   <button
                     onClick={handleAddToCart}
@@ -205,12 +204,12 @@ const ProductDetailPage = () => {
                   </button>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2.5'>
                   <button onClick={handleWishlistToggle}>
-                    <Heart fill={isInWishlist ? "currentColor" : "none"} />
+                    <Heart size={20} fill={isInWishlist ? "currentColor" : "none"} />
                   </button>
                   <button onClick={shareProduct}>
-                    <Share2 />
+                    <Share2 size={20} />
                   </button>
                 </div>
               </div>

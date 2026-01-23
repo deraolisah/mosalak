@@ -40,16 +40,17 @@ const ProductCard = ({ product, showBadge = true }) => {
 
   const handleProductClick = () => {
     navigate(`/product/${product.id}`);
+    scrollTo(0,0);
   };
 
   return (
     <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group cursor-pointer">
       {/* Product Image */}
-      <div className="relative overflow-hidden bg-gray-100" onClick={handleProductClick}>
+      <div className="relative overflow-hidden bg-gray-100">
         <div className="aspect-square w-full">
           <img 
-            // src={product.images?.[0] || car} 
-            src={car} 
+            src={product.images[0] || car} 
+            // src={car} 
             alt={product.title}
             loading='lazy'
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
@@ -73,7 +74,7 @@ const ProductCard = ({ product, showBadge = true }) => {
             <img
               src={getBadgeImage(product.badge)}
               alt={`${product.badge} badge`}
-              className="w-fit h-10 md:h-8 shadow"
+              className="w-fit h-10 md:h-12"
             />
           </div>
         )}
@@ -98,7 +99,7 @@ const ProductCard = ({ product, showBadge = true }) => {
           {product.title}
         </h3>        
 
-        <div className="flex items-center gap-1.5 mb-3">
+        <div className="flex items-center gap-1.5 mb-3" onClick={handleProductClick}>
           <span className="text-base font-bold text-primary">
             ₦{product.price.toLocaleString()}
           </span>
@@ -109,11 +110,11 @@ const ProductCard = ({ product, showBadge = true }) => {
           )}
         </div>
 
-        <p className="text-gray-600 text-sm line-clamp-1 mb-3">
+        <p className="text-gray-600 text-sm line-clamp-1 mb-3" onClick={handleProductClick}>
           {product.description}
         </p>
 
-        <div className="flex items-center justify-between text-sm mb-4">
+        <div className="flex items-center justify-between text-sm mb-4" onClick={handleProductClick}>
           <div className='flex items-center'>
             <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

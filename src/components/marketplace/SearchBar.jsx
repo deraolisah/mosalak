@@ -23,7 +23,7 @@ const SearchBar = ({ onSearch }) => {
   return (
     <div className="container flex items-center justify-between py-4">
       {/* Search */}
-      <form onSubmit={handleSubmit} className="relative flex w-full max-w-2xl items-center overflow-hidden rounded-lg border border-gray-300">
+      <form onSubmit={handleSubmit} className="relative flex w-full max-w-2xl items-center overflow-hidden rounded-lg ">
         {/* <input
           type="search"
           placeholder="Search products & services"
@@ -40,17 +40,17 @@ const SearchBar = ({ onSearch }) => {
             }
           }}
           placeholder="Search for products..."
-          className="w-full p-3 pl-10 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          className="w-full py-3 pl-4 pr-10 rounded-lg rounded-r-none border border-r-0 border-gray-300 focus:outline-none focus:border-blue-500"
         />
 
-        <svg 
+        {/* <svg 
           className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+        </svg> */}
         {query && (
           <button 
             type="button"

@@ -2,188 +2,293 @@ import featuresBg from "../../assets/features-bg.png";
 import HowItWorks1 from "../../assets/how-it-works-1.png";
 import HowItWorks2 from "../../assets/how-it-works-2.png";
 import HowItWorks3 from "../../assets/how-it-works-3.png";
-import img01 from "../../assets/01.svg";
-import img02 from "../../assets/02.svg";
-import img03 from "../../assets/03.svg";
-import img04 from "../../assets/04.svg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const HowItWorks = () => {
-  const [mode, setMode] = useState("hiring");
+  const [mode, setMode] = useState("marketplace");
   const HOW_IT_WORKS_DATA = {
-    hiring: [
+    marketplace:[
       {
         id: 1,
-        title: "Posting jobs is always free",
+        title: "List & Discover Products",
         image: HowItWorks1,
-        description: "Post your job and receive proposals from talented freelancers.",
-        cta: "Create a job"
+        description: "Buy and sell locally with confidence. Browse verified listings or post your own products for free. No listing fees. No hidden charges. Anyone can post and sell.",
+        cta: "Start exploring",
+        url: "/marketplace"
       },
       {
         id: 2,
-        title: "Get proposals and hire",
+        title: "Pay Safely with Escrow",
         image: HowItWorks2,
-        description: "Compare bids, reviews, and portfolios before hiring.",
-        cta: "Explore experts"
+        description: "Your money is protected. Funds are held securely until you confirm delivery. Sellers get paid only when buyers are satisfied.",
+        cta: "Explore",
+        url: "/marketplace"
       },
       {
         id: 3,
-        title: "Pay securely when work is done",
+        title: "Receive, Inspect, Confirm",
         image: HowItWorks3,
-        description: "Release payments only when you're satisfied.",
-        cta: "View pricing"
+        description: "Confirm before funds are released. Inspect items on delivery. If there’s an issue, open a dispute. If all is good, confirm and escrow releases payment.",
+        cta: "Get started",
+        url: "/marketplace"
       }
     ],
-
-    findingWork: [
+    freelancers: [
       {
         id: 1,
-        title: "Create your profile",
+        title: "Create Your Profile",
         image: HowItWorks1,
-        description: "Showcase your skills and experience."
+        description: "Set up once. Start earning. Create a freelancer profile, list your skills, set your prices, and show your previous work. No signup fees. No monthly charges.",
+        cta: "Build profile",
+        url: "/freelancers"
       },
       {
         id: 2,
-        title: "Bid on projects",
-        image: HowItWorks1,
-        description: "Send proposals to clients that fit your skills."
+        title: "Get Hired & Start Work",
+        image: HowItWorks2,
+        description: "Clients come to you. Clients browse freelancers or post jobs. You receive job requests, agree on scope, timeline, and price before work begins.",
+        cta: "Explore projects",
+        url: "/freelancers"
       },
       {
         id: 3,
-        title: "Get paid securely",
-        image: HowItWorks1,
-        description: "Payments are protected and released on completion."
+        title: "Get Paid Securely",
+        image: HowItWorks3,
+        description: "Payment released only when work is approved. Client funds are held securely. Once the job is completed and approved, payment is released to you. If there’s an issue, Mosalak steps in to resolve it fairly.",
+        cta: "Set up payments",
+        url: "/freelancers"
       }
-    ]
+    ],
+    community: [
+      {
+        id: 1,
+        title: "Join the Live Community",
+        image: HowItWorks1,
+        description: "Connect with real users. Engage in a shared space where buyers, sellers, and freelancers interact openly within Mosalak.",
+        cta: "Sign up",
+        url: "/community"
+
+      },
+      {
+        id: 2,
+        title: "Stay Active & Visible",
+        image: HowItWorks2,
+        description: "Activity builds trust. Your participation increases your visibility and credibility across the platform.",
+        cta: "Explore forums",
+        url: "/community"
+      },
+      {
+        id: 3,
+        title: "Clean, Moderated Conversations",
+        image: HowItWorks3,
+        description: "Spam-free by design. Messages auto-expire. Spam is filtered. The focus stays on meaningful engagement, not noise.", 
+        cta: "Join groups",
+        url: "/community"
+      }
+    ],
+    earningPoints: [
+      {
+        id: 1,
+        title: "Earn Points by Being Active",
+        image: HowItWorks1,
+        description: "Every action counts. Earn points for engagement, referrals, transactions, and participation across the platform.",
+        cta: "View tasks",
+        url: "/"
+      },
+      {
+        id: 2,
+        title: "Climb the Leaderboard",
+        image: HowItWorks2,
+        description: "Consistency wins. Top active users rise on the leaderboard and unlock special recognition and rewards.",
+        cta: "Check points",
+        url: "/"
+      },
+      {
+        id: 3,  
+        title: "Get Rewarded Monthly",
+        image: HowItWorks3,
+        description: "Points turn into real rewards. Top performers earn cash rewards, badges, and platform benefits at the end of each cycle.",
+        cta: "Redeem now",
+        url: "/"
+      }
+    ],
+    services: [
+      {
+        id: 1,
+        title: "Create a Service",
+        image: HowItWorks1,
+        description: "Turn your skill into an offer. List what you do, your price, delivery time, and what the client should expect.",
+        cta: "Start browsing",
+        url: "/services"
+      },
+      {
+        id: 2,
+        title: "Get Orders",
+        image: HowItWorks2,
+        description: "Clients book you directly. Clients browse services and place orders without negotiations or stress.",
+        cta: "View services",
+        url: "/services"
+      },
+      {
+        id: 3,
+        title: "Deliver & Get Paid",
+        image: HowItWorks3,
+        description: "Secure payment, fair release. Funds are held safely. Once the client approves your work, payment is released to you.",
+        cta: "Get started",
+        url: "/services"
+      }
+    ],
+    postings: [
+      {
+        id: 1,
+        title: "Post What You Need",
+        image: HowItWorks1,
+        description: "Describe the job clearly. Post your task, budget, timeline, and expectations in a few steps.",
+        cta: "Create posting",
+        url: "/postings"
+      },
+      {
+        id: 2,
+        title: "Receive Offers",
+        image: HowItWorks2,
+        description: "Service providers reach out. Qualified providers respond with their proposals for your job.",
+        cta: "View responses",
+        url: "/postings"
+      },
+      {
+        id: 3,
+        title: "Choose & Pay Safely",
+        image: HowItWorks3,
+        description: "Hire with confidence. Select who you want to work with. Payment is secured and only released when the job is done.",
+        cta: "Finalize now",
+        url: "/postings"
+      }
+    ],
+    // hiring: [
+    //   {
+    //     id: 1,
+    //     title: "Posting jobs is always free",
+    //     image: HowItWorks1,
+    //     description: "Post your job and receive proposals from talented freelancers.",
+    //     cta: "Create a job"
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Get proposals and hire",
+    //     image: HowItWorks2,
+    //     description: "Compare bids, reviews, and portfolios before hiring.",
+    //     cta: "Explore experts"
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Pay securely when work is done",
+    //     image: HowItWorks3,
+    //     description: "Release payments only when you're satisfied.",
+    //     cta: "View pricing"
+    //   }
+    // ],
+
+    // findingWork: [
+    //   {
+    //     id: 1,
+    //     title: "Create your profile",
+    //     image: HowItWorks1,
+    //     description: "Showcase your skills and experience.",
+    //     cta: "Build profile"
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Bid on projects",
+    //     image: HowItWorks1,
+    //     description: "Send proposals to clients that fit your skills.",
+    //     cta: "Find projects"
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Get paid securely",
+    //     image: HowItWorks1,
+    //     description: "Payments are protected and released on completion.",
+    //     cta: "Set up payments"
+    //   }
+    // ]
   };
 
   const cards = HOW_IT_WORKS_DATA[mode];
 
   return (
-    <>
-      <section className="py-8 md:py-12 bg-white">
-        <div className="container">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="section-title mb-0">How it works</h2>
+    <section className="py-8 md:py-12 bg-white">
+      <div className="container">
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="section-title mb-0">How it works</h2>
 
-            <div className="flex items-center space-x-2 text-muted text-sm">
-              <select
-                value={mode}
-                onChange={(e) => setMode(e.target.value)}
-                className="font-medium text-dark focus:outline-none bg-transparent border border-dark rounded-full px-2 py-1"
-              >
-                <option value="hiring">For hiring</option>
-                <option value="findingWork">For finding work</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Cards Container */}
-          <div className="relative">
-            {/* Horizontal scroll on mobile, grid on md+ */}
-            <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-6 md:pb-0 md:overflow-x-visible">
-              {cards.map((item) => (
-                <div
-                  key={item.id}
-                  className="min-w-full sm:min-w-[calc(80vw-2.5rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
-                  // style={{
-                  //   backgroundImage: `url(${HowItWorks1})`,
-                  // }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-80 object-cover"
-                  />
-
-                  <div className="absolute inset-0 bg-linear-to-t from-black to-black/40 flex flex-col justify-end p-6">
-                    <h3 className="text-white text-lg font-semibold">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-white/80 text-sm mt-1">
-                      {item.description}
-                    </p>
-
-                    {item.cta && (
-                      <button className="mt-4 btn w-full mx-auto transition-all duration-500 absolute translate-y-20 group-hover:relative group-hover:translate-y-0">
-                        {item.cta}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Scroll indicator for mobile only */}
-            {/* <div className="flex md:hidden justify-center mt-4 space-x-2">
-              {cards.map((item) => (
-                <div 
-                  key={item.id} 
-                  className="w-2 h-2 rounded-full bg-gray-300"
-                ></div>
-              ))}
-            </div> */}
+          <div className="flex items-center space-x-2 text-muted text-sm">
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              className="font-medium text-dark focus:outline-none bg-transparent border border-muted/50 rounded-full px-2 py-1"
+            >
+              <option value="marketplace"> For Marketplace </option>
+              <option value="freelancers"> For Freelancers </option>
+              <option value="community"> For Community </option>
+              <option value="earningPoints"> For Earning Points </option>
+              <option value="services"> For Services </option>
+              <option value="postings"> For Postings </option>
+              {/* <option value="hiring"> For Hiring </option> */}
+              {/* <option value="findingWork"> For finding work</option> */}
+            </select>
           </div>
         </div>
-      </section>
 
-      {/* Make it Real */}
-      <section className="py-12.5 bg-cover bg-bottom" style={{
-        backgroundImage: `url(${featuresBg})`,
-      }}>
-        <div className="container">
-          <h3 className="text-2xl font-bold mb-3 text-center">Make it Real with freelancers</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                number: '01',
-                icon: img01,
-                title: 'Hire the best talent',
-                description: "Discover reliable professionals by exploring their portfolios and immersing yourself in the feedback shared on their profiles.",
-                color: 'blue'
-              },
-              {
-                number: '02',
-                icon: img02,
-                title: 'Quality work',
-                description: "With Freelancer's talent pool of over million professionals at your fingertips, you'll find quality talent to get what you need done within your budget",
-                color: 'green'
-              },
-              {
-                number: '03',
-                icon: img03,
-                title: 'Fast bids',
-                description: 'Get quick, no-obligation quotes from skilled freelancers. 80% of jobs receive bids within 60 seconds. Your idea is just moments from reality.',
-                color: 'purple'
-              },
-              {
-                number: '04',
-                icon: img04,
-                title: 'Be in control',
-                description: 'Stay in the loop while on the move. Chat with your freelancers and get real time updates with our mobile app. Anytime, anywhere.',
-                color: 'purple'
-              },
-            ].map((feature, index) => (
-              <div key={index} className="group relative border border-muted/20 rounded-2xl mt-4 bg-[#F9F9F9]">
-                <div className="absolute z-2 -top-4 left-1/2 -translate-x-1/2 text-sm font-semibold text-muted bg-white w-8.5 h-8.5 rounded-full border border-muted/20 group-hover:text-gray-800 transition flex items-center justify-center">
-                  {feature.number}
-                </div>
-                <div className="text-center py-8 p-4">
-                  <div className='inline-flex p-0 rounded-xl'>
-                    <img src={feature.icon} className={`w-20 h-20 text-${feature.color}-600`} />
-                  </div>
-                  <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+        {/* Cards Container */}
+        <div className="relative">
+          {/* Horizontal scroll on mobile, grid on md+ */}
+          <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-6 md:pb-0 md:overflow-x-visible">
+            {cards.map((item) => (
+              <div
+                key={item.id}
+                className="min-w-full sm:min-w-[calc(80vw-2.5rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
+                // style={{
+                //   backgroundImage: `url(${HowItWorks1})`,
+                // }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-80 object-cover"
+                />
+
+                <div className="absolute inset-0 bg-linear-to-t from-black to-black/40 flex flex-col justify-end p-6">
+                  <h3 className="text-white text-lg font-semibold">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-white/80 text-sm mt-1">
+                    {item.description}
+                  </p>
+
+                  {item.cta && (
+                    <Link to={item?.url || "/"} className="mt-4 btn w-full mx-auto transition-all duration-500 md:absolute md:translate-y-20 group-hover:relative translate-y-0 md:group-hover:translate-y-0">
+                      {item.cta}
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}
           </div>
-
-          <button className="btn flex mt-6 mx-auto"> Join now </button>
+          
+          {/* Scroll indicator for mobile only */}
+          {/* <div className="flex md:hidden justify-center mt-4 space-x-2">
+            {cards.map((item) => (
+              <div 
+                key={item.id} 
+                className="w-2 h-2 rounded-full bg-gray-300"
+              ></div>
+            ))}
+          </div> */}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

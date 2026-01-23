@@ -7,6 +7,7 @@ import JoinCommunity from '../../components/home/JoinCommunity';
 import FlashSale from '../../components/marketplace/FlashSale';
 import TrendingSales from '../../components/marketplace/TrendingSales';
 import Ready from '../../components/home/Ready';
+import Features from '../../components/home/Features';
 
 const Home = () => {
   return (
@@ -14,11 +15,12 @@ const Home = () => {
       <Hero />
       <Categories />
       <HowItWorks />
+      <Features />
       <Why />
       <JoinCommunity />
       {/* <FlashSale /> */}
       {/* <TrendingSales/> */}
-      {/* <Ready /> */}
+      <Ready />
     </>
   )
 }
