@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMarketplace } from '../../contexts/MarketplaceContext';
 import car from "../../assets/car.png";
-import { Heart, Share2, ShieldBan, ShoppingCart, Truck, Box, RotateCcw, ShieldCheck, Check, X, Shield } from 'lucide-react';
+import { Heart, Share2, ShieldBan, ShoppingCart, Truck, Box, RotateCcw, ShieldCheck, Check, X, Shield, MessageCircle  } from 'lucide-react';
+import pattern from "../../assets/pattern.png";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -140,7 +141,7 @@ const ProductDetailPage = () => {
                   <img
                     src={product.images?.[selectedImage] || car}
                     alt={product.title}
-                    className="max-w-full h-full max-h-100 object-contain rounded-2xl"
+                    className="max-w-full h-full max-h-120 object-contain rounded-2xl"
                   />
                   <button
                     className="absolute top-4 right-4 text-dark text-xl font-bold cursor-pointer bg-white rounded-full w-10 h-10 flex items-center justify-center"
@@ -214,9 +215,9 @@ const ProductDetailPage = () => {
                 </div>
               </div>
 
-              <div className='bg-primary/50 text-dark p-4 rounded-t-md'>
-                Escrow Protection Active
-                <p> Your payment is held securely until you confirm receipt. Buy with confidence. </p>
+              <div className='bg-primary/20 text-dark p-4 px-6 rounded-t-xl'>
+                <strong className='flex items-center gap-1 mb-1.5'><Shield size={18} strokeWidth={2} className='text-primary' /> Escrow Protection Active </strong>
+                <p className='text-sm text-dark/60 leading-relaxed'> Your payment is held securely until you confirm receipt. Buy with confidence. </p>
               </div>
             </div>
 
@@ -310,7 +311,7 @@ const ProductDetailPage = () => {
               </div>
 
               {/* Seller Info */}
-              <div className="bg-primary/10 border border-primary/20 rounded-sm p-4 md:p-6">
+              <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className='text-2xl'> Seller Information </h3>
@@ -335,16 +336,22 @@ const ProductDetailPage = () => {
                       <span>Member since 2024</span>
                     </div>
                     <button className='btn btn-tertiary'>
-                      Chat with seller
+                      <MessageCircle size={16} strokeWidth={1.75} /> Chat with seller
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* How Escrow Works */}
-              <div className='p-4 bg-primary/50 rounded-sm'>
-                <h4 className="font-bold mb-3"> How Escrow Works </h4>
-                <ul className="space-y-1 text-sm md:text-base">
+              <div className='p-4 bg-primary/50 rounded-lg relative'>
+                <div className='absolute z-0 inset-0 opacity-15' style={{
+                backgroundImage: `url(${pattern})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}></div>
+                <h4 className="font-bold mb-3 z-2"> How Escrow Works </h4>
+                <ul className="space-y-1 text-sm md:text-base relative z-2">
                   <li className="flex items-start gap-1">
                     1. <span> Payment is held securely in escrow by Paystack. </span>
                   </li>

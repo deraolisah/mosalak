@@ -182,7 +182,7 @@ export const marketplaceData = {
       ]
     },
     {
-      id: 'gadgets',
+      id: 'phones-tablets',
       name: 'Phones & Tablets',
       icon: '🚗',
       color: "from-[#82F69B] to-[#396E45]",
@@ -240,7 +240,7 @@ export const marketplaceData = {
       subcategory: 'cars',
       brand: 'Porsche',
       condition: 'foreign-used',
-      badge: 'platinum',
+      badge: 'silver',
       location: 'Lagos',
       year: 2015,
       mileage: 75000,
@@ -372,6 +372,35 @@ export const marketplaceData = {
       views: 1200,
       favorites: 67
     },
+    {
+      id: 6,
+      title: 'Phones&Tablets',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      price: 18000000,
+      originalPrice: 850000,
+      discount: 18,
+      featured: false,
+      trending: true,
+      category: 'phones',
+      subcategory: 'Samsung',
+      brand: 'Dell',
+      condition: 'foreign-used',
+      badge: 'gold',
+      location: 'Port Harcourt',
+      year: 2017,
+      mileage: 65000,
+      seller: {
+        id: 'seller5',
+        name: 'TechHub NG',
+        verified: true,
+        rating: 4.6
+      },
+      images: ['https://images.unsplash.com/photo-1599604079629-bb0dfe72f847?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', "https://images.unsplash.com/photo-1641623410264-948701015656?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "https://images.unsplash.com/photo-1623870606070-c41ac6c46a4d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+      features: ['4x4', 'Off-road Package', 'Leather Interior'],
+      createdAt: '2024-01-14',
+      views: 1200,
+      favorites: 67
+    }
     // Add more products...
   ],
 

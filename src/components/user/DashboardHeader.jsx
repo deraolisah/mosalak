@@ -1,10 +1,15 @@
 import React from 'react';
 import { Bell, Search, Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const DashboardHeader = () => {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30">
       <div className="px-6 py-4 flex items-center justify-between">
+        <Link to="/" className="">
+          <h1 className="text-2xl font-bold text-gray-800">MesalakHub</h1>
+        </Link>
+
         <div className="flex items-center">
           <button className="lg:hidden mr-4">
             <Menu size={24} />

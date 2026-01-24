@@ -93,28 +93,28 @@ const FlashSale = () => {
 
         {/* Embla Carousel */}
         <div className="relative">
-          <div className="overflow-hidden rounded-3xl z-1" ref={emblaRef}>
+          <div className="overflow-hidden rounded-2xl md:rounded-3xl z-1" ref={emblaRef}>
             <div className="flex">
               {slides.map((slide) => (
-                <div key={slide.id} className="flex-[0_0_100%] min-w-0 gap-4 space-x-4">
-                  <div className="bg-primary rounded-3xl overflow-hidden border border-gray-200 space-x-4 mx-1 md:mx-1.5">
+                <div key={slide.id} className="flex-[0_0_100%] min-w-0 gap-4 space-x-4 cursor-grab">
+                  <div className="bg-primary rounded-2xl md:rounded-3xl overflow-hidden border border-gray-200 space-x-4 mx-1 md:mx-1.5">
                     <div className="grid grid-cols-2 mb-6">
                       {/* Left side - Product Info */}
                       <div className="p-6 md:p-8 lg:p-12">
-                        <div className="inline-flex items-center px-4 py-2 bg-[#F59E0B] rounded-sm mb-2 md:mb-4">
+                        <div className="inline-flex items-center px-4 py-2 bg-[#e89405] rounded-sm mb-2 md:mb-4">
                           <span className="text-white uppercase text-[8px] sm:text-sm"> Flash Sale </span>
                         </div>
 
-                        <h4 className="text-xs sm:text-xl text-nowrap font-semibold text-white mb-1 md:mb-2 leading-tight">
+                        <h4 className="text-xs sm:text-xl text-nowrap font-normal text-white mb-0-1 md:mb-2 leading-loose">
                           {slide.title}
                         </h4>
                         
-                        <h4 className="text-base sm:text-3xl text-nowrap lg:text-4xl font-bold text-white md:mb-4">
+                        <h4 className="text-lg sm:text-3xl text-nowrap lg:text-4xl font-bold text-white md:mb-4">
                           {slide.subtitle}
                         </h4>
 
                         <div className="mb-2.5 md:mb-4">
-                          <span className="text-sm sm:text-lg text-white font-medium">{slide.discount}</span>
+                          <span className="text-xs sm:text-lg text-white font-normal">{slide.discount}</span>
                         </div>
 
                         <Link to="/shop">
@@ -129,7 +129,7 @@ const FlashSale = () => {
                         <div className="h-full flex items-center justify-center">
                           <div className="text-center text-white">
                             <div className="text-6xl mb-4">
-                              <img src={watch} alt={slide.title} className='ml-auto h-26 sm:h-44 md:h-60' />
+                              <img src={watch} alt={slide.title} className='ml-auto mt-2 h-32 sm:h-44 md:h-60' />
                             </div>
                             {/* <div className="text-2xl font-bold">{slide.subtitle}</div> */}
                           </div>

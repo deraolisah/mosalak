@@ -123,13 +123,13 @@ const Features = () => {
           <div className="flex gap-2 justify-end bg-red-500">
             <button
               onClick={scrollPrev}
-              className="absolute z-20 top-1/2 left-1 md:left-4 h-9 w-9 bg-white text-primary rounded-full shadow border border-primary/20 flex items-center justify-center cursor-pointer"
+              className="absolute z-10 top-1/2 left-1 md:left-4 h-9 w-9 bg-white text-primary rounded-full shadow border border-primary/20 flex items-center justify-center cursor-pointer"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={scrollNext}
-              className="absolute z-20 top-1/2 right-1 md:right-4 h-9 w-9 bg-white text-primary rounded-full shadow border border-primary/20 flex items-center justify-center cursor-pointer"
+              className="absolute z-10 top-1/2 right-1 md:right-4 h-9 w-9 bg-white text-primary rounded-full shadow border border-primary/20 flex items-center justify-center cursor-pointer"
             >
               <ChevronRight size={18} />
             </button>
@@ -138,7 +138,7 @@ const Features = () => {
           
           <div className="embla__container flex gap-4">
             {features.map((feature, index) => (
-            <div key={index} className="group relative border border-muted/20 rounded-2xl mt-4 hover:bg-primary hover:text-white bg-[#F9F9F9] 
+            <div key={index} className="group relative border border-muted/20 rounded-2xl mt-4 hover:shadow-lg bg-[#F9F9F9] 
               embla__slide shrink-0 
               basis-full 
               sm:basis-1/2 

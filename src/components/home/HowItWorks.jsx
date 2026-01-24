@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const HowItWorks = () => {
   const [mode, setMode] = useState("marketplace");
+
   const HOW_IT_WORKS_DATA = {
     marketplace:[
       {
@@ -113,32 +114,32 @@ const HowItWorks = () => {
         url: "/"
       }
     ],
-    services: [
-      {
-        id: 1,
-        title: "Create a Service",
-        image: HowItWorks1,
-        description: "Turn your skill into an offer. List what you do, your price, delivery time, and what the client should expect.",
-        cta: "Start browsing",
-        url: "/services"
-      },
-      {
-        id: 2,
-        title: "Get Orders",
-        image: HowItWorks2,
-        description: "Clients book you directly. Clients browse services and place orders without negotiations or stress.",
-        cta: "View services",
-        url: "/services"
-      },
-      {
-        id: 3,
-        title: "Deliver & Get Paid",
-        image: HowItWorks3,
-        description: "Secure payment, fair release. Funds are held safely. Once the client approves your work, payment is released to you.",
-        cta: "Get started",
-        url: "/services"
-      }
-    ],
+    // services: [
+    //   {
+    //     id: 1,
+    //     title: "Create a Service",
+    //     image: HowItWorks1,
+    //     description: "Turn your skill into an offer. List what you do, your price, delivery time, and what the client should expect.",
+    //     cta: "Start browsing",
+    //     url: "/services"
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Get Orders",
+    //     image: HowItWorks2,
+    //     description: "Clients book you directly. Clients browse services and place orders without negotiations or stress.",
+    //     cta: "View services",
+    //     url: "/services"
+    //   },
+    //   {
+    //     id: 3,
+    //     title: "Deliver & Get Paid",
+    //     image: HowItWorks3,
+    //     description: "Secure payment, fair release. Funds are held safely. Once the client approves your work, payment is released to you.",
+    //     cta: "Get started",
+    //     url: "/services"
+    //   }
+    // ],
     postings: [
       {
         id: 1,
@@ -232,7 +233,7 @@ const HowItWorks = () => {
               <option value="freelancers"> For Freelancers </option>
               <option value="community"> For Community </option>
               <option value="earningPoints"> For Earning Points </option>
-              <option value="services"> For Services </option>
+              {/* <option value="services"> For Services </option> */}
               <option value="postings"> For Postings </option>
               {/* <option value="hiring"> For Hiring </option> */}
               {/* <option value="findingWork"> For finding work</option> */}
@@ -258,7 +259,7 @@ const HowItWorks = () => {
                   className="w-full h-80 object-cover"
                 />
 
-                <div className="absolute inset-0 bg-linear-to-t from-black to-black/40 flex flex-col justify-end p-6">
+                <div className={`absolute inset-0 bg-linear-to-t from-black to-black/40 flex flex-col justify-end p-6 transition-all duration-500 ${mode ? "opacity-100" : "opacity-0"}`}>
                   <h3 className="text-white text-lg font-semibold">
                     {item.title}
                   </h3>

@@ -57,11 +57,11 @@ const Header = () => {
             <NavLink to="/freelancers" className={navlink}> Freelancers </NavLink>
             <NavLink to="/community" className={navlink}> Community </NavLink>
             <NavLink to="/postings" className={navlink}> Postings </NavLink>
-            <NavLink to="/services" className={navlink}> Services </NavLink>
+            <NavLink to="/leaderboards" className={navlink}> Leaderboards </NavLink>
           </nav>
 
           {/* User Actions - Conditional based on page */}
-          <div className="w-fit flex items-center justify-end gap-2.5">
+          <div className="w-fit flex items-center justify-end gap-2.5 overflow-hidden">
             {isHome ? (
               <div className="space-x-2.5 hidden md:flex">
                 <button 
@@ -112,9 +112,9 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu */}
-          {isMenuOpen && (
+          {/* {isMenuOpen && ( */}
             <>
-              <div className="lg:hidden flex fixed left-1/2 -translate-x-1/2 top-16 md:top-20 w-full bg-white z-60 py-6">
+              <div className={`lg:hidden flex fixed left-0 top-16 md:top-20 w-[68vh] h-screen bg-white z-60 py-6 transition-all duration-400 ${isMenuOpen ? "translate-x-0" : "-translate-x-full" }`}>
                 <div className="container flex flex-col gap-6 items-start ">
                   <NavLink to="/marketplace" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Market Place </NavLink>
                   <NavLink to="/freelancers" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Freelancers </NavLink>
@@ -123,7 +123,7 @@ const Header = () => {
                   <NavLink to="/services" className={navlink} onClick={()=> { setIsMenuOpen(false); scrollTo(0,0); }}> Services </NavLink>
                   
                   {/* Mobile Actions - Always show Login/Signup for simplicity, or conditionally */}
-                  {!isAuthenticated && (
+                  {/* {!isAuthenticated && ( */}
                     <div className="space-x-2.5 flex md:hidden">
                       <button 
                         className="btn btn-tertiary"
@@ -138,16 +138,16 @@ const Header = () => {
                         Sign Up
                       </button>
                     </div>
-                  )}
+                  {/* )} */}
                 </div>
               </div>
             </>
-          )}          
+          {/* )}           */}
         </div>
       </header>
 
       {isMenuOpen && (
-        <div className="flex lg:hidden fixed inset-0 top-16 md:top-60 left-0 z-20 w-full h-full bg-black/70" onClick={() => { setIsMenuOpen(false)}}></div>
+        <div className="flex lg:hidden fixed inset-0 top-16 md:top-60 left-0 z-20 w-full h-full bg-black/70 cursor-pointer" onClick={() => { setIsMenuOpen(false)}}></div>
       )}
 
       {/* Popup Overlay */}

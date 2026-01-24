@@ -438,12 +438,29 @@ const CategoriesBar = () => {
 
 
               {/* Column 5 - Promoted */}
-              <div className="flex-1 bg-primary/60 flex flex-col p-6 justify-center">
-                  21% Discount
-Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.
-Starting price:
-N99 NGN
-
+              <div className="w-64 flex-1 bg-primary/60 flex overflow-x-auto">
+                <div className="w-full min-w-64 h-full flex flex-col items-center text-center p-4 gap-4 bg-primary/20">
+                  <img src="" alt="" className="bg-gray-300 w-30 h-30 object-cover" />
+                  <strong> 21% Discount </strong>
+                  <p> Escape the noise, It’s time to hear the magic with Xiaomi Earbuds. </p>
+                  <span className="flex items-center gap-2">
+                    Starting price:
+                    <span className="bg-gray-200 px-2 py-1 rounded">
+                      N99 NGN
+                    </span>
+                  </span>
+                </div>
+                <div className="w-full min-w-64 h-full flex flex-col items-center text-center p-4 gap-4">
+                  <img src="" alt="" className="bg-gray-300 w-30 h-30 object-cover" />
+                  <strong> 21% Discount </strong>
+                  <p> Escape the noise, It’s time to hear the magic with Xiaomi Earbuds. </p>
+                  <span className="flex items-center gap-2">
+                    Starting price:
+                    <span className="bg-gray-200 px-2 py-1 rounded">
+                      N99 NGN
+                    </span>
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -477,6 +494,15 @@ N99 NGN
                       ))}
                     </ul>
                   </div>
+
+                  {/* Promoted */}
+                  <div className="flex-1 bg-primary/60 flex flex-col p-6 justify-center">
+                  21% Discount
+Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.
+Starting price:
+N99 NGN
+
+              </div>
                 </>
               )}
 

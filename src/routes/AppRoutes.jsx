@@ -31,6 +31,7 @@ import Profile from '../pages/user/Profile.jsx';
 
 
 import NotFound from '../pages/NotFound.jsx';
+import Leaderboards from '../pages/public/Leaderboards.jsx';
 
 
 const AppRoutes = () => {
@@ -47,7 +48,7 @@ const AppRoutes = () => {
         <Route path="/freelancers" element={<Freelancers />} />
         <Route path="/community" element={<Community />} />
         <Route path="/postings" element={<Postings />} />
-        <Route path="/services" element={<Services />} />
+        <Route path="/leaderboards" element={<Leaderboards />} />
         <Route path="/help-center" element={<HelpCenter />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/contact" element={<Contact />} />

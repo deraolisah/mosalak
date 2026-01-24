@@ -22,12 +22,12 @@ const Hero = () => {
           <div className="relative max-w-lg bg-[#D9D9D9] rounded-2xl shadow-lg border border-gray-300 focus:ring-1 focus:ring-primary text-sm flex items-center p-1">
             <span className="absolute z-2 left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-bold">
               {/* <IoIosSearch /> */}
-              <Search />
+              {/* <Search /> */}
             </span>
             <input
               type="text"
               placeholder="Search by product, talent, or keywords"
-              className="w-full px-8 py-3 pl-8 text-muted placeholder:text-muted focus:outline-none"
+              className="w-full px-8 py-3 pl-3 text-muted placeholder:text-muted focus:outline-none"
             />
             <button className="btn">
               Search

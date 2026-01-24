@@ -109,7 +109,7 @@ const MarketplacePage = () => {
           {/* Products Content */}
           <div className="flex-1 bg-white p-4 rounded-2xl shadow-md">
             {/* Toolbar */}
-            <div className="mb-6 flex justify-between items-center">
+            <div className="mb-2 flex justify-between items-center">
               <div>
                 <h4 className="text-base font-medium">
                   {/* Show "All Products" when no category filter is active */}

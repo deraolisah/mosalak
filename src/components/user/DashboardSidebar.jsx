@@ -15,9 +15,9 @@ const DashboardSidebar = () => {
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 pt-16 z-20">
-      <div className="p-6">
+      {/* <div className="p-6">
         <h1 className="text-2xl font-bold text-gray-800">MesalakHub</h1>
-      </div>
+      </div> */}
       
       <nav className="mt-6">
         <ul className="space-y-1 px-4">

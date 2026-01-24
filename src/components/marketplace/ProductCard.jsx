@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import car from "../../assets/car.png";
 import avatarImg from "../../assets/avatar.png";
@@ -8,22 +8,25 @@ import platinumImg from "../../assets/badges/platinum.png";
 import goldImg from "../../assets/badges/gold.png";
 import silverImg from "../../assets/badges/silver.png";
 import bronzeImg from "../../assets/badges/bronze.png";
+import { CircleQuestionMarkIcon, Eye, Heart, ShoppingCart } from 'lucide-react';
 // import basicImg from "../../assets/badges/basic.png";
 
 
 const ProductCard = ({ product, showBadge = true }) => {
+  const [ showActions, setShowActions ] = useState(false);
+
   const navigate = useNavigate();
   
   const getBadgeColor = (badge) => {
     const colors = {
-      diamond: 'from-blue-500 to-indigo-600',
-      platinum: 'from-gray-400 to-gray-600',
-      gold: 'from-yellow-400 to-yellow-600',
-      silver: 'from-gray-300 to-gray-400',
-      bronze: 'from-orange-400 to-orange-600',
-      basic: 'from-green-400 to-green-600'
+      // diamond: 'bg-indigo-200',
+      platinum: 'bg-purple-200',
+      gold: 'bg-yellow-200',
+      silver: 'bg-[#EAEAEA] text-[#393A40]',
+      bronze: 'bg-orange-200',
+      // basic: 'bg-green-200'
     };
-    return colors[badge.toLowerCase()] || 'from-gray-400 to-gray-600';
+    return colors[badge.toLowerCase()] || 'bg-gray-200';
   };
 
   const getBadgeImage = (badge) => {
@@ -43,11 +46,15 @@ const ProductCard = ({ product, showBadge = true }) => {
     scrollTo(0,0);
   };
 
+  const handleActionClick = () => {
+    setShowActions(!showActions);
+  }
+
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden group cursor-pointer">
+    <div className="bg-white rounded-xl rounded-tr-3xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden! group cursor-pointer ">
       {/* Product Image */}
       <div className="relative overflow-hidden bg-gray-100">
-        <div className="aspect-square w-full">
+        <div className="aspect-4/3 w-full">
           <img 
             src={product.images[0] || car} 
             // src={car} 
@@ -70,19 +77,37 @@ const ProductCard = ({ product, showBadge = true }) => {
 
         {/* Badge Image */}
         {showBadge && product.badge && (
-          <div className="absolute top-0 right-0">
-            <img
-              src={getBadgeImage(product.badge)}
-              alt={`${product.badge} badge`}
-              className="w-fit h-10 md:h-12"
-            />
+          <div className="absolute top-0 -right-0.5">
+            <span className={`flex flex-col items-center p-2 px-4 rounded-tr-2xl rounded-bl-2xl ${getBadgeColor(product.badge)}`}>
+              <img
+                src={getBadgeImage(product.badge)}
+                alt={`${product.badge} badge`}
+                className="w-fit h-4"
+                />
+                <small className='font-medium uppercase text-[10px]'> {product.badge} </small>
+            </span>
           </div>
         )}
 
         {/* Wishlist Button */}
-        <button className="absolute top-3 left-3 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition" onClick={""}>
+        <button className="absolute top-3 left-3 p-2 bg-white/80 backdrop-blur-sm rounded-full transition cursor-pointer hover:bg-white" onClick={() => { handleActionClick() }}>
+          <CircleQuestionMarkIcon size={14} />
           {/* <FaHeart className="text-gray-600 hover:text-red-500" /> */}
         </button>
+
+        {/* {showActions && ( */}
+        <div className={`absolute top-1/2 left-1/2 -translate-1/2 flex gap-2 z-10 transition-all duration-500 ${showActions ? "opacity-100" : "opacity-0"}`}>
+          <span className='bg-white rounded-full p-2' >
+            <Heart size={18}/>
+          </span>
+          <span className='bg-white rounded-full p-2'>
+            <ShoppingCart size={18} />
+          </span>
+          <span className='bg-white rounded-full p-2' onClick={""}>
+            <Eye size={18} />
+          </span>
+        </div>
+        {/* )} */}
 
 
         <div className="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded text-xs">
@@ -129,7 +154,7 @@ const ProductCard = ({ product, showBadge = true }) => {
         </div>
 
         <button className="w-full btn rounded-sm">
-          Buy with Escrow
+          Buy
         </button>
       </div>
     </div>
