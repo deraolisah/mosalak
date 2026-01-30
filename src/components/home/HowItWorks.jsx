@@ -1,9 +1,10 @@
+import { useState } from "react";
 import featuresBg from "../../assets/features-bg.png";
 import HowItWorks1 from "../../assets/how-it-works-1.png";
 import HowItWorks2 from "../../assets/how-it-works-2.png";
 import HowItWorks3 from "../../assets/how-it-works-3.png";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 
 const HowItWorks = () => {
   const [mode, setMode] = useState("marketplace");
@@ -114,32 +115,6 @@ const HowItWorks = () => {
         url: "/"
       }
     ],
-    // services: [
-    //   {
-    //     id: 1,
-    //     title: "Create a Service",
-    //     image: HowItWorks1,
-    //     description: "Turn your skill into an offer. List what you do, your price, delivery time, and what the client should expect.",
-    //     cta: "Start browsing",
-    //     url: "/services"
-    //   },
-    //   {
-    //     id: 2,
-    //     title: "Get Orders",
-    //     image: HowItWorks2,
-    //     description: "Clients book you directly. Clients browse services and place orders without negotiations or stress.",
-    //     cta: "View services",
-    //     url: "/services"
-    //   },
-    //   {
-    //     id: 3,
-    //     title: "Deliver & Get Paid",
-    //     image: HowItWorks3,
-    //     description: "Secure payment, fair release. Funds are held safely. Once the client approves your work, payment is released to you.",
-    //     cta: "Get started",
-    //     url: "/services"
-    //   }
-    // ],
     postings: [
       {
         id: 1,
@@ -166,56 +141,75 @@ const HowItWorks = () => {
         url: "/postings"
       }
     ],
-    // hiring: [
-    //   {
-    //     id: 1,
-    //     title: "Posting jobs is always free",
-    //     image: HowItWorks1,
-    //     description: "Post your job and receive proposals from talented freelancers.",
-    //     cta: "Create a job"
-    //   },
-    //   {
-    //     id: 2,
-    //     title: "Get proposals and hire",
-    //     image: HowItWorks2,
-    //     description: "Compare bids, reviews, and portfolios before hiring.",
-    //     cta: "Explore experts"
-    //   },
-    //   {
-    //     id: 3,
-    //     title: "Pay securely when work is done",
-    //     image: HowItWorks3,
-    //     description: "Release payments only when you're satisfied.",
-    //     cta: "View pricing"
-    //   }
-    // ],
-
-    // findingWork: [
-    //   {
-    //     id: 1,
-    //     title: "Create your profile",
-    //     image: HowItWorks1,
-    //     description: "Showcase your skills and experience.",
-    //     cta: "Build profile"
-    //   },
-    //   {
-    //     id: 2,
-    //     title: "Bid on projects",
-    //     image: HowItWorks1,
-    //     description: "Send proposals to clients that fit your skills.",
-    //     cta: "Find projects"
-    //   },
-    //   {
-    //     id: 3,
-    //     title: "Get paid securely",
-    //     image: HowItWorks1,
-    //     description: "Payments are protected and released on completion.",
-    //     cta: "Set up payments"
-    //   }
-    // ]
   };
 
   const cards = HOW_IT_WORKS_DATA[mode];
+
+
+
+
+const HowItWorksDropdown = ({ value, onChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const options = [
+    { value: "marketplace", label: "For Marketplace" },
+    { value: "freelancers", label: "For Freelancers" },
+    { value: "community", label: "For Community" },
+    { value: "earningPoints", label: "For Earning Points" },
+    { value: "postings", label: "For Postings" },
+  ];
+
+  const current = options.find(opt => opt.value === value);
+
+  return (
+    <div className="relative">
+      {/* Trigger */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-4 py-2 rounded-full border border-muted/50 text-sm font-medium text-dark bg-white hover:bg-muted/10 transition"
+      >
+        <span>{current?.label}</span>
+        <ChevronDown
+          size={16}
+          className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {/* Overlay */}
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-10"
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Dropdown */}
+          <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white border border-muted/30 shadow-lg z-20 overflow-hidden">
+            {options.map(option => (
+              <button
+                key={option.value}
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+                className={`w-full text-left px-4 py-3 text-sm transition
+                  ${
+                    value === option.value
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-muted hover:bg-muted/10"
+                  }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+
 
   return (
     <section className="py-8 md:py-12 bg-white">
@@ -224,6 +218,14 @@ const HowItWorks = () => {
           <h2 className="section-title mb-0">How it works</h2>
 
           <div className="flex items-center space-x-2 text-muted text-sm">
+            <HowItWorksDropdown
+              value={mode}
+              onChange={setMode}
+            />
+          </div>
+
+
+          {/* <div className="flex items-center space-x-2 text-muted text-sm">
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
@@ -233,12 +235,9 @@ const HowItWorks = () => {
               <option value="freelancers"> For Freelancers </option>
               <option value="community"> For Community </option>
               <option value="earningPoints"> For Earning Points </option>
-              {/* <option value="services"> For Services </option> */}
               <option value="postings"> For Postings </option>
-              {/* <option value="hiring"> For Hiring </option> */}
-              {/* <option value="findingWork"> For finding work</option> */}
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Cards Container */}
@@ -249,9 +248,6 @@ const HowItWorks = () => {
               <div
                 key={item.id}
                 className="min-w-full sm:min-w-[calc(80vw-2.5rem)] md:min-w-0 shrink-0 md:shrink relative rounded-2xl overflow-hidden group bg-cover bg-no-repeat"
-                // style={{
-                //   backgroundImage: `url(${HowItWorks1})`,
-                // }}
               >
                 <img
                   src={item.image}
@@ -277,16 +273,6 @@ const HowItWorks = () => {
               </div>
             ))}
           </div>
-          
-          {/* Scroll indicator for mobile only */}
-          {/* <div className="flex md:hidden justify-center mt-4 space-x-2">
-            {cards.map((item) => (
-              <div 
-                key={item.id} 
-                className="w-2 h-2 rounded-full bg-gray-300"
-              ></div>
-            ))}
-          </div> */}
         </div>
       </div>
     </section>

@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import car from "../../assets/car.png";
 import avatarImg from "../../assets/avatar.png";
 
-// import diamondImg from "../../assets/badges/diamond.png";
 import platinumImg from "../../assets/badges/platinum.png";
 import goldImg from "../../assets/badges/gold.png";
 import silverImg from "../../assets/badges/silver.png";
 import bronzeImg from "../../assets/badges/bronze.png";
 import { CircleQuestionMarkIcon, Eye, Heart, ShoppingCart } from 'lucide-react';
-// import basicImg from "../../assets/badges/basic.png";
 
 
 const ProductCard = ({ product, showBadge = true }) => {
@@ -19,24 +17,20 @@ const ProductCard = ({ product, showBadge = true }) => {
   
   const getBadgeColor = (badge) => {
     const colors = {
-      // diamond: 'bg-indigo-200',
       platinum: 'bg-purple-200',
       gold: 'bg-yellow-200',
       silver: 'bg-[#EAEAEA] text-[#393A40]',
-      bronze: 'bg-orange-200',
-      // basic: 'bg-green-200'
+      bronze: 'bg-red-200',
     };
     return colors[badge.toLowerCase()] || 'bg-gray-200';
   };
 
   const getBadgeImage = (badge) => {
     const images = {
-      // diamond: diamondImg,
       platinum: platinumImg,
       gold: goldImg,
       silver: silverImg,
       bronze: bronzeImg,
-      // basic: basicImg,
     };
     return images[badge.toLowerCase()] || null; 
   };
@@ -51,29 +45,17 @@ const ProductCard = ({ product, showBadge = true }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl rounded-tr-3xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden! group cursor-pointer ">
+    <div className="bg-white rounded-xl rounded-tr-3xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden! group">
       {/* Product Image */}
       <div className="relative overflow-hidden bg-gray-100">
         <div className="aspect-4/3 w-full">
           <img 
             src={product.images[0] || car} 
-            // src={car} 
             alt={product.title}
             loading='lazy'
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
-        
-        {/* Badge */}
-        {/* {showBadge && product.badge && (
-          <div
-            className={`absolute top-3 left-3 bg-linear-to-r ${getBadgeColor(
-              product.badge
-            )} text-white px-3 py-1 rounded-full text-xs font-bold uppercase`}
-          >
-            {product.badge}
-          </div>
-        )} */}
 
         {/* Badge Image */}
         {showBadge && product.badge && (
@@ -89,25 +71,35 @@ const ProductCard = ({ product, showBadge = true }) => {
           </div>
         )}
 
-        {/* Wishlist Button */}
-        <button className="absolute top-3 left-3 p-2 bg-white/80 backdrop-blur-sm rounded-full transition cursor-pointer hover:bg-white" onClick={() => { handleActionClick() }}>
+        {/* Actions Button for Mobile */}
+        <button className="absolute top-3 left-3 p-2 bg-white/80 backdrop-blur-sm rounded-full transition cursor-pointer hover:bg-white flex md:hidden" onClick={() => { handleActionClick() }}>
           <CircleQuestionMarkIcon size={14} />
-          {/* <FaHeart className="text-gray-600 hover:text-red-500" /> */}
         </button>
 
-        {/* {showActions && ( */}
-        <div className={`absolute top-1/2 left-1/2 -translate-1/2 flex gap-2 z-10 transition-all duration-500 ${showActions ? "opacity-100" : "opacity-0"}`}>
-          <span className='bg-white rounded-full p-2' >
+        <div className={`absolute top-1/2 left-1/2 -translate-1/2 flex gap-2 z-20 transition-all duration-500 ${showActions ? "opacity-100" : "opacity-0"}`}>
+          <button className='bg-white rounded-full p-2' >
             <Heart size={18}/>
-          </span>
-          <span className='bg-white rounded-full p-2'>
+          </button>
+          <button className='bg-white rounded-full p-2'>
             <ShoppingCart size={18} />
-          </span>
-          <span className='bg-white rounded-full p-2' onClick={""}>
+          </button>
+          <button className='bg-red-500 rounded-full p-2' onClick={() => { handleProductClick() }}>
             <Eye size={18} />
-          </span>
+          </button>
         </div>
-        {/* )} */}
+
+        {/* Show Actions on hover - Desktop */}
+        <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-1/2 gap-2 z-10 transition-all duration-500 opacity-0 group-hover:opacity-100">
+          <button className='bg-white rounded-full p-2 cursor-pointer!' >
+            <Heart size={18}/>
+          </button>
+          <button className='bg-white rounded-full p-2 cursor-pointer!'>
+            <ShoppingCart size={18} />
+          </button>
+          <button className='bg-white rounded-full p-2 cursor-pointer!' onClick={() => { handleProductClick() }}>
+            <Eye size={18} />
+          </button>
+        </div>
 
 
         <div className="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded text-xs">
@@ -153,7 +145,7 @@ const ProductCard = ({ product, showBadge = true }) => {
           <img src={avatarImg} alt='' className='w-6.5' />
         </div>
 
-        <button className="w-full btn rounded-sm">
+        <button className="w-full btn rounded-sm" onClick={() => { handleProductClick() }}>
           Buy
         </button>
       </div>

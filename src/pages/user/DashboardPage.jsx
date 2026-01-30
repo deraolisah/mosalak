@@ -5,17 +5,17 @@ const DashboardPage = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
-        <div className="flex items-center justify-between">
+      <div className="bg-linear-to-bl from-primary to-blue-400 rounded-2xl p-6">
+        <div className="flex items-center flex-wrap justify-between gap-2">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Welcome back, <span className="text-blue-600">Chioma Adeleke</span></h1>
+            <h1 className="text-2xl font-bold text-white">Welcome back, <span className="">Chioma Adeleke</span></h1>
             <div className="flex items-center space-x-2 mt-2">
               <span className="px-3 py-1 bg-gray-800 text-white text-xs font-semibold rounded-full">SILVER</span>
               <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">VERIFIED</span>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500">Member since Jan 2026</p>
+            <p className="text-sm text-white">Member since Jan 2026</p>
           </div>
         </div>
       </div>

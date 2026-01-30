@@ -84,7 +84,7 @@
   /* Buttons */
   .btn {
     @apply inline-flex items-center justify-center gap-2
-          px-6 py-3 rounded-md md:rounded-xl
+          px-6 py-3 rounded-md md:rounded-lg
           text-xs font-medium
           transition-all duration-200
           bg-primary text-white
@@ -163,4 +163,14 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

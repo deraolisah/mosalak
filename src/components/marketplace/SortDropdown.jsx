@@ -19,7 +19,7 @@ const SortDropdown = ({ sortBy, onSortChange }) => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition"
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-gray-50 transition ${isOpen ? "bg-gray-50!" : ""}`}
       >
         <span className="text-gray-700 text-xs md:text-sm">Sort by: <span className="font-medium">{currentOption.label}</span></span>
         <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -31,7 +31,7 @@ const SortDropdown = ({ sortBy, onSortChange }) => {
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
+          <div className="absolute top-full right-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
             {sortOptions.map(option => (
               <button
                 key={option.value}

@@ -1,5 +1,5 @@
 // Centralized data structure
-export const marketplaceData = {
+
   // const categories = [
   //   { tag: "gadgets", name: "Phones & Tablets", color: "from-[#82F69B] to-[#396E45]" },
   //   { tag: "fashion", name: "Fashion", color: "from-[#24589B] to-[#0C1E35]" },
@@ -165,6 +165,7 @@ export const marketplaceData = {
   //   },
   // ],
 
+export const marketplaceData = {
   categories: [
     {
       id: 'automobiles',
@@ -207,7 +208,7 @@ export const marketplaceData = {
       name: 'Electronics',
       icon: '📱',
       color: "from-[#004B14] to-[#00B12F]",
-      subcategories: ['phones-tablets', 'laptops', 'audio', 'gaming']
+      subcategories: [ 'laptops', 'gas-cooker', 'audio', 'gaming']
     },
     {
       id: 'services',
@@ -234,7 +235,7 @@ export const marketplaceData = {
       price: 22000000,
       originalPrice: 44000000,
       discount: 50,
-      featured: false,
+      featured: true,
       trending: true,
       category: 'automobiles',
       subcategory: 'cars',
@@ -243,6 +244,8 @@ export const marketplaceData = {
       badge: 'silver',
       location: 'Lagos',
       year: 2015,
+      transmission: 'automatic',
+      fuelType: 'petrol',
       mileage: 75000,
       seller: {
         id: 'seller1',
@@ -250,10 +253,11 @@ export const marketplaceData = {
         verified: true,
         rating: 4.8
       },
-      images: ['https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://images.unsplash.com/photo-1629791191284-1930e995d7e6?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://placehold.co/400'],
+      images: ['https://images.unsplash.com/photo-1692595891435-f098f7538887?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://images.unsplash.com/photo-1629791191284-1930e995d7e6?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'https://placehold.co/400'],
       features: ['Premium build quality with attention to detail', 'Latest technology and innovative features', 'Comprehensive warranty coverage', 'Fast and secure delivery', 'Panoramic Sunroof', 'Premium Audio', 'Backup Camera'],
       createdAt: '2024-01-15',
       views: 1250,
+      reviews: 20,
       favorites: 89
     },
     {
@@ -263,7 +267,7 @@ export const marketplaceData = {
       price: 8500000,
       originalPrice: 9500000,
       discount: 10,
-      featured: false,
+      featured: true,
       trending: true,
       category: 'automobiles',
       subcategory: 'cars',
@@ -283,6 +287,7 @@ export const marketplaceData = {
       features: ['Sunroof', 'Navigation', 'Backup Camera'],
       createdAt: '2024-01-20',
       views: 980,
+      reviews: 42,
       favorites: 45
     },
     {
@@ -292,13 +297,13 @@ export const marketplaceData = {
       price: 18000000,
       originalPrice: 22000000,
       discount: 18,
-      featured: false,
+      featured: true, // feature booloean value set to true
       trending: true,
       category: 'automobiles',
       subcategory: 'Trucks',
       brand: 'Ford',
       condition: 'foreign-used',
-      badge: 'gold',
+      badge: 'platinum',
       location: 'Port Harcourt',
       year: 2017,
       mileage: 65000,
@@ -312,6 +317,7 @@ export const marketplaceData = {
       features: ['4x4', 'Off-road Package', 'Leather Interior'],
       createdAt: '2024-01-14',
       views: 1200,
+      reviews: 11,
       favorites: 67
     },
     {
@@ -321,7 +327,7 @@ export const marketplaceData = {
       price: 18000000,
       originalPrice: 850000,
       discount: 18,
-      featured: false,
+      featured: true,
       trending: true,
       category: 'electronics',
       subcategory: 'laptops',
@@ -330,7 +336,10 @@ export const marketplaceData = {
       badge: 'gold',
       location: 'Port Harcourt',
       year: 2017,
-      mileage: 65000,
+      storage: '512gb',
+      ram: '16gb',
+      networkType: '5g',
+      battery: 4500,
       seller: {
         id: 'seller4',
         name: 'TechHub NG',
@@ -350,7 +359,7 @@ export const marketplaceData = {
       price: 18000000,
       originalPrice: 850000,
       discount: 18,
-      featured: false,
+      featured: true,
       trending: true,
       category: 'electronics',
       subcategory: 'laptops',
@@ -374,14 +383,14 @@ export const marketplaceData = {
     },
     {
       id: 6,
-      title: 'Phones&Tablets',
+      title: 'Samsung S23 Ultra',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       price: 18000000,
       originalPrice: 850000,
       discount: 18,
-      featured: false,
+      featured: true,
       trending: true,
-      category: 'phones',
+      category: 'phones-tablets',
       subcategory: 'Samsung',
       brand: 'Dell',
       condition: 'foreign-used',
@@ -395,7 +404,12 @@ export const marketplaceData = {
         verified: true,
         rating: 4.6
       },
-      images: ['https://images.unsplash.com/photo-1599604079629-bb0dfe72f847?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', "https://images.unsplash.com/photo-1641623410264-948701015656?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "https://images.unsplash.com/photo-1623870606070-c41ac6c46a4d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+      images: [
+        'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 
+        'https://images.unsplash.com/photo-1599604079629-bb0dfe72f847?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 
+        "https://images.unsplash.com/photo-1641623410264-948701015656?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+        // "https://images.unsplash.com/photo-1623870606070-c41ac6c46a4d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      ],
       features: ['4x4', 'Off-road Package', 'Leather Interior'],
       createdAt: '2024-01-14',
       views: 1200,

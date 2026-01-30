@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, AlertCircle, Bell, User } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, AlertCircle, Bell, User, LogOut } from 'lucide-react';
 
 const DashboardSidebar = () => {
   const menuItems = [
@@ -19,16 +19,17 @@ const DashboardSidebar = () => {
         <h1 className="text-2xl font-bold text-gray-800">MesalakHub</h1>
       </div> */}
       
-      <nav className="mt-6">
-        <ul className="space-y-1 px-4">
+      <nav className="mt-6 h-full overflow-y-auto">
+        <ul className="space-y-1.5 px-4 h-full">
           {menuItems.map((item) => (
             <li key={item.path}>
               <NavLink
                 to={item.path}
+                end
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-blue-50 text-blue-600'
+                      ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`
                 }
@@ -40,6 +41,21 @@ const DashboardSidebar = () => {
           ))}
         </ul>
       </nav>
+
+      <div className='p-6 border-t border-gray-400 space-y-4 sticky bottom-0 bg-white'>
+        <div className='flex items-center gap-3'>
+          <img src="" alt='' className='w-6 h-6 bg-gray-100 rounded-full' />
+          <div className='flex flex-col gap-px'>
+            <span className='text-sm'> Dorcas Samuel </span>
+            <small> Buyer </small>
+          </div>
+        </div>
+
+        <div className='flex items-center gap-2 py-2 p-4 bg-gray-100 rounded-lg cursor-pointer'>
+          <LogOut size={16} />
+          Logout
+        </div>
+      </div>
     </aside>
   );
 };

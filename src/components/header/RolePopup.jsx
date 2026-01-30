@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Handbag, Store, ShieldUser } from 'lucide-react';
+import { Handbag, Store, ShieldUser, BriefcaseBusiness } from 'lucide-react';
 
 const RolePopup = ({ onContinue, onSignInClick }) => {
   const [selectedRole, setSelectedRole] = useState(null);
@@ -22,6 +22,12 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
       title: "FREELANCER",
       description: "Offer your services",
       image: <ShieldUser />
+    },
+    {
+      id: "employer",
+      title: "EMPLOYER",
+      description: "Find, hire, and work with trusted talent",
+      image: <BriefcaseBusiness />
     }
   ];
 
@@ -44,7 +50,7 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
       
       <p className="text-sm mb-2">I want to join as:</p>
       
-      <div className="space-y-4 mb-4">
+      <div className="gap-4 mb-4 grid grid-cols-2">
         {roles.map((role) => (
           <button
             key={role.id}
@@ -56,7 +62,6 @@ const RolePopup = ({ onContinue, onSignInClick }) => {
             onClick={() => handleRoleSelect(role.id)}
           >
             <div className={`w-fit mx-auto ${selectedRole === role.id ? "text-primary/80" : "text-gray-600"} `}>
-              {/* <img src={role.image} alt="" className="w-fit mx-auto" /> */}
               {role.image}
             </div>
             <div className={`text-xs font-semibold ${

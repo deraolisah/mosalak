@@ -20,10 +20,21 @@ export const MarketplaceProvider = ({ children }) => {
   const [categories] = useState(marketplaceData.categories);
   const [filterOptions] = useState(marketplaceData.filterOptions);
 
-    // Add these to your state in MarketplaceContext.jsx
+  // Shopping state
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   
+  // Sorting state - ADD THIS LINE
+  const [sortBy, setSortBy] = useState('popularity');
+  
+  // Pagination state - ADD THIS LINE
+  const [pagination, setPagination] = useState({ 
+    page: 1, 
+    limit: 12, 
+    total: marketplaceData.products.length 
+  });
+
+  // Filters state
   const [filters, setFilters] = useState({
     category: null,
     subcategory: null,
@@ -34,13 +45,31 @@ export const MarketplaceProvider = ({ children }) => {
     locations: [],
     years: [],
     verifiedSellersOnly: false,
-    searchQuery: ''
+    searchQuery: '',
+    // Add new filter types for different categories
+    transmission: [],
+    fuelType: [],
+    mileageRange: [0, 1000000],
+    storage: [],
+    ram: [],
+    networkType: [],
+    batteryRange: [0, 10000],
+    gender: [],
+    size: [],
+    color: [],
+    material: [],
+    room: [],
+    deliveryOption: [],
+    serviceType: [],
+    availability: [],
+    experienceLevel: [],
+    productType: [],
+    quantityType: [],
+    season: [],
+    warranty: []
   });
-  
-  const [sortBy, setSortBy] = useState('popularity');
-  const [pagination, setPagination] = useState({ page: 1, limit: 12, total: marketplaceData.products.length });
 
-  // Apply filters
+  // Apply filters function
   const applyFilters = useCallback(() => {
     let filtered = [...products];
     
@@ -101,6 +130,59 @@ export const MarketplaceProvider = ({ children }) => {
       );
     }
     
+    // NEW FILTERS - Add these checks to avoid errors if fields don't exist
+    
+    // Transmission filter (only if product has transmission field)
+    if (filters.transmission.length > 0) {
+      filtered = filtered.filter(p => 
+        p.transmission && filters.transmission.includes(p.transmission)
+      );
+    }
+    
+    // Fuel type filter (only if product has fuelType field)
+    if (filters.fuelType.length > 0) {
+      filtered = filtered.filter(p => 
+        p.fuelType && filters.fuelType.includes(p.fuelType)
+      );
+    }
+    
+    // Mileage range filter (only if product has mileage field)
+    if (filters.mileageRange && (filters.mileageRange[0] > 0 || filters.mileageRange[1] < 1000000)) {
+      filtered = filtered.filter(p => 
+        p.mileage && p.mileage >= filters.mileageRange[0] && p.mileage <= filters.mileageRange[1]
+      );
+    }
+    
+    // Storage filter (only if product has storage field)
+    if (filters.storage.length > 0) {
+      filtered = filtered.filter(p => 
+        p.storage && filters.storage.includes(p.storage)
+      );
+    }
+    
+    // RAM filter (only if product has ram field)
+    if (filters.ram.length > 0) {
+      filtered = filtered.filter(p => 
+        p.ram && filters.ram.includes(p.ram)
+      );
+    }
+    
+    // Network type filter (only if product has networkType field)
+    if (filters.networkType.length > 0) {
+      filtered = filtered.filter(p => 
+        p.networkType && filters.networkType.includes(p.networkType)
+      );
+    }
+    
+    // Battery range filter (only if product has battery field)
+    if (filters.batteryRange && (filters.batteryRange[0] > 0 || filters.batteryRange[1] < 10000)) {
+      filtered = filtered.filter(p => 
+        p.battery && p.battery >= filters.batteryRange[0] && p.battery <= filters.batteryRange[1]
+      );
+    }
+    
+    // Add similar checks for other new filter types...
+    
     // Sorting
     switch (sortBy) {
       case 'price-low':
@@ -150,7 +232,27 @@ export const MarketplaceProvider = ({ children }) => {
       locations: [],
       years: [],
       verifiedSellersOnly: false,
-      searchQuery: ''
+      searchQuery: '',
+      transmission: [],
+      fuelType: [],
+      mileageRange: [0, 1000000],
+      storage: [],
+      ram: [],
+      networkType: [],
+      batteryRange: [0, 10000],
+      gender: [],
+      size: [],
+      color: [],
+      material: [],
+      room: [],
+      deliveryOption: [],
+      serviceType: [],
+      availability: [],
+      experienceLevel: [],
+      productType: [],
+      quantityType: [],
+      season: [],
+      warranty: []
     });
     setPagination(prev => ({ ...prev, page: 1 }));
   }, []);
@@ -159,10 +261,6 @@ export const MarketplaceProvider = ({ children }) => {
   const changePage = useCallback((page) => {
     setPagination(prev => ({ ...prev, page }));
   }, []);
-
-
-
-
 
   // Add to cart function
   const addToCart = useCallback((product, quantity = 1) => {
@@ -194,7 +292,6 @@ export const MarketplaceProvider = ({ children }) => {
     setWishlist(prev => prev.filter(id => id !== productId));
   }, []);
 
-
   // Context value
   const value = {
     // Data
@@ -222,7 +319,7 @@ export const MarketplaceProvider = ({ children }) => {
     getProductsByCategory,
     getTrendingProducts,
 
-    // Add these to your context value:
+    // Shopping cart and wishlist
     wishlist,
     cart,
     addToCart,

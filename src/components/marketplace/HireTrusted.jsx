@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { Star, ChevronRight } from 'lucide-react';
 import freelancerImg from '../../assets/why-bg.png';
 
+import platinumImg from "../../assets/badges/platinum.png";
+import goldImg from "../../assets/badges/gold.png";
+import silverImg from "../../assets/badges/silver.png";
+import bronzeImg from "../../assets/badges/bronze.png";
+
 const HireTrusted = () => {
   const services = [
     {
@@ -13,7 +18,7 @@ const HireTrusted = () => {
       rating: 4.9,
       reviews: 342,
       price: "15,000",
-      icon: "🎨",
+      icon: goldImg,
       rank: "gold"
     },
     {
@@ -24,7 +29,7 @@ const HireTrusted = () => {
       rating: 4.9,
       reviews: 342,
       price: "15,000",
-      icon: "💻",
+      icon: platinumImg,
       rank: "platinum"
     },
     {
@@ -35,8 +40,8 @@ const HireTrusted = () => {
       rating: 4.9,
       reviews: 342,
       price: "15,000",
-      icon: "✍️",
-      rank: "verified"
+      icon: silverImg,
+      rank: "silver"
     },
     {
       id: 4,
@@ -46,10 +51,23 @@ const HireTrusted = () => {
       rating: 4.9,
       reviews: 342,
       price: "15,000",
-      icon: "🎬",
+      icon: bronzeImg,
       rank: "bronze"
     }
   ]
+
+
+  const getBadgeColor = (badge) => {
+    const colors = {
+      platinum: 'bg-purple-200',
+      gold: 'bg-yellow-200',
+      silver: 'bg-[#EAEAEA] text-[#393A40]',
+      bronze: 'bg-red-200',
+    };
+    return colors[badge.toLowerCase()] || 'bg-gray-200';
+  };
+
+
 
   return (
     <section className='py-8 md:py-12 bg-white'>
@@ -83,7 +101,10 @@ const HireTrusted = () => {
               {/* User Info */}
               <div className='flex items-center justify-between px-2 mb-4'>
                 <p className='text-lg font-semibold'> {service.userName} </p>
-                <span className='p-1 px-2 rounded text-xs bg-primary/10'> {service.rank} </span>
+                <span className={`p-1 px-2 rounded text-xs bg-primary/10 flex items-center gap-1 ${getBadgeColor(service.rank)}`}>
+                  <img src={service.icon} className='h-4 w-fit'/> 
+                  {service.rank} 
+                </span>
               </div>
 
               {/* Service Icon & Title */}

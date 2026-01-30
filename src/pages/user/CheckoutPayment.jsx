@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, ArrowLeft, ShieldCheck, CreditCard, Wallet, Building } from 'lucide-react';
+import visa from "../../assets/visa.svg";
 
 const CheckoutPayment = () => {
   const navigate = useNavigate();
@@ -77,21 +78,24 @@ const CheckoutPayment = () => {
               <div className="space-y-4 mb-8">
                 {/* Card Payment */}
                 <div 
-                  className={`border rounded-lg p-4 cursor-pointer transition ${paymentMethod === 'card' ? 'border-blue-600 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}
+                  className={`border rounded-lg p-4 cursor-pointer transition flex items-start justify-between gap-2 ${paymentMethod === 'card' ? 'border-blue-600 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}
                   onClick={() => setPaymentMethod('card')}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
-                      {paymentMethod === 'card' && <div className="w-2 h-2 bg-white rounded-full"></div>}
-                    </div>
+                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
+                    {paymentMethod === 'card' && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                  </div>
+
+                  <div className="flex-1 flex flex-col items-start gap-1">
                     <div className="flex items-center gap-2">
-                      <CreditCard size={20} />
+                      {/* <CreditCard size={20} /> */}
                       <span className="font-medium">Card Payment</span>
                     </div>
+                    <p className="text-sm text-gray-600">Pay with Debit/Credit Card</p>
                   </div>
-                  <p className="text-sm text-gray-600 mt-2 ml-9">Pay with Debit/Credit Card</p>
                   <div className="flex gap-2 mt-2 ml-9">
-                    <span className="text-gray-400 font-bold">VISA</span>
+                    <span className="text-gray-400 font-bold">
+                      <img src={visa} alt='' className='h-6 w-12 object-cover' />
+                    </span>
                     <span className="text-gray-400 font-bold">Mastercard</span>
                   </div>
                 </div>
@@ -102,11 +106,11 @@ const CheckoutPayment = () => {
                   onClick={() => setPaymentMethod('bank')}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full border flex items-center justify-center ${paymentMethod === 'bank' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'bank' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
                       {paymentMethod === 'bank' && <div className="w-2 h-2 bg-white rounded-full"></div>}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Building size={20} />
+                      {/* <Building size={20} /> */}
                       <span className="font-medium">Bank Transfer</span>
                     </div>
                   </div>
@@ -119,11 +123,11 @@ const CheckoutPayment = () => {
                   onClick={() => setPaymentMethod('wallet')}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full border flex items-center justify-center ${paymentMethod === 'wallet' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'wallet' ? 'border-blue-600 bg-blue-600' : 'border-gray-400'}`}>
                       {paymentMethod === 'wallet' && <div className="w-2 h-2 bg-white rounded-full"></div>}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Wallet size={20} />
+                      {/* <Wallet size={20} /> */}
                       <span className="font-medium">Pay From Wallet</span>
                     </div>
                   </div>

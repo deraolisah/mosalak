@@ -24,7 +24,7 @@ const Header = () => {
 
 
   const navlink = ({isActive}) => isActive ? 
-    "text-primary font-medium text-sm text-gray-700 hover:text-primary" : 
+    "text-primary font-medium text-sm text-gray-700 hover:text-primary underline" : 
     "font-medium text-sm text-gray-700 hover:text-primary";
 
   const handleClosePopup = () => {
@@ -61,7 +61,7 @@ const Header = () => {
           </nav>
 
           {/* User Actions - Conditional based on page */}
-          <div className="w-fit flex items-center justify-end gap-2.5 overflow-hidden">
+          <div className="w-fit flex items-center justify-end gap-2.5">
             {isHome ? (
               <div className="space-x-2.5 hidden md:flex">
                 <button 

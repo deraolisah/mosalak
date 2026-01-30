@@ -1,19 +1,22 @@
 import React from 'react';
 import { Bell, Search, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from "../../assets/mosalak-logo.png";
+
 
 const DashboardHeader = () => {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30">
-      <div className="px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="">
-          <h1 className="text-2xl font-bold text-gray-800">MesalakHub</h1>
+      <div className="px-6 py-4 flex items-center justify-between gap-1">
+        <button className="lg:hidden mr-1">
+          <Menu size={24} />
+        </button>
+        <Link to="/" className=" flex-1">
+          <img src={logo} alt='' className='h-fit w-40' />
+          {/* <h1 className="text-2xl font-bold text-gray-800"> MosalakHub </h1> */}
         </Link>
 
-        <div className="flex items-center">
-          <button className="lg:hidden mr-4">
-            <Menu size={24} />
-          </button>
+        {/* <div className="flex items-center">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
@@ -22,7 +25,7 @@ const DashboardHeader = () => {
               className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-        </div>
+        </div> */}
         
         <div className="flex items-center space-x-4">
           <button className="relative p-2 hover:bg-gray-100 rounded-full">

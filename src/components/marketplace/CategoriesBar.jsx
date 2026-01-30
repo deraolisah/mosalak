@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMarketplace } from "../../contexts/MarketplaceContext";
+import PromotedSlider from "./PromotedSlider";
 
 const CategoriesBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -30,22 +31,46 @@ const CategoriesBar = () => {
     return ['All Brands', ...brands];
   };
 
-  // Get featured products for a category/subcategory
+  // Get featured products by checking boolean value
+  // const getFeaturedProducts = (categoryId, subcategoryId = null) => {
+  //   let filteredProducts = products.filter(p => p.category === categoryId);
+    
+  //   if (subcategoryId) {
+  //     filteredProducts = filteredProducts.filter(p => p.subcategory === subcategoryId);
+  //   }
+    
+  //   return filteredProducts
+  //     .slice(0, 4) // Limit to 4 featured products
+  //     .map(product => ({
+  //       id: product.id,
+  //       title: product.title,
+  //       price: `₦${product.price.toLocaleString()}`,
+  //       image: product.images?.[0] || "https://via.placeholder.com/400x300",
+  //       brand: product.brand
+  //     }));
+  // };
   const getFeaturedProducts = (categoryId, subcategoryId = null) => {
-    let filteredProducts = products.filter(p => p.category === categoryId);
-    
+    // Step 1: Filter by category
+    let filteredProducts = products.filter(
+      (p) => p.category === categoryId && p.featured === true
+    );
+
+    // Step 2: If subcategory is provided, filter further
     if (subcategoryId) {
-      filteredProducts = filteredProducts.filter(p => p.subcategory === subcategoryId);
+      filteredProducts = filteredProducts.filter(
+        (p) => p.subcategory === subcategoryId
+      );
     }
-    
+
+    // Step 3: Limit to 4 and format output
     return filteredProducts
-      .slice(0, 4) // Limit to 4 featured products
-      .map(product => ({
+      .slice(0, 4)
+      .map((product) => ({
         id: product.id,
         title: product.title,
         price: `₦${product.price.toLocaleString()}`,
         image: product.images?.[0] || "https://via.placeholder.com/400x300",
-        brand: product.brand
+        brand: product.brand,
       }));
   };
 
@@ -210,6 +235,96 @@ const CategoriesBar = () => {
     </div>
   );
 
+  const CategoriesView = ({ categories, onBack, onSelect }) => (
+    <div className="flex flex-col h-full overflow-y-auto">
+      <MobileHeader title="All Categories" onBack={onBack} />
+      <div className="flex-1 h-full overflow-y-auto p-4 pb-0">
+        <ul className="space-y-2">
+          {categories.map((category) => (
+            <li key={category.id}>
+              <button
+                onClick={() => onSelect(category.id)}
+                className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
+              >
+                <span className="font-medium flex items-center gap-3">
+                  <span className="text-xl">{category.icon}</span>
+                  <span>{category.name}</span>
+                </span>
+                <ChevronRight size={20} className="text-gray-400" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+  const SubcategoriesView = ({ category, subcategories, onBack, onSelect, onShopAll }) => (
+    <>
+      <MobileHeader title={category?.name || "Back"} onBack={onBack} />
+      <div className="flex-1 h-full overflow-y-auto p-4">
+        {subcategories.length > 0 ? (
+          <>
+            <ul className="space-y-2">
+              {subcategories.map((sub) => (
+                <li key={sub.id}>
+                  <button
+                    onClick={() => onSelect(sub.id)}
+                    className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
+                  >
+                    <span className="font-medium">{sub.name || sub.id}</span>
+                    <ChevronRight size={20} className="text-gray-400" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={onShopAll}
+              className="w-full mt-6 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+            >
+              Shop All {category?.name}
+            </button>
+          </>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-500 mb-4">No subcategories available</p>
+            <button
+              onClick={onShopAll}
+              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+            >
+              Browse {category?.name}
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  const BrandsView = ({ brands, category, subcategory, onBack, onSelect }) => (
+    <>
+      <MobileHeader
+        title={subcategory || category?.name || "Brands"}
+        onBack={onBack}
+      />
+      <div className="flex-1 overflow-y-auto p-4">
+        <ul className="space-y-2">
+          {brands.map((brand) => (
+            <li key={brand}>
+              <button
+                onClick={() => onSelect(brand)}
+                className="w-full text-left px-4 py-4 rounded-lg flex items-center justify-between bg-gray-50 hover:bg-white hover:shadow-sm text-gray-700 border border-gray-200 transition-all"
+              >
+                <span className="font-medium">{brand}</span>
+                <ChevronRight size={20} className="text-gray-400" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+  
+
   return (
     <div className="bg-indigo-200 shadow-sm">
       <div className="container flex items-center gap-8 py-4 text-sm overflow-x-auto">
@@ -275,11 +390,11 @@ const CategoriesBar = () => {
         {dropdownOpen && (
           <div
             ref={dropdownRef}
-            className="fixed md:absolute left-1/2 -translate-x-1/2 top-16 md:top-full md:mt-2 w-full max-h-100 bg-transparent shadow-xl z-50 md:rounded-lg overflow-hidden px-0 md:px-10"
+            className="fixed md:absolute left-1/2 -translate-x-1/2 top-16 md:top-full md:mt-2 w-full max-h-screen md:max-h-100 bg-transparent shadow-xl z-50 md:rounded-lg overflow-hidden px-0 md:px-10"
             // style={{ maxWidth: '1200px' }}
           >
             {/* DESKTOP VIEW - 4 Columns Layout */}
-            <div className="container p-0! md:rounded-lg bg-white hidden md:flex w-full max-h-100 overflow-hidden">
+            <div className="container p-0! pr-2! md:rounded-lg bg-white hidden md:flex w-full max-h-100 overflow-hidden">
               {/* COLUMN 1: Main Categories */}
               <div className="w-58 border-r border-gray-200 bg-gray-50 overflow-y-auto">
                 <div className="p-6">
@@ -378,7 +493,7 @@ const CategoriesBar = () => {
               </div>
 
               {/* COLUMN 4: Featured Products */}
-              <div className="w-80 min-w-0 overflow-y-auto">
+              <div className="w-80 flex-1 min-w-0 overflow-y-auto">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
                     <h4 className="font-bold text-gray-900 text-lg">
@@ -395,12 +510,12 @@ const CategoriesBar = () => {
                   {featuredProducts.length > 0 ? (
                     <div className="grid grid-cols-1 gap-3">
                       {featuredProducts.map((product) => (
-                        <div key={product.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow bg-white flex items-start gap-1">
-                          <div className="w-20 h-20 aspect-square bg-gray-100 rounded overflow-hidden">
+                        <div key={product.id} className="border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow bg-white flex items-start gap-2">
+                          <div className="min-w-20 h-20 aspect-square bg-gray-100 rounded overflow-hidden">
                             <img
                               src={product.image}
                               alt={product.title}
-                              className="w-full h-full aspect-square object-cover"
+                              className="w-full h-full flex-1 aspect-square object-cover"
                               onError={(e) => {
                                 e.target.src = "https://via.placeholder.com/400x400";
                               }}
@@ -438,37 +553,17 @@ const CategoriesBar = () => {
 
 
               {/* Column 5 - Promoted */}
-              <div className="w-64 flex-1 bg-primary/60 flex overflow-x-auto">
-                <div className="w-full min-w-64 h-full flex flex-col items-center text-center p-4 gap-4 bg-primary/20">
-                  <img src="" alt="" className="bg-gray-300 w-30 h-30 object-cover" />
-                  <strong> 21% Discount </strong>
-                  <p> Escape the noise, It’s time to hear the magic with Xiaomi Earbuds. </p>
-                  <span className="flex items-center gap-2">
-                    Starting price:
-                    <span className="bg-gray-200 px-2 py-1 rounded">
-                      N99 NGN
-                    </span>
-                  </span>
-                </div>
-                <div className="w-full min-w-64 h-full flex flex-col items-center text-center p-4 gap-4">
-                  <img src="" alt="" className="bg-gray-300 w-30 h-30 object-cover" />
-                  <strong> 21% Discount </strong>
-                  <p> Escape the noise, It’s time to hear the magic with Xiaomi Earbuds. </p>
-                  <span className="flex items-center gap-2">
-                    Starting price:
-                    <span className="bg-gray-200 px-2 py-1 rounded">
-                      N99 NGN
-                    </span>
-                  </span>
-                </div>
+              <div className="relative max-w-64">
+                <PromotedSlider />
               </div>
             </div>
 
             {/* MOBILE VIEW */}
-            <div className="md:hidden h-[70vh] overflow-hidden flex flex-col bg-white">
-              {/* Categories View */}
+            {/* <div className="md:hidden min-h-screen overflow-hidden flex flex-col bg-white">
+              <div className="max-h-[50%] overflow-y-auto">
+              {/* Categories View 
               {mobileView === "categories" && (
-                <>
+                <div className="flex flex-col h-full overflow-y-auto">
                   <MobileHeader
                     title="All Categories"
                     onBack={() => {
@@ -476,7 +571,7 @@ const CategoriesBar = () => {
                       resetSelections();
                     }}
                   />
-                  <div className="flex-1 overflow-y-auto p-4 pb-8">
+                  <div className="flex-1 h-full overflow-y-auto p-4 pb-0">
                     <ul className="space-y-2">
                       {categories.map((category) => (
                         <li key={category.id}>
@@ -494,26 +589,17 @@ const CategoriesBar = () => {
                       ))}
                     </ul>
                   </div>
-
-                  {/* Promoted */}
-                  <div className="flex-1 bg-primary/60 flex flex-col p-6 justify-center">
-                  21% Discount
-Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.
-Starting price:
-N99 NGN
-
-              </div>
-                </>
+                </div>
               )}
 
-              {/* Subcategories View */}
+              {/* Subcategories View 
               {mobileView === "subcategories" && (
                 <>
                   <MobileHeader
                     title={currentCategory?.name || "Back"}
                     onBack={() => setMobileView("categories")}
                   />
-                  <div className="flex-1 overflow-y-auto p-4">
+                  <div className="flex-1 h-full overflow-y-auto p-4">
                     {getSubcategories().length > 0 ? (
                       <>
                         <ul className="space-y-2">
@@ -551,7 +637,7 @@ N99 NGN
                 </>
               )}
 
-              {/* Brands View */}
+              {/* Brands View 
               {mobileView === "brands" && (
                 <>
                   <MobileHeader
@@ -575,6 +661,62 @@ N99 NGN
                   </div>
                 </>
               )}
+              </div>
+
+              {/* Promoted 
+              <div className="w-full h-[50%] bg-primary/60 flex flex-col p-6 justify-center">
+                21% Discount
+                <br/>
+                Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.
+                <br/>
+                Starting price:
+                <br/>
+                N99 NGN
+              </div>
+            </div> */}
+
+
+            <div className="md:hidden max-h-screen flex flex-col justify-between space-y-2 bg-white">
+              {/* Top Section */}
+              <div className="overflow-y-auto">
+                {mobileView === "categories" && (
+                  <CategoriesView
+                    categories={categories}
+                    onBack={() => {
+                      setDropdownOpen(false);
+                      resetSelections();
+                    }}
+                    onSelect={handleCategorySelect}
+                  />
+                )}
+
+                {mobileView === "subcategories" && (
+                  <SubcategoriesView
+                    category={currentCategory}
+                    subcategories={getSubcategories()}
+                    onBack={() => setMobileView("categories")}
+                    onSelect={handleSubcategorySelect}
+                    onShopAll={handleShopAll}
+                  />
+                )}
+
+                {mobileView === "brands" && (
+                  <BrandsView
+                    brands={brands}
+                    category={currentCategory}
+                    subcategory={selectedSubcategory}
+                    onBack={() => setMobileView("subcategories")}
+                    onSelect={handleBrandSelect}
+                  />
+                )}
+              </div>
+
+              {/* Promo Section */}
+              <div className="w-full h-40 bg-primary/60 p-6 text-center text-white">
+                <p className="text-lg font-bold">21% Discount</p>
+                <p className="mt-2">Escape the noise, hear the magic with Xiaomi Earbuds.</p>
+                <p className="mt-2">Starting price: N99 NGN</p>
+              </div>
             </div>
           </div>
         )}
