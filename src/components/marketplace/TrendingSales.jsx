@@ -104,8 +104,7 @@ const TrendingSales = () => {
               <div 
                 key={product.id}
                 className="embla__slide shrink-0 
-                  basis-full 
-                  sm:basis-1/2 
+                  basis-1/2 
                   md:basis-1/3 
                   lg:basis-1/4
                   last-of-type:mr-3 md:last-of-type:mr-4

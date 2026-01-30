@@ -483,7 +483,7 @@ const ProductDetailPage = () => {
                     </div>
                     <span>Member since 2024</span>
                   </div>
-                  <button className='btn btn-tertiary'>
+                  <button className='btn btn-tertiary' onClick={() => {navigate("/messages")}}>
                     <MessageCircle size={16} strokeWidth={1.75} /> Chat with seller
                   </button>
                 </div>
@@ -548,7 +548,7 @@ const ProductDetailPage = () => {
                   <Shield className="" size={20} /> 
                   Escrow Payment Request 
                 </h2>
-                <p className='text-sm'> Secure payment protected by Mosalak </p>
+                <p className='text-sm'> Secure payment protected by Paystack </p>
               </div>
               <button
                 onClick={() => setIsEscrowModalOpen(false)}

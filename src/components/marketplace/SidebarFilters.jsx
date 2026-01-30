@@ -472,7 +472,7 @@ const SidebarFilters = ({ filters, onFilterChange, onClearAllFilters }) => {
           className="flex items-center justify-between w-full font-semibold text-gray-800 hover:text-gray-900 mb-2"
           onClick={() => toggleSection('category')}
         >
-          <span className="text-sm uppercase tracking-wide">Category</span>
+          <span className="text-sm uppercase tracking-wide">Categories</span>
           <svg
             className={`w-4 h-4 transition-transform ${expandedSections.category ? 'rotate-180' : ''}`}
             fill="none"

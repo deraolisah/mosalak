@@ -194,13 +194,17 @@ const CheckoutDelivery = () => {
               </div>
 
               {/* Price Breakdown */}
-              <div className="space-y-3 mb-6 p-6">
+              <div className="space-y-3 mb-0 p-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
                   <span>₦{subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Delivery Fee</span>
+                  <span>₦{deliveryFee.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Escrow Fee (3%)</span>
                   <span>₦{deliveryFee.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold pt-3 border-t">

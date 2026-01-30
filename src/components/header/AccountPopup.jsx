@@ -20,6 +20,10 @@ const AccountPopup = ({ isAuthenticated }) => {
               <ShieldUser size={20} strokeWidth={1.5} />
               Freelancer Profile
             </span>
+            <span className='flex items-center gap-2'> 
+              <ShieldUser size={20} strokeWidth={1.5} />
+              Employer Profile
+            </span>
 
             <hr className='border-px border-dark/40'/>
             <Link to="/account" className='flex'> Account Setting </Link>

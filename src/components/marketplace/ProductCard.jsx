@@ -64,7 +64,7 @@ const ProductCard = ({ product, showBadge = true }) => {
               <img
                 src={getBadgeImage(product.badge)}
                 alt={`${product.badge} badge`}
-                className="w-fit h-4"
+                className="w-fit h-4 object-cover"
                 />
                 <small className='font-medium uppercase text-[10px]'> {product.badge} </small>
             </span>

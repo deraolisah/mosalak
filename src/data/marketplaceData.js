@@ -210,13 +210,13 @@ export const marketplaceData = {
       color: "from-[#004B14] to-[#00B12F]",
       subcategories: [ 'laptops', 'gas-cooker', 'audio', 'gaming']
     },
-    {
-      id: 'services',
-      name: 'Services',
-      icon: '🔧',
-      color: "from-[#ADBF81] to-[#51593C]",
-      subcategories: ['professional', 'home-services', 'automotive', 'beauty']
-    },
+    // {
+    //   id: 'services',
+    //   name: 'Services',
+    //   icon: '🔧',
+    //   color: "from-[#ADBF81] to-[#51593C]",
+    //   subcategories: ['professional', 'home-services', 'automotive', 'beauty']
+    // },
     {
       id: 'agriculture',
       name: 'Agriculture',
